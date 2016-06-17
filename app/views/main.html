@@ -1,0 +1,276 @@
+<div class="jumbotron" style="padding:0px !important;">
+	<div class="flex-container">
+		<div class="flex-map">
+			<div id="map_canvas" >
+				<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" bounds="map.bounds" events="map.events">
+				<ui-gmap-drawing-manager options="drawingManagerOptions" control="drawingManagerControl" events="eventHandler">
+				<div ng-repeat="marker in markers track by $index">
+					<ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+				</div><!-- end of marker -->
+				</ui-gmap-drawing-manager>
+				</ui-gmap-google-map>        
+			</div> <!-- end of map canvas  -->
+		</div>
+		<div class="flex-day-calendar">
+			<div class="flex-day-calendar-header-container">
+				<div class="flex-day-calendar-header-item1">
+					<a href="#/" class="" ng-click="setAddEventMode()">
+						<div class="add-event-icon"><img  src="images/middle-bar/upper-bar/add-event-btn.png" alt=""></div>
+					</a>					
+				</div>
+				<div class="flex-day-calendar-header-item2">
+					<div class="flex-day-calendar-header-item2-img">
+						<img src="images/middle-bar/upper-bar/money-up.png" alt="">
+						<div class="money-down xsmall">{{currentDay.expenses}}</div>
+					</div>
+					<!-- <div class="small gray">{{currentDay.expenses}}$</div> -->
+				</div><!-- end of item1 -->				
+				<div class="flex-day-calendar-header-item3">
+					<span class="white medium bold">יום טיול {{currentDay.index}}</span>
+				</div><!-- end of item3 -->
+				<div class="flex-day-calendar-header-item4">
+					<div class="flex-day-addevent-container">
+						<a href="" ng-click="setDayMode(currentDay); addEventMode = false">
+							<div class="flex-day-addevenet-item" >
+								<div class="flex-day-addevenet-item-date">
+									<div id="date-button-day-1" class="medium white">{{currentDay.date | date:'d'}}</div>
+									<div id="date-button-day-2" class="xsmall white">{{currentDay.date| date:'EEEE'}}</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div><!-- end of item 4 -->
+			</div><!-- end of flex-day-calendar-header-container" -->
+		
+			<div class="flex-event-calendar-body" ng-if="eventMode" style="">
+				<div class="flex-event-div-1-container">
+					<div class="flex-event-div-1-item-2">
+						<div>
+							<img ng-src="{{currentEvent.eventIcon}}" style="width:3vw;" alt="">
+						</div>
+						<div class="medium gray" style="margin-top:1em;">
+							{{currentEvent.date | date:"hh:mm"}}
+						</div>
+					</div>						
+					<div class="flex-event-div-1-item-1" style="font-family: almoni-dl-regular;text-align: right;">
+						<div class="xlarge blue" >{{currentEvent.title}}</div>
+						<div class="medium gray" style="margin-top:1.2em;padding-right:1vw;">{{getType(currentEvent.type)}} </div>
+					</div>					
+				</div>	
+				<div class="flex-event-div-2 small">
+					{{currentEvent.description}}
+				</div>	
+				<div class="flex-event-div-3-container">
+					<div class="flex-event-div-3-item-2">
+						<img src="/images/middle-bar/add-event/add-event1.png" alt="">
+					</div>					
+					<div class="flex-event-div-3-item-1">
+						<div class="small gray">כתובת</div>
+						<div class="small">{{currentEvent.address}}</div>
+					</div>
+				</div>	
+				<div class="flex-event-div-3-container">
+					<div class="flex-event-div-3-item-2 small gray">
+						טלפון
+					</div>					
+					<div class="flex-event-div-3-item-1 small">
+						{{currentEvent.phone}}
+					</div>
+				</div>	
+				<div class="flex-event-div-4">
+					<div class="gray small">
+						:מחיר
+					</div>
+					<div class="small">
+						{{currentEvent.price | currency:" $"}}
+					</div>
+				</div>				
+			</div><!-- end of flex-day-calendar-body-container  -->	
+
+			<div class="flex-day-calendar-body scrollbar small"  ng-if="dayMode" style="">
+				<div class="flex-event-item-container" ng-repeat="event in currentDay.events" ng-mouseenter="eventMouseEnter(event)" ng-mouseleave="eventMouseLeave(event)">
+					<div class="flex-event-item-item-1">
+						<img ng-src="{{event.eventIcon}}" alt="">
+						<div class="medium" style="margin-top:1em;">
+							{{event.date | date:"hh:mm"}}
+						</div>
+					</div><!-- end of flex-event-item-item-2 -->
+					<div class="flex-event-item-item-2">
+						<div class="flex-event-item-item-1-up">
+						  <a href="#/"><div id="day-mode-event-button" class="blue medium" ng-click="setEventMode(event,currentDay)">{{event.title}}</div></a>
+						  <div class="gray medium">{{getType(event.type)}}</div>
+						</div>
+						<div class="flex-event-item-item-1-down">
+							<div class="medium">{{event.description}}</div>
+						</div>					
+					</div><!-- end of flex-event-item-item-1 -->					
+				</div><!-- end of fles-event-item-container -->
+			</div><!-- end of flex-day-calendar-body -->
+
+			<div class="add-event-container small" ng-if="addEventMode" ng-init="initNewEvent()">
+				<form ng-submit="addNewEvent(newEvent,details1)">
+				<div class="flex-add-event-line-container">
+					<div class="flex-add-event-line-field-name">
+						<span class="medium gray">כותרת</span>
+					</div>
+					<div class="flex-add-event-item-1-item-2">
+						<div><input type="text" ng-model="newEvent.title" class="add-event-input-title small" placeholder="...הכנס כותרת"></div>
+					</div>					
+				</div>
+				<div class="flex-add-event-line-container" style="padding:0px !important; text-align:center;">			
+					<div class="flex-add-event-item-2-item-2-container">
+						<div class="type-item button" ng-repeat="type in types" ng-mouseenter="typeMouseEnter(type)" ng-mouseleave="typeMouseLeave(type)" ng-click="setCategory(type); newEvent.type = type.index">
+							<div class="type-icon"><img ng-src="{{type.img}}" alt=""></div>
+							<div class="small gray type-name" style="color:white;" ng-if="!type.showName && !type.active">cfscas</div>
+							<div class="xsmall gray type-name" ng-if="type.showName">{{type.name}}</div>
+							<div class="xsmall gray type-name active" ng-if="type.active">{{type.name}} </div>
+						</div>
+					</div>
+				</div><!-- end of flex-add-event-item-2-container -->
+				<div class="flex-add-event-line-container" style="padding-top:0px !important;">
+					<div class="flex-add-event-line-field-name">
+						<span style="vertical-align: middle;"class="medium gray">הערות</span>
+					</div>						
+					<div class="flex-add-event-item-3-item-2">
+						<textarea ng-model="newEvent.description" class="small gray" placeholder="...הכנס הערות"></textarea>
+					</div>
+				</div><!-- end of flex-add-event-item-3-container -->
+				<div class="flex-add-event-line-container" style="padding:0px;">
+					<div class="flex-add-event-line-field-name"></div>
+					<div class="flex-add-event-item-4-item-2">
+						<img src="images/middle-bar/add-event/phone.png" alt="">
+					</div>
+					<div class="flex-add-event-item-4-item-3">
+						<input type="text" ng-model="newEvent.phone" class="set-phone-input small" style="width:100%">
+					</div>
+					<!-- <div class="attach-file">
+						<div class="button" ng-show="!attachFileHover" ng-mouseenter="attachFileHover = !attachFileHover"><img src="images/create_event_icons/btn_attachFile.png" alt=""></div>
+						<div class="button" ng-show="attachFileHover" ng-mouseleave="attachFileHover = !attachFileHover"><img src="images/create_event_icons/btn_attachFile_hover.png" alt=""></div>
+					</div> -->
+				</div>				
+				<div class="flex-add-event-line-container">
+					<div class="flex-add-event-line-field-name">
+						<span style="vertical-align: middle;"class="medium gray">זמן</span>
+					</div>						
+					<div class="flex-add-event-item-5-item-2">
+							<div class="medium gray">שעה</div>
+							<div  ng-if="timeTitle" ng-click="setTimeActive()"  class="small gray" style="border:2px solid black;">הכנס שעה</div>
+							<div  ng-if="timeActive"><input focus="timeActive" ng-model="newEvent.time" id="time" type="time" ng-blur="setTimeNotActive(newEvent.time)" style="border:2px solid black;"></div>
+							<div ng-if="timeResult" ng-click="setTimeActive()"  class="small gray" style="border:2px solid black;">{{newEvent.time | date : "shortTime"}}</div>
+					</div>
+					<div class="flex-add-event-item-5-item-3">
+							<div class="medium gray">תאריך</div>
+							<div  ng-if="dateTitle" ng-click="setDateActive()"  class="small gray" style="border:2px solid black;">הכנס תאריך</div>
+							<div  ng-if="dateActive"><input focus="dateActive" ng-model="newEvent.date" id="date" type="date" ng-blur="setDateNotActive(newEvent.date)" style="border:2px solid black;width:80%;"></div>
+							<div ng-if="dateResult" ng-click="setDateActive()"  class="small gray" style="border:2px solid black;">{{newEvent.date | date : "shortDate"}}</div>
+					</div>
+				</div><!-- flex-add-event-item-4-container -->
+				<div class="flex-add-event-line-container">
+					<div class="flex-add-event-line-field-name">
+						<span style="vertical-align: middle;"class="medium gray">מחיר</span>
+					</div>						
+					<div class="flex-add-event-item-5-item-2">
+							<div class="medium gray">מחיר</div>
+							<div  ng-if="priceTitle" ng-click="setPriceActive()"  class="small gray" style="border:2px solid black;">הכנס סכום</div>
+							<div  ng-if="priceActive"><input focus="priceActive" ng-model="newEvent.price" id="price" type="number" ng-blur="setPriceNotActive(newEvent.price)" style="border:2px solid black; width:50%;"></div>
+							<div ng-if="priceResult" ng-click="setPriceActive()"  class="small gray" style="border:2px solid black;">{{newEvent.price}}</div>
+					</div>
+				</div><!-- flex-add-event-item-4-container -->					
+				<div class="flex-add-event-line-container">
+					<div class="flex-add-event-line-field-name">
+						<span style="vertical-align: middle;"class="medium gray">מקום</span>
+					</div>						
+					<div class="flex-add-event-place-item-2">
+						<!-- Autocomplete for finding places -->
+					    <div class="form-group move-down" ng-init="mapLocationMode = false" ng-if="!mapLocationMode">
+					        <input type="text" id="Autocomplete" ng-model="newEvent.rawLocation" class="set-phone-input" ng-autocomplete="result1" details="details1" options="options1" placeholder="..חפש מקום" style="text-align:right;margin-top:1.2vh;"/>
+					    </div>
+					</div>
+					<div class="flex-add-event-place-item-3" style="text-align:right;">
+						<a href="" ng-click="setMapLocationMode();" ng-if="!mapLocationMode">
+							<img src="images/middle-bar/add-event/location.png" style="width:3vh;margin-top:1vh;" alt="">
+						</a>
+						<a href="" ng-click="setFormLocationMode()" ng-if="mapLocationMode">
+							<img src="images/middle-bar/add-event/location.png" style="width:3vh;margin-top:1vh;" alt="">
+						</a>
+					</div>
+				</div><!-- flex-add-event-item-4-container -->	
+				<div class="flex-add-event-line-container">
+					<div class="flex-add-event-buttons-item-0">
+					</div>
+					<div class="flex-add-event-buttons-item-1" ng-click="addNewEvent(newEvent,details1)">
+						<a href="/#/" class="">
+							<img src="images/middle-bar/add-event/save-icon.png" style="width:4vw" alt="">
+						</a>
+					</div>	
+					<div class="flex-add-event-buttons-item-2">
+						<a href="/#/" class="">
+							<img src="images/middle-bar/add-event/delete-icon.png" style="width:4vw" alt="">
+						</a>
+					</div>										
+				</div>									
+							<input type="submit">
+			</div><!-- end of flex-add-event-container -->
+		</form>
+		</div><!-- end of day-calendar-flex -->
+		<div class="flex-calendar-highlights">
+			<div class="day-highlights" ng-repeat="day in days">
+				<div class="day-title-active-cotnainer" ng-if="day.active">
+					<div class="flex-wheather-container">
+						<div class="flex-wheather-item-2">
+							<img ng-src="{{day.wheather.icon}}" alt="">
+						</div>
+						<div class="flex-wheather-item-1">
+							<div>
+								<span class="medium white">{{day.wheather.general}}</span>
+								<span class="large white">{{day.wheather.temp}}</span>
+							</div>
+							<div class="small white">{{day.location}}</div>
+						</div>						
+					</div><!-- end of flex-wheather-container -->
+					<div class="white day-title-cotnainer">
+						<div class="day-title-item-2">
+							<p style="float:right;margin:10px" class="small" ng-click="setDayMode(day)">
+								<span>{{day.date| date:'EEEE'}}</span>
+								<span>{{day.date | date:'d'}}</span>
+							</p>
+						</div>
+						<div class="day-title-item-1">
+							<span class="button toggle-button" ng-if="!day.toggleIcon" ng-click="dayToggle(day)">
+								<img src="/images/right-bar/toggle-minus.png" alt="">
+							</span>					
+						</div>
+						<div style="clear: both;"></div>
+					</div><!-- end of day-title-cotnainer -->								
+				</div><!-- end of day-title-active-cotnainer -->
+				<div class="white day-title-cotnainer" ng-if="!day.active" >
+						<div class="day-title-item-2">
+							<a href="">
+								<p style="float:right;font-weight: bold;margin:10px" class="small gray" ng-click="setDayMode(day); addEventMode = false">
+									<span>{{day.date| date:'EEEE'}}</span>
+									<span>{{day.date | date:'d'}}</span>
+								</p>
+							</a>
+						</div>
+					<div class="day-title-item-1">
+						<span class="button toggle-button" ng-init="day.toggleIcon = true" ng-if="day.toggleIcon" ng-click="dayToggle(day)">
+							<img src="/images/right-bar/toggle-plus.png" alt="">
+						</span>
+						<span class="button toggle-button" ng-if="!day.toggleIcon" ng-click="dayToggle(day)">
+							<img src="/images/right-bar/toggle-minus.png" alt="">
+						</span>					
+					</div>
+					<div style="clear: both;"></div>
+				</div><!-- end of day-title-cotnainer -->
+				<div ng-show="day.showEvents" >
+					<a href="">
+						<div class="event-highlight" ng-repeat="event in day.events" ng-click="setEventMode(event,day);addEventMode = false">
+							<div id="event-date" ng-class="{ 'small': true, 'gray': !event.active, 'orange-style bold': event.active}" >{{event.date|date:'HH:mm'}}</div>
+							<div id="event-title" ng-class="{ 'small': true, 'gray': !event.active, 'orange-style bold': event.active}">{{event.title}}</div>
+						</div>
+					</a>
+				</div>
+			</div> <!-- end of day-highlights -->
+		</div><!-- end of calendar-highlights -->		
+	</div>
+</div>

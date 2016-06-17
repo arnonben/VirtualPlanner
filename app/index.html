@@ -1,0 +1,159 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/jquery-timepicker-jt/jquery.timepicker.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="tipntripVpApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+          </div>
+
+          <div style="padding:0vh; "class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav navbar-left" style="margin-left:1.35vw;">
+              <li ng-init="icon1 = true" ng-show="icon1" ng-mouseover="icon1 = false">
+                  <a href="#/"><img src="images/upper-bar/navbar-icon-1.png" alt="" class="nav-image"></a>             
+              </li>
+              <li ng-show="!icon1" ng-mouseleave = "icon1 = true" >
+                <a href="#/"><img src="images/upper-bar/navbar-icon-hover1.png" alt="" class="nav-image"></a>
+              </li>
+
+              <li ng-init="icon2 = true" ng-show="icon2" ng-mouseover="icon2 = false">
+                  <a href="#/"><img src="images/upper-bar/navbar-icon-2.png" alt="" class="nav-image"></a>             
+              </li>
+              <li ng-show="!icon2" ng-mouseleave = "icon2 = true" >
+                <a href="#/"><img src="images/upper-bar/navbar-icon-hover2.png" alt="" class="nav-image"></a>
+              </li>
+
+              <li ng-init="icon3 = true" ng-show="icon3" ng-mouseover="icon3 = false">
+                  <a href="#/"><img src="images/upper-bar/navbar-icon-3.png" alt="" class="nav-image"></a>             
+              </li>
+              <li ng-show="!icon3" ng-mouseleave = "icon3 = true" >
+                <a href="#/"><img src="images/upper-bar/navbar-icon-hover3.png" alt="" class="nav-image"></a>
+              </li>  
+
+              <li ng-init="icon4 = true" ng-show="icon4" ng-mouseover="icon4 = false">
+                  <a href="#/"><img src="images/upper-bar/navbar-icon-4.png" alt="" class="nav-image"></a>             
+              </li>
+              <li ng-show="!icon4" ng-mouseleave = "icon4 = true" >
+                <a href="#/"><img src="images/upper-bar/navbar-icon-hover4.png" alt="" class="nav-image"></a>
+              </li>
+
+              <li ng-init="icon5 = true" ng-show="icon5" ng-mouseover="icon5 = false">
+                  <a href="#/"><img src="images/upper-bar/navbar-icon-5.png" alt="" class="nav-image"></a>             
+              </li>
+              <li ng-show="!icon5" ng-mouseleave = "icon5 = true" >
+                <a href="#/"><img src="images/upper-bar/navbar-icon-hover5.png" alt="" class="nav-image"></a>
+              </li> 
+            </ul>   
+
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#/"  ><span class="navbar-link">התחבר</span></a></li>
+              <li><a href="#/" ><span class="navbar-link">הירשם</span></a></li>
+              <li><a href="#/" ><span class="navbar-link">איך זה עובד</span></a></li>
+              <li><a href="#/" ><span class="navbar-link">וירטואל פלנר</span></a></li>
+              <li><a href="#/" style="margin-left:4vw;"><img src="images/upper-bar/logo.png" alt="" class="nav-logo"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+
+    <div ng-view=""></div>
+    </div>
+
+    <div class="footer">
+      <div class="">
+        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+      </div>
+    </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=drawing,places&sensor=false"></script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+    <script src="bower_components/jquery-timepicker-jt/jquery.timepicker.js"></script>
+    <script src="bower_components/angular-jquery-timepicker/src/timepickerdirective.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+    <script src="https://simplewebrtc.com/latest-v2.js"></script>
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+
+        <!-- angular fire -->
+        <script src="scripts/angularfire/config.js"></script>
+        <script src="scripts/angularfire/firebase.ref.js"></script>
+        <script src="scripts/angularfire/auth.js"></script>
+
+        <!-- controllers -->
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        
+        <!-- filters -->
+        <script src="scripts/filters/temp.filter.js"></script>
+        
+        <!-- ngAutocomplete -->
+        <script src="scripts/ngAutocomplete.js"></script>
+        
+        <!-- directives -->
+        <script src="scripts/directives/focus.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
