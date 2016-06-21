@@ -15,9 +15,12 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/vp.css">
+    <link rel="stylesheet" href="styles/account.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="tipntripVpApp">
+  <body ng-app="tipntripVpApp" ng-controller="AuthCtrl as authCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -76,20 +79,19 @@
               </li> 
             </ul>   
 
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#/"  ><span class="navbar-link">התחבר</span></a></li>
-              <li><a href="#/" ><span class="navbar-link">הירשם</span></a></li>
+            <ul class="nav navbar-nav navbar-right">  
               <li><a href="#/" ><span class="navbar-link">איך זה עובד</span></a></li>
-              <li><a href="#/" ><span class="navbar-link">וירטואל פלנר</span></a></li>
-              <li><a href="#/" style="margin-left:4vw;"><img src="images/upper-bar/logo.png" alt="" class="nav-logo"></a></li>
+              <li ng-if="connect"><a ui-sref="acount" ><span class="navbar-link">{{user}}</span></a></li>
+              <li ng-if="connect"><a href="#/" ng-click="logout()"><span class="navbar-link">התנתק</span></a></li>
+
+              <li><a href="#/"><img src="images/upper-bar/logo.png" alt="" class="nav-logo"></a></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="container">
-
-    <div ng-view=""></div>
+    <div class="container" style="height:70vh;">
+      <div ui-view></div>
     </div>
 
     <div class="footer">
@@ -129,6 +131,8 @@
     <script src="bower_components/jquery-timepicker-jt/jquery.timepicker.js"></script>
     <script src="bower_components/angular-jquery-timepicker/src/timepickerdirective.js"></script>
     <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
     <!-- endbower -->
     <!-- endbuild -->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
@@ -136,11 +140,6 @@
     <script src="https://simplewebrtc.com/latest-v2.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-
-        <!-- angular fire -->
-        <script src="scripts/angularfire/config.js"></script>
-        <script src="scripts/angularfire/firebase.ref.js"></script>
-        <script src="scripts/angularfire/auth.js"></script>
 
         <!-- controllers -->
         <script src="scripts/controllers/main.js"></script>
@@ -154,6 +153,15 @@
         
         <!-- directives -->
         <script src="scripts/directives/focus.js"></script>
+        <script src="scripts/services/auth.js"></script>
+        <script src="scripts/controllers/auth.js"></script>
+        <script src="scripts/controllers/navbar.js"></script>
+        <script src="scripts/controllers/account.js"></script>
+        <script src="scripts/services/firebasetrips.js"></script>
+        <script src="scripts/controllers/addtrip.js"></script>
+        <script src="scripts/services/categories.js"></script>
+        <script src="scripts/services/markers.js"></script>
+        <script src="scripts/directives/pwcheck.js"></script>
         <!-- endbuild -->
 </body>
 </html>

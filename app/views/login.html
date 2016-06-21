@@ -1,0 +1,109 @@
+<div style="text-align:center;margin-top:4vh;" class="small-container">
+	<div class="small-item-1"></div>
+	<div class="small-item-2" style="text-align:center;">
+		<div class="flex-login-title-container" style="clear: both;">
+			<div class="flex-login-title-item-1">
+				<button class="login-button" ng-class="loginActive ?'login-noactive large white':'login-active large white'" ng-click="loginActive = false">הירשם</button>
+
+			</div>
+			<div class="flex-login-title-item-2">
+				<button class="login-button" ng-class="loginActive ? 'large white login-active' : 'login-noactive large white'" ng-click="loginActive = true">התחבר</button>
+			</div>
+		</div>
+		<div ng-if="loginActive">
+			<form ng-submit="login()" name="loginform">
+			<div class="your-class">
+			  <label style="font-size:1.3vw" class="white" for="First_Name">:מייל</label>
+			  <input 
+			  type="email" 
+			  style="font-size:1.3vw;width:12vw;padding-left:0.2vw;font-weight:bold;" 
+			  name="mail" 
+			  class="black" 
+			  id="login-mail" 
+			  ng-model="loginUser.email"
+			  required
+			  />			  
+			</div>
+			  <div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="loginform.mail.$dirty && loginform.mail.$error.required">Required Mail</div>
+			  <div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="loginform.mail.$dirty && loginform.mail.$error.email">Email is not valid</div>			
+			<div class="your-class">
+			  <label style="font-size:1.3vw" class="white" for="First_Name">:סיסמא</label>
+			  <input 
+			  type="password" 
+			  style="font-size:1.3vw;width:11vw;padding-left:0.2vw" 
+			  name="password" 
+			  class="black" 
+			  id="login-password" 
+			  ng-model="loginUser.password" 
+			  required
+			  />
+			</div>
+			<div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="loginform.password.$dirty && loginform.password.$error.required">Required Password</div>
+			
+			<div>	
+				<button class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">התחבר</button>
+				<div ng-show="loginError" style="margin-top:1vh;" class="alert alert-danger large">{{error}}</div>
+			</div>
+			
+			</form>
+		</div>
+
+		<div ng-if="!loginActive">
+			<form ng-submit="register()" name="registerForm">
+			<div class="your-class">
+			  <label style="font-size:1.3vw" class="white" for="First_Name">:מייל</label>
+			  <input 
+			  type="email" 
+			  style="font-size:1.3vw;width:12vw;padding-left:0.2vw;font-weight:bold;" 
+			  name="mail" 
+			  class="black" 
+			  id="login-mail" 
+			  type="text" 
+			  ng-model="registerUser.email"
+			  required
+			  />
+			</div>
+			  <div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="registerForm.mail.$dirty && registerForm.mail.$error.required">Required Mail</div>
+			  <div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="registerForm.mail.$dirty && registerForm.mail.$error.email">Email is not valid</div>			
+			<div class="your-class">
+			  <label style="font-size:1.3vw" class="white" for="First_Name">:סיסמא</label>
+			  <input 
+			  type="password" 
+			  style="font-size:1.3vw;width:11vw;padding-left:0.2vw" 
+			  name="pw1" 
+			  class="black" 
+			  id="pw1" 
+			  type="text"
+			  ng-model="registerUser.password"
+			  ng-minlength="5"
+			  ng-maxlength="10"
+			  required
+			   />
+			 <div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="registerForm.pw1.$dirty && registerForm.pw1.$error.required">Required Password</div>		   
+			 <div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="registerForm.pw1.$dirty && registerForm.pw1.$error.minlength">Too short</div>				 
+			 <div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="registerForm.pw1.$dirty && registerForm.pw1.$error.maxlength">Too long</div>				 
+			</div>	
+			<div class="your-class">
+			  <label style="font-size:1.3vw" class="white" for="First_Name">:סיסמא</label>
+			  <input 
+			  type="password" 
+			  style="font-size:1.3vw;width:11vw;padding-left:0.2vw" 
+			  name="pw2" 
+			  class="black" 
+			  id="pw2" 
+			  type="text"
+			  ng-model="registerUser.passwordRepeat" 
+			  pw-check="pw1"
+			  required
+			  />
+			</div>
+			<div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="registerForm.pw2.$error.pwmatch">
+		    	Passwords don't match.
+			</div>
+			<button class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">הירשם</button>
+			<div ng-show="registerError" style="margin-top:1vh;" class="alert alert-danger large">{{error}}</div>
+			</form>
+		</div>
+
+	</div>
+</div>

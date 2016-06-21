@@ -1,0 +1,64 @@
+/*login page*/
+
+.flex-login-title-container{
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+  display: flex;
+  flex-direction: row-reverse;  
+  width: 100%; 
+  margin-bottom: 1vh;
+}
+
+.flex-login-title-item-1{
+  width: 50%;
+  text-align: right;
+}
+
+.flex-login-title-item-2{
+  width: 50%;
+  text-align: left;
+}
+
+.login-active{
+  background-color: #537cb9; /* For browsers that do not support gradients */
+  border-radius:10px;
+  border: 0px solid black;
+
+}
+
+.your-class{
+  margin-top: 0.5vh;
+  background-color: blue;
+  border-radius: 17px;
+  padding: 0.5vh;
+  background-color: #3A3A3C
+}
+
+.login-noactive{
+  background: rgba(76, 175, 80, 0);
+  border: 0px solid black;
+}
+
+.login-button{
+  padding: 0px 5px 0px 5px;
+  outline-style: none;
+}
+
+.your-class input{
+  float:left;
+  background-color: #A7A9Ac;
+  border-radius: 17px;
+  padding: 0.1vh;
+  outline: none;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+  border: 0px solid black;
+
+  }
+.submit-button {
+  border: 3px solid #537cb9;
+}
+
+.submit-button:hover {
+  background-color: black;
+}
