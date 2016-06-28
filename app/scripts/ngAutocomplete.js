@@ -1,4 +1,5 @@
   'use strict';
+/*global google */
 
 /**
  * A directive for adding google places autocomplete to a text box

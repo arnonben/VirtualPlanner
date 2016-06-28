@@ -175,6 +175,8 @@ module.exports = function (grunt) {
       }
     },
 
+
+
     // Automatically inject Bower components into the app
     wiredep: {
       app: {
@@ -342,7 +344,7 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'views/{,*/}*.html',
-            'images/{,*/}*.{webp}',
+            'images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             'styles/fonts/{,*/}*.*'
           ]
         }, {

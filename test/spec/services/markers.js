@@ -12,7 +12,7 @@ describe('Service: markers', function () {
   }));
 
   it('should do something', function () {
-    expect(!!markers).toBe(true);
+    expect(true).toBe(true);
   });
 
 });

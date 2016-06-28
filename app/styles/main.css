@@ -71,7 +71,7 @@ body {
 }
 
 .large{
-  font-size: 1.5vw;
+  font-size: 1.3vw;
 }
 
 .xlarge{
@@ -148,8 +148,8 @@ body {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
-    min-width: 1500px;
-    max-width: 1730px;
+    min-width: 1600px;
+    max-width: 2000px;
   }
 
   /* Remove the padding we set earlier */
@@ -170,5 +170,4 @@ body {
     /*border: 3px solid black;*/
   }
 
- 
-
+ }

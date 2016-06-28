@@ -9,19 +9,24 @@
  */
 angular.module('tipntripVpApp')
   .controller('NavbarCtrl', function ($scope,Auth,$state) {
-  	$scope.auth = Auth
-  	$scope.connect = false
+    $scope.awesomeThings = [
+      'HTML5 Boilerplate',
+      'AngularJS',
+      'Karma'
+    ];
+  	$scope.auth = Auth;
+  	$scope.connect = false;
   	if (Auth.$getAuth()){
-	  	$scope.user = Auth.$getAuth().auth.token.email
-	  	$scope.connect = true
+	  	$scope.user = Auth.$getAuth().auth.token.email;
+	  	$scope.connect = true;
 	}
 
 	$scope.logout = function(){
-		$scope.user = ""
-		Auth.$unauth()
-	  	$scope.connect = false
-	  	$state.go('login')
+		$scope.user = "";
+		Auth.$unauth();
+	  	$scope.connect = false;
+	  	$state.go('login');
 
-	}
+	};
 
   });

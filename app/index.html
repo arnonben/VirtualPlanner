@@ -7,11 +7,10 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/jquery-timepicker-jt/jquery.timepicker.css" />
     <!-- endbower -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -44,47 +43,46 @@
 
             <ul class="nav navbar-nav navbar-left" style="margin-left:1.35vw;">
               <li ng-init="icon1 = true" ng-show="icon1" ng-mouseover="icon1 = false">
-                  <a href="#/"><img src="images/upper-bar/navbar-icon-1.png" alt="" class="nav-image"></a>             
+                  <a href=""><img src="images/upper-bar/navbar-icon-1.png" alt="" class="nav-image"></a>             
               </li>
               <li ng-show="!icon1" ng-mouseleave = "icon1 = true" >
-                <a href="#/"><img src="images/upper-bar/navbar-icon-hover1.png" alt="" class="nav-image"></a>
+                <a href=""><img src="images/upper-bar/navbar-icon-hover1.png" alt="" class="nav-image"></a>
               </li>
 
               <li ng-init="icon2 = true" ng-show="icon2" ng-mouseover="icon2 = false">
-                  <a href="#/"><img src="images/upper-bar/navbar-icon-2.png" alt="" class="nav-image"></a>             
+                  <a href=""><img src="images/upper-bar/navbar-icon-2.png" alt="" class="nav-image"></a>             
               </li>
               <li ng-show="!icon2" ng-mouseleave = "icon2 = true" >
-                <a href="#/"><img src="images/upper-bar/navbar-icon-hover2.png" alt="" class="nav-image"></a>
+                <a href=""><img src="images/upper-bar/navbar-icon-hover2.png" alt="" class="nav-image"></a>
               </li>
 
-              <li ng-init="icon3 = true" ng-show="icon3" ng-mouseover="icon3 = false">
-                  <a href="#/"><img src="images/upper-bar/navbar-icon-3.png" alt="" class="nav-image"></a>             
+              <li ng-init="icon3 = true; showChat = false" ng-show="icon3" ng-mouseover="icon3 = false">
+                  <a href="" ng-click="showChat = !showChat" ><img src="images/upper-bar/navbar-icon-3.png" alt="" class="nav-image"></a>             
               </li>
               <li ng-show="!icon3" ng-mouseleave = "icon3 = true" >
-                <a href="#/"><img src="images/upper-bar/navbar-icon-hover3.png" alt="" class="nav-image"></a>
+                <a href="" ng-click="showChat = !showChat" ><img src="images/upper-bar/navbar-icon-hover3.png" alt="" class="nav-image"></a>
               </li>  
 
               <li ng-init="icon4 = true" ng-show="icon4" ng-mouseover="icon4 = false">
-                  <a href="#/"><img src="images/upper-bar/navbar-icon-4.png" alt="" class="nav-image"></a>             
+                  <a href=""><img src="images/upper-bar/navbar-icon-4.png" alt="" class="nav-image"></a>             
               </li>
               <li ng-show="!icon4" ng-mouseleave = "icon4 = true" >
-                <a href="#/"><img src="images/upper-bar/navbar-icon-hover4.png" alt="" class="nav-image"></a>
+                <a href=""><img src="images/upper-bar/navbar-icon-hover4.png" alt="" class="nav-image"></a>
               </li>
 
               <li ng-init="icon5 = true" ng-show="icon5" ng-mouseover="icon5 = false">
-                  <a href="#/"><img src="images/upper-bar/navbar-icon-5.png" alt="" class="nav-image"></a>             
+                  <a href=""><img src="images/upper-bar/navbar-icon-5.png" alt="" class="nav-image"></a>             
               </li>
               <li ng-show="!icon5" ng-mouseleave = "icon5 = true" >
-                <a href="#/"><img src="images/upper-bar/navbar-icon-hover5.png" alt="" class="nav-image"></a>
+                <a href=""><img src="images/upper-bar/navbar-icon-hover5.png" alt="" class="nav-image"></a>
               </li> 
             </ul>   
 
             <ul class="nav navbar-nav navbar-right">  
-              <li><a href="#/" ><span class="navbar-link">איך זה עובד</span></a></li>
               <li ng-if="connect"><a ui-sref="acount" ><span class="navbar-link">{{user}}</span></a></li>
               <li ng-if="connect"><a href="#/" ng-click="logout()"><span class="navbar-link">התנתק</span></a></li>
 
-              <li><a href="#/"><img src="images/upper-bar/logo.png" alt="" class="nav-logo"></a></li>
+              <li style="padding-top:0vh;"><a style="padding-top:0vh;" href="#/"><img style="padding-top:0vh;" src="images/upper-bar/logo.png" alt="" class="nav-logo"></a></li>
             </ul>
           </div>
         </div>
@@ -118,7 +116,6 @@
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -131,12 +128,14 @@
     <script src="bower_components/jquery-timepicker-jt/jquery.timepicker.js"></script>
     <script src="bower_components/angular-jquery-timepicker/src/timepickerdirective.js"></script>
     <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-
     <!-- endbower -->
     <!-- endbuild -->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://simplewebrtc.com/latest-v2.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
@@ -162,6 +161,7 @@
         <script src="scripts/services/categories.js"></script>
         <script src="scripts/services/markers.js"></script>
         <script src="scripts/directives/pwcheck.js"></script>
+        <script src="scripts/directives/schrollbottom.js"></script>
         <!-- endbuild -->
 </body>
 </html>

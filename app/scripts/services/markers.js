@@ -1,4 +1,5 @@
 'use strict';
+/*global google */
 
 /**
  * @ngdoc service
@@ -25,8 +26,9 @@ angular.module('tipntripVpApp')
       },  
       containDay:function(date,days){
         for (var i = 0; i < days.length; i++) {
-          if(days[i].date.getDate() == date.getDate() && days[i].date.getMonth() == date.getMonth() && days[i].date.getFullYear() == date.getFullYear() )
+          if(days[i].date.getDate() === date.getDate() && days[i].date.getMonth() === date.getMonth() && days[i].date.getFullYear() === date.getFullYear() ){
             return i;
+          }
         }
         return -1;
       },
@@ -43,14 +45,15 @@ angular.module('tipntripVpApp')
         return -1;
       },
       initMarkersSizeUrl: function(markers){
+        /* jshint ignore:start */
         for (var i = 0; i < markers.length; i++) {
           markers[i].options.icon.url = markers[i].tmpurl  
-          markers[i].options.icon.scaledSize = new google.maps.Size(40, 60)  
+          markers[i].options.icon.scaledSize = new google.maps.Size(90, 130)  
           markers[i].options.labelClass = 'marker_labels',
-          markers[i].options.labelAnchor = '17 52',
-          markers[i].options.labelContent = '<div class="bold" style="font-size:20px; color:white;width:35px;">' + markers[i].id + '</div>'
-
+          markers[i].options.labelAnchor = '17 120',
+          markers[i].options.labelContent = '<div class="bold" style="font-size:40px; color:white;width:35px;">' + markers[i].id + '</div>'
         }
+        /* jshint ignore:end */
         console.log("marker init complete")
       } 
     };

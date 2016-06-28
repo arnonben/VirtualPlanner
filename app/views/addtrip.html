@@ -1,15 +1,44 @@
 <div>
-	<div class="white small">פרטי הטיול</div>
-	<div>
-		<input type="text" ng-model="newTrip.title">
-		<span class="white small">כותרת</span>
+	<div style="text-align:center;margin-top:4vh;" class="small-container">
+		<div class="small-item-1"></div>
+		<div class="small-item-2" style="text-align:center;">
+			<div class="white bold large">הוסף טיול</div>
+			<form ng-submit="addTrip(newTrip)" name="addtripform">
+			<div class="login-mail-conatiner">
+				<div class="login-mail-item-1">
+					<label style="font-size:1.3vw" class="white" >:כותרת</label>
+				</div>
+				<div class="login-mail-item-2">
+				  <input 
+				  type="text" 
+				  name="title" 
+				  class="black" 
+				  id="addtrip-title" 
+				  ng-model="newTrip.title"
+				  required
+				  />		
+				</div>	  
+			</div>
+			<div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="loginform.mail.$dirty && loginform.mail.$error.required">Required Title</div>		
+			<div class="login-mail-conatiner">
+				<div class="login-mail-item-1">
+			  		<label style="font-size:1.3vw" class="white" >:מדינות</label>
+			  	</div>
+			  	<div class="login-mail-item-2">
+				  <input 
+				  type="text" 
+				  name="title" 
+				  class="black" 
+				  id="addtrip-title" 
+				  ng-model="newTrip.countries"
+				  />	
+				</div>		  
+			</div>				
+			<div>	
+				<button class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">הוסף טיול</button>
+				<div ng-show="addtripError" style="margin-top:1vh;" class="alert alert-danger large">{{error}}</div>
+			</div>
+			</form>	
+		</div>
 	</div>
-	<div>
-		<input type="text" ng-model="newTrip.countries">
-		<span class="white small">מדינות</span>
-	</div>
-	<div>
-		<a href="#/addtrip" ng-click="addTrip(newTrip)" class="button btn-primary" style="background:gray;">צור טיול</a>
-	</div>
-
 </div>

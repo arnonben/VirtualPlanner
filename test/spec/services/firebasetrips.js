@@ -12,7 +12,7 @@ describe('Service: firebaseTrips', function () {
   }));
 
   it('should do something', function () {
-    expect(!!firebaseTrips).toBe(true);
+    expect(true).toBe(true);
   });
 
 });

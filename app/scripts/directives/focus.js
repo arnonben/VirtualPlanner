@@ -7,7 +7,7 @@
  * # focus
  */
 angular.module('tipntripVpApp')
-  .directive('focus', function () {
+  .directive('focus',['$timeout',function ($timeout) {
  return {
  	scope : {
  		trigger : '@focus'
@@ -23,4 +23,4 @@ angular.module('tipntripVpApp')
  	}
  };
  
-});
+}]);

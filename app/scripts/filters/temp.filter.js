@@ -17,10 +17,8 @@ angular.module('tipntripVpApp')
         switch(targetUnit) {
             case 'celsius':
                 return celsius + '°';
-                break;
             case 'fahrenheit':
                 return celsius * 1.8 + 32 + '°';
-                break;
             default:
                 return '';
         }

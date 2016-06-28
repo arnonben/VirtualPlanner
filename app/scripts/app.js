@@ -20,6 +20,7 @@ angular
     'ui.timepicker',
     'firebase',
     'ngAutocomplete',    
+    'luegg.directives'
   ])
   .constant('FirebaseUrl', 'https://vitrualplanner.firebaseio.com')
   .config(function ($stateProvider, $urlRouterProvider) {
@@ -59,7 +60,7 @@ angular
         resolve: {
           requireNoAuth: function($state, Auth){
             return Auth.$requireAuth().then(function(auth){
-              return
+              return;
             }, function(error){
               $state.go('login');
             });
@@ -74,7 +75,7 @@ angular
         resolve: {
           requireNoAuth: function($state, Auth){
             return Auth.$requireAuth().then(function(auth){
-              return
+              return;
             }, function(error){
               $state.go('login');
             });
@@ -82,18 +83,18 @@ angular
         }           
       })  
 
-      .state('vp', {
-        url: '/vp/:uid/:tripid',
+      .state('vp',{
+        url: '/vp/:advisorUid/:advisorEmail/:travUid/:travEmail/:tripId',
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         resolve: {
           requireNoAuth: function($state, Auth){
             return Auth.$requireAuth().then(function(auth){
-              return
+              return;
             }, function(error){
               $state.go('login');
             });
           }
         }           
-      })             
+      });
   });

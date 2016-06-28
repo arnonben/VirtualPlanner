@@ -1,4 +1,4 @@
-/*login page*/
+/*trip-list-divlogin page*/
 
 .flex-login-title-container{
   display: -webkit-flex; /* Safari */
@@ -8,6 +8,38 @@
   width: 100%; 
   margin-bottom: 1vh;
 }
+
+.account-container{
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+  display: flex;
+  flex-direction: row-reverse;  
+  width: 100%;
+}
+
+.login-container {
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+  display: flex;
+  flex-direction: row-reverse;  
+  width: 100%;
+}
+
+.login-item-1{
+  width:30%;
+}
+
+.login-item-2{
+  width: 25%;
+}
+.account-item-1{
+  width: 20%;
+}
+
+.account-item-2{
+  width: 30%;
+}
+
 
 .flex-login-title-item-1{
   width: 50%;
@@ -19,6 +51,62 @@
   text-align: left;
 }
 
+.login-mail-item-1 input{
+  float:left;
+  background-color: #A7A9Ac;
+  border-radius: 17px;
+  padding: 0.1vh;
+  outline: none;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+  border: 0px solid black;
+  font-size:1.3vw;
+  padding-left:0.2vw;
+  font-weight:bold;
+  width: 100%;
+
+  }
+
+  .login-mail-item-2 input{
+  float:left;
+  background-color: #A7A9Ac;
+  border-radius: 17px;
+  padding: 0.1vh;
+  outline: none;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+  border: 0px solid black;
+  font-size:1.3vw;
+  padding-left:0.2vw;
+  font-weight:bold;
+  width: 100%;
+
+  }
+
+
+
+.trip-list-div{
+  height:68vh;
+  overflow: scroll;
+}
+
+.trip-list-div::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+.trip-list-div::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+.trip-list-div::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.trip-list-div::-webkit-scrollbar-corner{
+  background-color: rgba(0,0,0,0.3);  
+}
+
 .login-active{
   background-color: #537cb9; /* For browsers that do not support gradients */
   border-radius:10px;
@@ -26,13 +114,70 @@
 
 }
 
-.your-class{
+.login-mail-conatiner{
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+  display: flex;
+  flex-direction: row-reverse;  
+  width: 100%;  
+  border-radius: 15px;
   margin-top: 0.5vh;
   background-color: blue;
   border-radius: 17px;
   padding: 0.5vh;
-  background-color: #3A3A3C
+  background-color: #3A3A3C  
 }
+
+.login-mail-item-1{
+  width: 20%;
+  text-align: center;
+}
+
+.login-mail-item-2{
+  width: 80%;
+}
+
+.login-mail-item-2 input{
+  float:left;
+  background-color: #A7A9Ac;
+  border-radius: 17px;
+  padding: 0.1vh;
+  outline: none;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+  border: 0px solid black;
+  font-size:1.3vw;
+  padding-left:0.2vw;
+  font-weight:bold;
+  width: 100%;
+
+  }
+
+.login-pass-item-1{
+  width: 30%;
+  text-align: center;
+}
+
+.login-pass-item-2{
+  width: 70%;
+}
+
+.login-pass-item-2 input{
+  float:left;
+  background-color: #A7A9Ac;
+  border-radius: 17px;
+  padding: 0.1vh;
+  outline: none;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+  border: 0px solid black;
+  font-size:1.3vw;
+  padding-left:0.2vw;
+  font-weight:bold;
+  width: 100%;
+
+  }
+
 
 .login-noactive{
   background: rgba(76, 175, 80, 0);
@@ -44,7 +189,94 @@
   outline-style: none;
 }
 
-.your-class input{
+
+.submit-button {
+  border: 3px solid #537cb9;
+}
+
+.submit-button:hover {
+  background-color: black;
+}
+
+.trip-details-box{
+  background-color: rgba(205, 205,193, 0.1);
+}
+.flex-container-trip-buttons{
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+  display: flex;
+  flex-direction: row-reverse;  
+  width: 100%;  
+}
+
+.trip-buttons-item-0{
+  width: 15%
+}
+
+.trip-buttons-item-1-container{
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+  display: flex;
+  flex-direction: row-reverse;  
+  width: 100%;  
+  background-color: rgba(205, 205,193, 0.1);
+  text-align: center;
+  padding: 1vh;
+  border-radius: 15px;
+}
+
+.trip-buttons-item{
+  width: 33%;
+  background-color: #eeeee0;
+  border-radius: 10px;  
+  padding: 2px;
+  margin: 3px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8vw;
+}
+
+.trip-buttons-item:hover{
+  background-color:black;
+  color:white; 
+}
+
+.dup-form-container{
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+  display: flex;
+  flex-direction: row-reverse;  
+  width: 100%;  
+  background-color: rgba(205, 205,193, 0.1);
+  text-align: center;
+  padding: 1vh;
+  border-radius: 15px;
+}
+
+.login-addtrip-conatiner{
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+  display: flex;
+  flex-direction: row-reverse;  
+  width: 100%;  
+  border-radius: 15px;
+  margin-top: 0.5vh;
+  background-color: blue;
+  border-radius: 17px;
+  padding: 0.5vh;
+  background-color: #3A3A3C  
+}
+
+.login-addtrip-item-1{
+  width: 20%;
+  text-align: center;
+}
+
+.login-addtrip-item-2{
+  width: 80%;
+}
+
+.login-addtrip-item-2 input{
   float:left;
   background-color: #A7A9Ac;
   border-radius: 17px;
@@ -53,12 +285,48 @@
   -webkit-appearance: none;
   box-shadow: none !important;
   border: 0px solid black;
+  font-size:1.3vw;
+  padding-left:0.2vw;
+  font-weight:bold;
+  width: 100%;
 
   }
-.submit-button {
-  border: 3px solid #537cb9;
+
+.login-dup-conatiner{
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+  display: flex;
+  flex-direction: row-reverse;  
+  width: 100%;  
+  border-radius: 15px;
+  margin-top: 0.5vh;
+  background-color: blue;
+  border-radius: 17px;
+  padding: 0.5vh;
+  background-color: #3A3A3C  
 }
 
-.submit-button:hover {
-  background-color: black;
+.login-dup-item-1{
+  width: 20%;
+  text-align: center;
 }
+
+.login-dup-item-2{
+  width: 80%;
+}
+
+.login-dup-item-2 input{
+  float:left;
+  background-color: #A7A9Ac;
+  border-radius: 17px;
+  padding: 0.1vh;
+  outline: none;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+  border: 0px solid black;
+  font-size:1.3vw;
+  padding-left:0.2vw;
+  font-weight:bold;
+  width: 100%;
+
+  }

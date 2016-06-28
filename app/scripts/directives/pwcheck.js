@@ -14,10 +14,10 @@ angular.module('tipntripVpApp')
 	        var firstPassword = '#' + attrs.pwCheck;
 	        elem.add(firstPassword).on('keyup', function () {
 	          scope.$apply(function () {
-	            var v = elem.val()===$(firstPassword).val();
+	            var v = elem.val()===(firstPassword).val();
 	            ctrl.$setValidity('pwmatch', v);
 	          });
 	        });
 	      }
-	    }
+	    };
   });

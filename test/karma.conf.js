@@ -24,7 +24,6 @@ module.exports = function(config) {
       // bower:js
       'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
-      'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-resource/angular-resource.js',
@@ -37,7 +36,10 @@ module.exports = function(config) {
       'bower_components/jquery-timepicker-jt/jquery.timepicker.js',
       'bower_components/angular-jquery-timepicker/src/timepickerdirective.js',
       'bower_components/firebase/firebase.js',
+      'bower_components/angular-scroll-glue/src/scrollglue.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/livereload-js/dist/livereload.js',
       // endbower
       "app/scripts/**/*.js",
       "test/mock/**/*.js",
