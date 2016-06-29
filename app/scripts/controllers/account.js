@@ -69,8 +69,7 @@ angular.module('tipntripVpApp')
     });
 
   	$scope.dupTrip = function(trip){
-      console.log("dupTrip");
-      trip.dupForm = false;
+      trip.dupTrip = false
       var dupTrip = {
         countries : trip.dup.countries,
         title : trip.dup.title,

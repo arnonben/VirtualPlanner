@@ -16,6 +16,17 @@ angular.module('tipntripVpApp')
 
     // Public API here
     return {
+      containEventInDays:function(markerFirebaseKey,days){
+        for (var i = 0; i < days.length; i++) {
+          for (var j = 0; j < days[i].events.length; j++) {
+            if(days[i].events[j].markerFirebaseKey === markerFirebaseKey){
+              return {i:i,j:j}
+            }
+          }
+        }
+        return null;
+      },
+
       containEvent:function(markerFirebaseKey,dayIndex,days){
         for (var i = 0; i < days[dayIndex].events.length; i++) {
           if (days[dayIndex].events[i].markerFirebaseKey === markerFirebaseKey) {
@@ -48,10 +59,10 @@ angular.module('tipntripVpApp')
         /* jshint ignore:start */
         for (var i = 0; i < markers.length; i++) {
           markers[i].options.icon.url = markers[i].tmpurl  
-          markers[i].options.icon.scaledSize = new google.maps.Size(90, 130)  
+          markers[i].options.icon.scaledSize = new google.maps.Size(50, 80)  
           markers[i].options.labelClass = 'marker_labels',
-          markers[i].options.labelAnchor = '17 120',
-          markers[i].options.labelContent = '<div class="bold" style="font-size:40px; color:white;width:35px;">' + markers[i].id + '</div>'
+          markers[i].options.labelAnchor = '17 70',
+          markers[i].options.labelContent = '<div class="bold" style="font-size:30px; color:white;width:35px;">' + markers[i].id + '</div>'
         }
         /* jshint ignore:end */
         console.log("marker init complete")

@@ -27,6 +27,7 @@ angular.module('tipntripVpApp')
     $scope.eventMode = true;
     $scope.dayMode = false;
     $scope.addEventMode = false;
+    $scope.editEventMode = false;
     
     $scope.attachFileHover = false;
     //mapLocationMode define wheather we select location by the authcomplete input or by selecting
@@ -78,6 +79,7 @@ angular.module('tipntripVpApp')
     $scope.markersRef2 = new Firebase("https://vitrualplanner.firebaseio.com/" + uid + "/trips/" + tripid +"/markers");
 
     	$scope.setEventMode = function(event,day){
+		$scope.editEventMode = false;
 	    $scope.eventMode = true;
 	    $scope.dayMode = false;
 	    $scope.addEventMode = false;
@@ -98,6 +100,7 @@ angular.module('tipntripVpApp')
 	};
 	//Set event mode for a new event withought the zoom
 	$scope.setEventMode2 = function(event,day){
+		$scope.editEventMode = false;
 	    $scope.eventMode = true;
 	    $scope.dayMode = false;
 	    $scope.addEventMode = false;
@@ -134,16 +137,59 @@ angular.module('tipntripVpApp')
 		    }
 		};		
 	};
+	
+	$scope.daysBetween = function( date1, date2 ) {
+	  //Get 1 day in milliseconds
+	  var one_day=1000*60*60*24;
+
+	  // Convert both dates to milliseconds
+	  var date1_ms = date1.getTime();
+	  var date2_ms = date2.getTime();
+
+	  // Calculate the difference in milliseconds
+	  var difference_ms = date2_ms - date1_ms;
+	    
+	  // Convert back to days and return
+	  return Math.round(difference_ms/one_day); 
+	}	
 
     //Init page methods
     //Firebase fetch all events and markers
     $scope.markersRef2.on("value",function(snapshot){
+    	console.log("MARKER VALUE")
 		snapshot.forEach(function(childSnapshot) {
 			//first wee add the marker to the $scope.markers. If we created the marker in this session it will be already exist in the $scope.markers and we will not add it
 
 			var marker = childSnapshot.val();
+			console.log("MARKER")
+			console.log(marker)
 			marker.date = new Date(marker.date);
 			var markerIndex = markers.containMarker(childSnapshot.key(),$scope.markerIndex,$scope.markers);
+			if ( markerIndex !== -1){
+				$scope.markers[markerIndex].address = marker.address;
+				$scope.markers[markerIndex].coords = marker.coords;
+				$scope.markers[markerIndex].date = marker.date;
+				$scope.markers[markerIndex].description = marker.description;
+				$scope.markers[markerIndex].eventIcon = marker.eventIcon;
+				$scope.markers[markerIndex].locationResults = marker.locationResults;
+				$scope.markers[markerIndex].options = marker.options;
+				$scope.markers[markerIndex].phone = marker.phone;
+				$scope.markers[markerIndex].price = marker.price;
+				$scope.markers[markerIndex].timeStamp = marker.timeStamp;
+				$scope.markers[markerIndex].title = marker.title;
+				$scope.markers[markerIndex].type = marker.type;
+				$scope.markers[markerIndex].options = {
+					icon : {
+						url : $scope.markers[markerIndex].options.icon.url,
+						scaledSize : new google.maps.Size(50,80)
+					},
+					labelClass:'marker_labels',
+					labelAnchor:'17 70',
+					labelContent:'<div class="bold" style="font-size:30px; color:white;width:36px;">' + $scope.markers[markerIndex].id + '</div>'
+				};				
+
+
+			}
 			if ( markerIndex === -1 ){
 				marker.markerFirebaseKey = childSnapshot.key();
 				marker.id = $scope.markerIndex;
@@ -152,18 +198,18 @@ angular.module('tipntripVpApp')
 				marker.options = {
 					icon : {
 						url : marker.options.icon.url,
-						scaledSize : new google.maps.Size(90, 130)
+						scaledSize : new google.maps.Size(50,80)
 					},
 					labelClass:'marker_labels',
-					labelAnchor:'17 120',
-					labelContent:'<div class="bold" style="font-size:40px; color:white;width:36px;">' + marker.id + '</div>'
+					labelAnchor:'17 70',
+					labelContent:'<div class="bold" style="font-size:30px; color:white;width:36px;">' + marker.id + '</div>'
 				};
 				marker.tmpurl = marker.options.icon.url;
 				marker.events = {
 					click: function(marker, eventName, model) {
 						markers.initMarkersSizeUrl($scope.markers);
 						$scope.markers[marker.key-1].options.icon.url = $scope.getActiveImg($scope.markers[marker.key-1].type);
-						$scope.markers[marker.key-1].options.icon.scaledSize =  new google.maps.Size(90, 130);
+						$scope.markers[marker.key-1].options.icon.scaledSize =  new google.maps.Size(50, 80);
 						$scope.markers[marker.key-1].options.labelContent = 
 						'<div class="flex-icon-active">' +
 						'<div class="flex-icon-active-item-2 white" style="font-size:15px; color:white;">' + $scope.markers[marker.key-1].title +'</div>' +
@@ -205,6 +251,7 @@ angular.module('tipntripVpApp')
 				markerFirebaseKey : childSnapshot.key(),
 				title : marker.title,
 				coords: marker.coords,
+				locationResults : marker.locationResults,
 				type: marker.type,
 				description : marker.description,
 				date: marker.date,
@@ -214,6 +261,18 @@ angular.module('tipntripVpApp')
 				eventIcon
 				: marker.eventIcon
 			};
+			//Check if the date was update. If so delete the previous event from the day
+			var indexes = markers.containEventInDays(event.markerFirebaseKey,$scope.days)
+			if(indexes !== null){
+				console.log("INDEXSES")
+				console.log(indexes)
+				if(event.date !== $scope.days[indexes.i].events[indexes.j].date){
+					$scope.days[indexes.i].events.splice(indexes.j,1);
+					if($scope.days[indexes.i].events.length === 0){
+						$scope.days.splice(indexes.i,1);
+					}
+				}
+			}
 			
 			//Check if this marker was the last marker that was added
 
@@ -221,20 +280,31 @@ angular.module('tipntripVpApp')
 			//add the new event otherwise we check if the event exist in the event array of the existing day. If not we add the event.
 			var dayIndex = markers.containDay(marker.date,$scope.days);
 			if (dayIndex !== -1) {
-				//console.log("test1")
 				var eventIndex = markers.containEvent(event.markerFirebaseKey,dayIndex,$scope.days);
-				//console.log(eventIndex)
 				if (eventIndex === -1){
 					$scope.days[dayIndex].events.push(event);
 					$scope.days[dayIndex].expenses = $scope.days[dayIndex].expenses + event.price;	
-					//console.log($scope.days[dayIndex])
 					$scope.days[dayIndex].events.sort(function(dayA,dayB){return dayA.date.getHours() - dayB.date.getHours();});
-					////console.log("add event from firebase");
 					if ($scope.timeStamp < marker.timeStamp){
 						$scope.timeStamp = marker.timeStamp;
 						$scope.timestampDay = dayIndex;
 						$scope.timestampEvent = event;
 					}
+				}
+				else{
+					console.log("DAY_INDEX AND EVENT_INDEX")
+					console.log(dayIndex)
+					console.log(eventIndex)
+					console.log($scope.days[dayIndex].events[eventIndex])
+					$scope.days[dayIndex].expenses = $scope.days[dayIndex].expenses - $scope.days[dayIndex].events[eventIndex].price;	
+					$scope.days[dayIndex].expenses = $scope.days[dayIndex].expenses + event.price;	
+					$scope.days[dayIndex].events[eventIndex] = event
+					$scope.days[dayIndex].events.sort(function(dayA,dayB){return dayA.date.getHours() - dayB.date.getHours();});
+					if ($scope.timeStamp < marker.timeStamp){
+						$scope.timeStamp = marker.timeStamp;
+						$scope.timestampDay = dayIndex;
+						$scope.timestampEvent = event;
+					}					
 				}
 			}
 			else{
@@ -245,7 +315,7 @@ angular.module('tipntripVpApp')
 					wheather: {
 						general: "חם מאד",
 						temp : "37",
-						icon: "images/right-bar/weather-icons/weather-icon-1.png"
+						icon: "images/right-bar/weather-icon-1.png"
 					},
 					expenses: marker.price,
 					title: "",
@@ -270,7 +340,17 @@ angular.module('tipntripVpApp')
 					$scope.timestampDay = dayIndex;
 					$scope.timestampEvent = event;
 				}				
+			} 
+
+
+			$scope.days.sort(function(a,b) {return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);} );
+			if($scope.days.length > 0){
+				var daybegin = $scope.days[0].date
+				for (var i = 0; i < $scope.days.length; i++) {
+					$scope.days[i].index = $scope.daysBetween(daybegin,$scope.days[i].date)+1
+				};
 			}
+
 			for (var i = 0; i < $scope.days[$scope.timestampDay].events.length; i++) {
 				if ($scope.days[$scope.timestampDay].events[i] === $scope.timestampEvent){
 					$scope.timestampEventIndex = i;
@@ -386,6 +466,7 @@ angular.module('tipntripVpApp')
 	//Middle screen change modes
 
 	$scope.setDayMode = function(day){
+	    $scope.editEventMode = false;
 	    $scope.eventMode = false;
 	    $scope.dayMode = true;
 	    $scope.addEventMode = false;
@@ -401,11 +482,41 @@ angular.module('tipntripVpApp')
 	};
 
 	$scope.setAddEventMode = function(){
+		$scope.editEventMode = false;
 		$scope.eventMode = false;
 		$scope.dayMode = false;
 		$scope.addEventMode = true;
 		markers.initMarkersSizeUrl($scope.markers);
 	};
+
+	$scope.setEditEventMode = function(event){
+		console.log(event)
+		//init all the special input fields
+		$scope.timeResult=true;$scope.timeActive=false;$scope.timeTitle=false;
+		$scope.dateResult=true;$scope.dateActive=false;$scope.dateTitle=false;
+		$scope.priceResult=true;$scope.priceActive=false;$scope.priceTitle=false;
+		
+		//init the category
+		$scope.setCategory($scope.types[event.type-1])
+		$scope.tmpEditEvent = {} 
+		
+		//deep copy the event
+		angular.copy(event,$scope.tmpEditEvent)
+		
+		$scope.tmpEditEvent.locationResults = event.locationResults;
+		
+		//set the date and time
+		$scope.tmpEditEvent.time = new Date()
+		$scope.tmpEditEvent.time.setHours(event.date.getHours())
+		$scope.tmpEditEvent.time.setMinutes(event.date.getMinutes())
+		$scope.tmpEditEvent.time.setSeconds(0,0)
+
+		//set edit event mode
+		$scope.editEventMode = true;
+		$scope.eventMode = false;
+		$scope.dayMode = false;
+		$scope.addEventMode = false;	
+	}
 
 	$scope.typeMouseEnter = function(type){
 		if (!type.active){
@@ -426,6 +537,8 @@ angular.module('tipntripVpApp')
 				$scope.types[i].style = "{'border': 1px solid black;}";
 				$scope.types[i].active = true;
 				$scope.types[i].showName = false;
+				console.log("setCategory")
+				console.log($scope.types)
 			}
 			else{
 				$scope.types[i].style = "";
@@ -445,16 +558,16 @@ angular.module('tipntripVpApp')
 				        typeAns = "טיסה";
 				        break;
 				    case 3:
-				        typeAns = "לינה";
-				        break;
-				    case 4:
 				        typeAns = "תרבות";
 				        break;
-				    case 5:
+				    case 4:
 				        typeAns = "תחבורה";
 				        break;
+				    case 5:
+				        typeAns = "פעילות";
+				        break;
 				    case 6:
-				        typeAns ="פעילות";
+				        typeAns ="לינה";
 				        break;
 				    default:
 				        typeAns = "מסעדה";
@@ -468,6 +581,7 @@ angular.module('tipntripVpApp')
 	$scope.timeResult = false;
 
 	$scope.setTimeActive = function(){
+		console.log("setTimeAcitve")
 		$scope.timeTitle = false;
 		$scope.timeActive = true;
 		$scope.timeResult = false;		
@@ -548,7 +662,12 @@ angular.module('tipntripVpApp')
 	    }
 
 	};
-
+	//Autocomplete google maps
+    $scope.newEvent.newLocation = {
+    	details: '',
+    	results: '',
+    	options: null
+    };
 	//add new event
 	$scope.addNewEvent = function(newEvent,locationDetails){
 		var date = newEvent.date;
@@ -558,6 +677,8 @@ angular.module('tipntripVpApp')
 		if (newEvent.time !== undefined){
 			date.setHours(newEvent.time.getHours(),newEvent.time.getMinutes());
 		}
+		console.log("Location Details")
+		console.log(locationDetails)
 		var tmpEvent = {};
 		tmpEvent.date = date.toString();
 		tmpEvent.eventIcon = $scope.types[newEvent.type-1].img.toString();
@@ -567,10 +688,11 @@ angular.module('tipntripVpApp')
 		tmpEvent.price = (newEvent.price !== undefined) ? newEvent.price : 0;
 		tmpEvent.title = newEvent.title;
 		tmpEvent.type = newEvent.type;
+		console.log()
 		if (!$scope.mapLocationMode){
 			var address = "";
 			if (locationDetails === ""){
-				$scope.locationValid = false;
+				$scope.newEvent.locationValid = false;
 				return false;
 			}
 			$scope.locationValid = true;
@@ -579,7 +701,8 @@ angular.module('tipntripVpApp')
 			}	
 			tmpEvent.address = address;
 
-			$scope.markersRef.$add({ 
+			$scope.markersRef.$add({
+				locationResults:newEvent.newLocation.results,
 		      	address : tmpEvent.address,
 		      	coords: {
 		        	latitude: locationDetails.geometry.location.lat(),
@@ -638,22 +761,7 @@ angular.module('tipntripVpApp')
 
 			});
 		}
-		// var tmpDate = new Date(tmpEvent.date.getFullYear(), tmpEvent.date.getMonth(), tmpEvent.date.getDate(),0,0,0,0)
-		// var dayInDays = -1;
-		// var found = false
-		// for (var i = 0; i < $scope.days.length && !found; i++) {
-		// 	if($scope.days[i].date == tmpDate){
-		// 		dayInDays = -1
-		// 	}
-		// 	else{
-		// 		if ($scope.days[i].date.getFullYear() > tmp.getFullYear()){
-
-		// 		}
-		// 	}
-		// };
 		var dayDate = tmpEvent.date.get;
-		// setDayMode()
-
 		//finish to add new place to firebase
 	};
 
@@ -670,12 +778,7 @@ angular.module('tipntripVpApp')
 
 	};
 
-	//Autocomplete google maps
-    $scope.newLocation = {
-    	details: '',
-    	results: '',
-    	options: null
-    };
+
 	// right screen 
 	$scope.dayToggle = function(day){
 		day.showEvents = !day.showEvents;
@@ -692,6 +795,108 @@ angular.module('tipntripVpApp')
 		}
 		console.log("false");
 	};
+
+	$scope.editEvent = function(event,locationDetails){
+		locationDetails = event.newLocation.details;
+		var firebaseKey = event.markerFirebaseKey
+		var date = event.date;
+		if (event.type === undefined){
+			event.type = 1;
+		}
+		if (event.time !== undefined){
+			date.setHours(event.time.getHours(),event.time.getMinutes());
+		}
+		var tmpEvent = {};
+		tmpEvent.newLocation = event.newLocation;
+		tmpEvent.date = date.toString();
+		tmpEvent.eventIcon = $scope.types[event.type-1].img.toString();
+		tmpEvent.iconUrl = $scope.setIcon(event.type).toString();
+		tmpEvent.description = (event.description !== undefined) ? event.description : "";
+		tmpEvent.phone = (event.phone !== undefined) ? event.phone : "No phone";
+		tmpEvent.price = (event.price !== undefined) ? event.price : 0;
+		tmpEvent.title = event.title;
+		tmpEvent.type = event.type;
+		console.log()
+		if (!$scope.mapLocationMode){
+			var address = "";
+			if (locationDetails !== "" && locationDetails !== undefined){
+				console.log("LOCATION DETAILS")
+				console.log(locationDetails)
+				$scope.locationValid = true;
+				for (var i = 0; i < locationDetails.address_components.length; i++) {
+					address = address + "," + locationDetails.address_components[i].long_name;
+				}	
+				tmpEvent.address = address;
+				$scope.markersRef2.child(firebaseKey).update({
+					locationResults:tmpEvent.newLocation.results,
+			      	address : tmpEvent.address,
+			      	coords: {
+			        	latitude: locationDetails.geometry.location.lat(),
+			        	longitude: locationDetails.geometry.location.lng()
+			      	}
+				},function(ref) {
+					  	console.log("Update the location");
+					  	console.log(ref);
+				});			    
+			}
+
+			$scope.markersRef2.child(firebaseKey).update({
+				date: tmpEvent.date,
+				description:tmpEvent.description,
+				eventIcon : tmpEvent.eventIcon,
+		      	options: {
+		      		icon: {
+		      			url : tmpEvent.iconUrl
+		      		}
+			    },
+			    phone: tmpEvent.phone,
+			    price : tmpEvent.price,
+			    type : tmpEvent.type,
+				title: tmpEvent.title,
+		        window : {
+		      		options : {
+		      			visible : false
+		      		}
+		      	},
+		      	timeStamp : $scope.timeStamp + 1
+			},function(ref) {
+				  	console.log("Update all the event's data");
+				  	console.log(ref);
+			});
+		}
+		else {
+			$scope.markersRef.$add({ 
+		      	coords: {
+		        	latitude: newEvent.coords.latitude,
+		        	longitude: newEvent.coords.longitude
+		      	},
+				date: tmpEvent.date,
+				description: tmpEvent.description,
+				eventIcon : tmpEvent.eventIcon,
+		      	options: {
+		      		icon: {
+		      			url : $scope.setIcon(newEvent.type).toString()
+		      		}
+			    },
+			    phone: tmpEvent.phone,
+			    price : tmpEvent.price,
+			    type : tmpEvent.type,
+				title: tmpEvent.title,
+		        window : {
+		      		options : {
+		      			visible : false
+		      		}
+		      	},
+		      	timeStamp : $scope.timeStamp + 1
+			}).then(function(ref) {
+				  	$scope.tmpRef = ref;
+				  	console.log("Add new marker to map");
+
+			});
+		}
+		var dayDate = tmpEvent.date.get;
+		//finish to add new place to firebase
+	}
 
 
 	// end of calendar section

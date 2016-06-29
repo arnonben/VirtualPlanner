@@ -94,6 +94,21 @@ body {
   float: right;
 }
 
+.jumbotron .btn {
+    font-size: 2vw;
+    padding: 1vh 1.5vw;
+    background-color: #537cb9;
+    border: 4px solid #537cb9;
+    color: white;
+    font-weight: bold;
+}
+
+.jumbotron .btn:hover {
+    background-color: white;
+    color: #537cb9;
+    font-weight: bold;
+}
+
 .
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -133,8 +148,8 @@ body {
   /*border-bottom: 1px solid #e5e5e5;*/
 }
 .jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+  font-size: 1vw;
+  padding: 0.7vh 0.5vw;
 }
 
 /* Supporting marketing content */

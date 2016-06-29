@@ -5,9 +5,9 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/jquery-timepicker-jt/jquery.timepicker.css" />
     <!-- endbower -->
@@ -79,10 +79,10 @@
             </ul>   
 
             <ul class="nav navbar-nav navbar-right">  
-              <li ng-if="connect"><a ui-sref="acount" ><span class="navbar-link">{{user}}</span></a></li>
-              <li ng-if="connect"><a href="#/" ng-click="logout()"><span class="navbar-link">התנתק</span></a></li>
+              <li ng-if="connect"><a style="padding-top:3vh !important;" ui-sref="acount" ><span class="navbar-link">{{user}}</span></a></li>
+              <li ng-if="connect"><a style="padding-top:3vh !important;" href="#/" ng-click="logout()"><span class="navbar-link">התנתק</span></a></li>
 
-              <li style="padding-top:0vh;"><a style="padding-top:0vh;" href="#/"><img style="padding-top:0vh;" src="images/upper-bar/logo.png" alt="" class="nav-logo"></a></li>
+              <li style="padding-top:0vh;"><a style="padding-top:0vh !important;" href="#/"><img style="padding-top:0vh;" src="images/upper-bar/logo.png" alt="" class="nav-logo"></a></li>
             </ul>
           </div>
         </div>

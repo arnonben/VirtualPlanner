@@ -18,7 +18,7 @@ angular.module('tipntripVpApp')
     return {
       getCategories: function () {
         var cat1 = {
-          img: "images/middle-bar/add-event/event-types/event-type1.png",
+          img: "images/middle-bar/event-type1.png",
           name: "אוכל",
           index : 1,
           style: "",
@@ -26,36 +26,36 @@ angular.module('tipntripVpApp')
           active: true
         }
         var cat2 = {
-          img: "images/middle-bar/add-event/event-types/event-type2.png",
+          img: "images/middle-bar/event-type2.png",
           name: "טיסה",
           index : 2,
           style: "",
           showName: false,    
         }
         var cat3 = {
-          img: "images/middle-bar/add-event/event-types/event-type3.png",
-          name: "לינה",
+          img: "images/middle-bar/event-type3.png",
+          name: "תרבות",
           index : 3,
           style: "",
           showName: false,    
         }
         var cat4 ={
-          img: "images/middle-bar/add-event/event-types/event-type4.png",
-          name: "תרבות",
+          img: "images/middle-bar/event-type4.png",
+          name: "תחבורה",
           index : 4,
           style: "",
           showName: false,  
         }             
         var cat5 = {
-          img: "images/middle-bar/add-event/event-types/event-type5.png",
-          name: "תחבורה",
+          img: "images/middle-bar/event-type5.png",
+          name: "פעילות",
           index : 5,
           style: "",
           showName: false,    
         }
         var cat6 = {
-          img: "images/middle-bar/add-event/event-types/event-type6.png",
-          name: "פעילות",
+          img: "images/middle-bar/event-type6.png",
+          name: "לינה",
           index : 6,
           style: "",
           showName: false,    

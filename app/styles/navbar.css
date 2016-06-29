@@ -1,12 +1,17 @@
 .navbar-brand,
 .navbar-nav li a {
-    line-height: 150px;
-    height: 12vh;
+    line-height: 6vh !important;
+    height: 12vh !important;
 }
 
 @media (min-width: 768px){
   .navbar-nav>li {
       height: 12vh !important;
+  }
+
+  .navbar-nav>li>a {
+    padding-top: 1vh !important;
+    padding-bottom: 1vh !important;
   }
 }
 
