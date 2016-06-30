@@ -59,10 +59,10 @@ angular.module('tipntripVpApp')
         /* jshint ignore:start */
         for (var i = 0; i < markers.length; i++) {
           markers[i].options.icon.url = markers[i].tmpurl  
-          markers[i].options.icon.scaledSize = new google.maps.Size(50, 80)  
+          markers[i].options.icon.scaledSize = new google.maps.Size(30, 50)  
           markers[i].options.labelClass = 'marker_labels',
-          markers[i].options.labelAnchor = '17 70',
-          markers[i].options.labelContent = '<div class="bold" style="font-size:30px; color:white;width:35px;">' + markers[i].id + '</div>'
+          markers[i].options.labelAnchor = '17 45',
+          markers[i].options.labelContent = '<div class="bold" style="font-size:20px; color:white;width:35px;">' + markers[i].id + '</div>'
         }
         /* jshint ignore:end */
         console.log("marker init complete")

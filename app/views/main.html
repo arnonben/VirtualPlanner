@@ -411,8 +411,7 @@
 							<div class="medium gray">תאריך</div>
 					</div>
 				</div><!-- flex-add-event-item-4-container -->
-				<div class="flex-add-event-line-container" style="padding-top:0vh!important;" 
-				\>
+				<div class="flex-add-event-line-container" style="padding-top:0vh!important;">
 					<div class="flex-add-event-line-field-name" style="padding-top:0vh!important;padding-bottom:0vh!important;">
 					</div>						
 					<div class="flex-add-event-item-5-item-2">
@@ -514,16 +513,16 @@
 						<button class="add-event-delete" type="button">בטל <span class="glyphicon glyphicon-remove"></span></button>
 					</div>															
 				</div>									
-			</div><!-- end of flex-add-event-container -->			
-		</form>
-		</div><!-- end of day-calendar-flex -->
-		<!-- end of edit event div -->
+				</form>
+			</div><!-- end of edit event div -->
+		</div>
 
 
 		<div class="flex-calendar-highlights">
 			<div class="day-highlights" ng-repeat="day in days">
 				<div class="day-title-active-cotnainer" ng-if="day.active">
-					<div class="flex-wheather-container">
+					
+					<!-- <div class="flex-wheather-container">
 						<div class="flex-wheather-item-2">
 							<img ng-src="{{day.wheather.icon}}" alt="">
 						</div>
@@ -534,7 +533,7 @@
 							</div>
 							<div class="small white">{{day.location}}</div>
 						</div>						
-					</div><!-- end of flex-wheather-container -->
+					</div> end of flex-wheather-container --> 
 					<div class="white day-title-cotnainer">
 						<div class="day-title-item-2 cursor-mode">
 							<p style="float:right;margin:10px" class="medium" ng-click="setDayMode(day)">
