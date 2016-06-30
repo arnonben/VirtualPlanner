@@ -5,7 +5,7 @@
 				<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" bounds="map.bounds" events="map.events">
 				<ui-gmap-drawing-manager options="drawingManagerOptions" control="drawingManagerControl" events="eventHandler">
 				<div ng-repeat="marker in markers track by $index">
-					<ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+					<ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="$index"></ui-gmap-marker>
 				</div><!-- end of marker -->
 				</ui-gmap-drawing-manager>
 				</ui-gmap-google-map>        
@@ -122,9 +122,17 @@
 						{{currentEvent.price | currency:" $"}}
 					</div>
 				</div>
-				<div style="margin-top:3vh;">
-					<a href="" ng-click="setEditEventMode(currentEvent)"class="btn btn-lg btn-default large">ערוך אירוע <span class="glyphicon glyphicon-edit"></span></a>
+				<div class="flex-add-event-line-container">
+					<div class="flex-add-event-buttons-item-0">
+					</div>
+					<div class="flex-add-event-buttons-item-1">
+						<button ng-click="setEditEventMode(currentEvent)" class="btn btn-lg btn-default large" type="text">ערוך אירוע <span class="glyphicon glyphicon-edit"></span></button>
+					</div>	
+					<div class="flex-add-event-buttons-item-2">
+						<button class="add-event-delete btn-lg large" type="button" ng-click="deleteEvent(currentEvent)" > מחק <span class="glyphicon glyphicon-trash"></span></button>
+					</div>										
 				</div>				
+
 			</div><!-- end of flex-day-calendar-body-container  -->	
 
 			<div class="flex-day-calendar-body scrollbar small"  ng-if="dayMode" style="">
@@ -462,7 +470,7 @@
 								<input 
 								type="number"
 								name="price"
-								focus="priceActive"0 
+								focus="priceActive"
 								ng-model="tmpEditEvent.price" 
 								id="price"  
 								ng-blur="setPriceNotActive(tmpEditEvent.price)" 
@@ -507,7 +515,7 @@
 						<button class="add-event-submit" type="button" ng-click="editEvent(tmpEditEvent)">ערוך<span class="glyphicon glyphicon-ok"></span></button>
 					</div>	
 					<div class="flex-add-event-buttons-item-2">
-						<button class="add-event-delete" type="button">מחק <span class="glyphicon glyphicon-trash"></span></button>
+						<button class="add-event-delete" type="button" ng-click="deleteEvent(tmpEditEvent)" >מחק <span class="glyphicon glyphicon-trash"></span></button>
 					</div>	
 					<div class="flex-add-event-buttons-item-3">
 						<button class="add-event-delete" type="button">בטל <span class="glyphicon glyphicon-remove"></span></button>

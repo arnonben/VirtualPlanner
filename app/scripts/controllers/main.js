@@ -459,6 +459,10 @@ angular.module('tipntripVpApp')
 		$scope.dayMode = false;
 		$scope.addEventMode = true;
 		markers.initMarkersSizeUrl($scope.markers);
+		$scope.setFormLocationMode()
+		$scope.timeResult=false;$scope.timeActive=false;$scope.timeTitle=true;
+		$scope.dateResult=false;$scope.dateActive=false;$scope.dateTitle=true;
+		$scope.priceResult=false;$scope.priceActive=false;$scope.priceTitle=true;
 	};
 
 	$scope.setEditEventMode = function(event){
@@ -466,7 +470,7 @@ angular.module('tipntripVpApp')
 		$scope.timeResult=true;$scope.timeActive=false;$scope.timeTitle=false;
 		$scope.dateResult=true;$scope.dateActive=false;$scope.dateTitle=false;
 		$scope.priceResult=true;$scope.priceActive=false;$scope.priceTitle=false;
-		
+		$scope.setFormLocationMode();
 		//init the category
 		$scope.setCategory($scope.types[event.type-1])
 		$scope.tmpEditEvent = {} 
@@ -868,7 +872,25 @@ angular.module('tipntripVpApp')
 		//finish to add new place to firebase
 	}
 
+	$scope.deleteEvent = function(event){
+		console.log("DELETE_EVENT");
+		console.log(event);
+		$scope.markersRef2.child(event.markerFirebaseKey).remove();
+		var indexes = markers.containEventInDays(event.markerFirebaseKey,$scope.days)
+		$scope.days[indexes.i].events.splice(indexes.j,1);
+		if($scope.days[indexes.i].events.length == 0){
+			$scope.days.splice(indexes.i,1)
+		}
+		$scope.editEventMode = false;
+		$scope.addEventMode = false;
+		$scope.dayMode = true;
+		$scope.eventMode = false;
+		var markerIndex = markers.containMarker(event.markerFirebaseKey,$scope.markerIndex,$scope.markers);
+		console.log("MARKER_INDEX")
+		console.log(markerIndex)
+		$scope.markers.splice(markerIndex,1)
 
+	}
 	// end of calendar section
 	 
     //Chat section
