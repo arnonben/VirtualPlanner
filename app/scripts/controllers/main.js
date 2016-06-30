@@ -67,7 +67,9 @@ angular.module('tipntripVpApp')
     $scope.markersRef = $firebaseArray(new Firebase("https://vitrualplanner.firebaseio.com/" + uid + "/trips/" + tripid +"/markers"));
     $scope.markersRef2 = new Firebase("https://vitrualplanner.firebaseio.com/" + uid + "/trips/" + tripid +"/markers");
 
-    	$scope.setEventMode = function(event,day){
+    $scope.setEventMode = function(event,day){
+    	console.log("SET_EVENT_MODE")
+    	console.log(event)
 		$scope.editEventMode = false;
 	    $scope.eventMode = true;
 	    $scope.dayMode = false;
@@ -77,6 +79,17 @@ angular.module('tipntripVpApp')
 	    		$scope.days[i].events[j].active = false;
 	    	}
 	    }
+	    for (var i = $scope.markers.length - 1; i >= 0; i--) {
+	    	console.log($scope.markers[i].markerFirebaseKey)
+	    	console.log(event.markerFirebaseKey)
+	    	if($scope.markers[i].markerFirebaseKey === event.markerFirebaseKey){
+	    		$scope.markers[i].window.options.visible = true
+	    		console.log("FOUND")
+	    	}
+	    	else{
+	    		$scope.markers[i].window.options.visible = false	
+	    	}
+	    };
 	    event.active = true;
 	    $scope.currentEvent = event;
 	    $scope.currentDay = day;
@@ -181,6 +194,11 @@ angular.module('tipntripVpApp')
 				marker.id = $scope.markerIndex;
 				marker.infoEdit = false;
 				marker.infoInsert = true;
+				marker.window = {
+					options :{
+						visible: false
+					}
+				};
 				marker.options = {
 					icon : {
 						url : marker.options.icon.url,
@@ -193,22 +211,10 @@ angular.module('tipntripVpApp')
 				marker.tmpurl = marker.options.icon.url;
 				marker.events = {
 					click: function(marker, eventName, model) {
-						markers.initMarkersSizeUrl($scope.markers);
-						$scope.markers[marker.key-1].options.icon.url = $scope.getActiveImg($scope.markers[marker.key-1].type);
-						$scope.markers[marker.key-1].options.icon.scaledSize =  new google.maps.Size(30, 50);
-						$scope.markers[marker.key-1].options.labelContent = 
-						'<div class="flex-icon-active">' +
-						'<div class="flex-icon-active-item-2 white" style="font-size:15px; color:white;">' + $scope.markers[marker.key-1].title +'</div>' +
-						'<div class="flex-icon-active-item-1 bold" style="font-size:20px; color:white;">' + $scope.markers[marker.key-1].id + '</div>' +						
-						'</div>';
-
-						$scope.markers[marker.key-1].options.labelAnchor = '60 70';
-						$scope.markers[marker.key-1].active = true;
-						for (var i = 0; i < $scope.markers.length; i++) {
-							if (i !== marker.key-1){
-								$scope.markers[i].active = false;
-							}
-						}
+						console.log(marker)
+						console.log(marker.key)
+						var indexes = markers.containEventInDays(marker.key,$scope.days)
+						$scope.setEventMode($scope.days[indexes.i].events[indexes.j],$scope.days[indexes.i])
 					},
 					mouseover: function(marker, eventName, model) {
 						// for (var i = 0; i < $scope.markers.length; i++) {
@@ -890,6 +896,13 @@ angular.module('tipntripVpApp')
 		console.log(markerIndex)
 		$scope.markers.splice(markerIndex,1)
 
+	}
+
+	$scope.cancelEdit = function(){
+		$scope.editEventMode = false;
+		$scope.addEventMode = false;
+		$scope.dayMode = false;
+		$scope.eventMode = true;		
 	}
 	// end of calendar section
 	 

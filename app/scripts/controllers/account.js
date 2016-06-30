@@ -60,14 +60,6 @@ angular.module('tipntripVpApp')
 
     $scope.usersRef = new Firebase("https://vitrualplanner.firebaseio.com/users/");
 
-  	$scope.removeTrip = function(trip){
-  		console.log("remove trip");
-  	};
-
-    $scope.$watch('trips',function(){
-      console.log("trips changed");
-    });
-
   	$scope.dupTrip = function(trip){
       trip.dupTrip = false
       var dupTrip = {
@@ -153,6 +145,7 @@ angular.module('tipntripVpApp')
                 var originTripRef = new Firebase("https://vitrualplanner.firebaseio.com/" + $scope.uid + "/trips/" + tripId);
                 originTripRef.update({traveler:{uid:uid,email:email}});                        
                 console.log("Trip was shared with " +  email);
+
               }
           });          
         }
@@ -162,5 +155,22 @@ angular.module('tipntripVpApp')
       });
     
   	};
+
+    $scope.deleteTrip = function(tripId,trip){
+      var traveler = trip.traveler.uid;
+      console.log(tripId)
+      if (traveler != ""){
+        var travelerRef = new Firebase("https://vitrualplanner.firebaseio.com/" + traveler + "/sharedTrips/"  );
+        travelerRef.orderByChild("tripId").equalTo(tripId).on("value", function(snapshot) {
+          $scope.tmpTripVal = snapshot.val()
+          $scope.tmpTripKey = snapshot.key()          
+          console.log(snapshot.val());
+          console.log(Object.keys(snapshot.val())[0]);
+          travelerRef.child(Object.keys(snapshot.val())[0]).remove()
+          //travelerRef.child(snapshot.key())
+        });
+      }
+      $scope.ref.child(tripId).remove(); 
+    }
   
   });

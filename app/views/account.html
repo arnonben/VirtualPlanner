@@ -9,7 +9,7 @@
 			</div>
 			<div  ng-repeat="(tripId, trip) in trips">
 				<div class="flex-account-addtrip-container">
-					<div class="flex-account-addtrip-item-3 white large" ng-init="trip.toggle=false;trip.shareTrip=false" ng-click="trip.toggle = !trip.toggle">{{trip.title}} <a href="#/addtrip"><img src="/images/mytrips/minus.png" style="width:2vw;margin-left:2vw;margin-top:-0.3vh;" alt=""></a> </div>
+					<div class="flex-account-addtrip-item-3 white large" ng-init="trip.toggle=false;trip.shareTrip=false" ng-click="trip.toggle = !trip.toggle">{{trip.title}}</div>
 				</div>
 				<div ng-if="trip.toggle">					
 					<div class="">	
@@ -22,13 +22,12 @@
 							</div>
 						</div>											
 						<div class="flex-container-trip-buttons">					
-							<div class="trip-buttons-item-1-container">
 								<div class="trip-buttons-item-1-container">							
 									<div class="trip-buttons-item button-primary" ng-click="trip.dupForm=!trip.dupForm"><a ui-sref="vp-test({})" ng-init="trip.dupForm = false"></a>שכפל</div>
 									<div class="trip-buttons-item button-primary" ng-click="goToVp(tripId,trip)">ווירטואל פלנר</div>
 									<div class="trip-buttons-item button-primary" ng-click="trip.shareTrip=!trip.shareTrip">שתף טיול</div>
+									<div class="trip-buttons-item button-primary" ng-click="deleteTrip(tripId,trip);">מחק</div>
 								</div>
-							</div>
 						</div>
 						<div class="" ng-init="" ng-show="trip.dupForm">
 							<form ng-submit="dupTrip(trip);" name="duptripform" style="text-align:center;">
@@ -98,7 +97,7 @@
 			<span class="white large bold">הטיולים ששיתפו אותי</span>
 			<div  ng-repeat="trip in shareTripsMeta">
 				<div class="flex-account-addtrip-container">
-					<div class="flex-account-addtrip-item-3 white large" ng-init="trip.toggle=false;trip.shareTrip=false" ng-click="trip.toggle = !trip.toggle">{{trip.title}} <a href="#/addtrip"><img src="/images/mytrips/minus.png" style="width:2vw;margin-left:2vw;margin-top:-0.3vh;" alt=""></a> </div>
+					<div class="flex-account-addtrip-item-3 white large" ng-init="trip.toggle=false;trip.shareTrip=false" ng-click="trip.toggle = !trip.toggle">{{trip.title}} </div>
 				</div>
 				<div ng-if="trip.toggle">					
 					<div class="">
@@ -112,7 +111,7 @@
 						</div>							
 						<div class="flex-container-trip-buttons">
 							<div class="trip-buttons-item-1-container">
-								<div class="trip-buttons-item button-primary" ng-click="trip.dupForm=!trip.dupForm"><a ui-sref="vp-test({})" ng-init="trip.dupForm = false"></a>שכפל</div>
+<!-- 								<div class="trip-buttons-item button-primary" ng-click="trip.dupForm=!trip.dupForm"><a ui-sref="vp-test({})" ng-init="trip.dupForm = false"></a>שכפל</div> -->
 								<div class="trip-buttons-item button-primary" ng-click="goToSharedVp(trip.tripId,trip)">ווירטואל פלנר</div>
 							</div>
 						</div>

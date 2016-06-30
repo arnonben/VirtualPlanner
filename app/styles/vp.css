@@ -299,9 +299,14 @@ a:hover{
   border-bottom: 3px solid #E4E5E5;
 }
 
-#day-mode-event-button:hover{
+.day-mode-event-button{
+  color:#537cb9;  
+}
+
+.day-mode-event-button:hover{
   color:#FFB91B;  
 }
+
 
 /*Calendar highlights*/
 .flex-calendar-highlights{
@@ -564,9 +569,9 @@ a:hover{
 .add-event-submit{
   color: white;
   cursor: pointer;
-  padding: 8px 15px 8px 15px;
+  padding: 0.2vh 0.4vw 0.2vh 0.4vw;
   background-color: #537cb9;
-  border: 4px solid #537cb9;
+  border: 1px solid #537cb9;
 }
 
 .add-event-submit:hover{
@@ -577,13 +582,13 @@ a:hover{
 .add-event-delete{
   color: #879EAA;
   cursor: pointer;
-  padding: 8px 15px 8px 15px;
+  padding: 0.2vh 0.4vw 0.2vh 0.4vw;
   background-color: white;
-  border: 4px solid white;
+  border: 1px solid white;
 }
 
 .add-event-delete:hover{
-  border: 5px solid #879EAA;
+  border: 1px solid #879EAA;
 }
 
 input.ng-invalid.ng-dirty{border:1px solid red;}
