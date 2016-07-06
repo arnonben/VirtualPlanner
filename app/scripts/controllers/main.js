@@ -486,6 +486,9 @@ angular.module('tipntripVpApp')
 		
 		$scope.tmpEditEvent.locationResults = event.locationResults;
 		
+		$scope.tmpEditEvent.tmpCoords = $scope.tmpEditEvent.coords 
+		var index = markers.containMarker(event.markerFirebaseKey,$scope.markers)
+		$scope.markers[index].tmpCoords = $scope.markers[index].coords
 		//set the date and time
 		$scope.tmpEditEvent.time = new Date()
 		$scope.tmpEditEvent.time.setHours(event.date.getHours())
@@ -633,12 +636,9 @@ angular.module('tipntripVpApp')
 	$scope.eventHandler ={
 		//When adding a new marker.
 		markercomplete: function (dm, name, scope, objs) {
-			console.log("MARKERCOMPLETE")
-			console.log(dm)
-			console.log(name)
-			console.log(scope)
-			console.log(objs)
-			$scope.markerComplete = objs
+			var markerComplete = objs[0]
+			console.log($scope.tmpEditEvent)
+			markerComplete.visible = false;
 			// $scope.markerComplete[0].visible = true
 
 			if($scope.addEventMode){
@@ -652,10 +652,15 @@ angular.module('tipntripVpApp')
 		        	latitude: objs[0].position.lat(),
 		        	longitude: objs[0].position.lng()
 				};	
+				var index = markers.containMarker($scope.tmpEditEvent.markerFirebaseKey,$scope.markers)
+				console.log("EDIT MARKER LOCATION")
+				console.log($scope.markers[index])
+				$scope.markers[index].coords = $scope.tmpEditEvent.coords;
 			}
 	    }
 
 	};
+
 	//Autocomplete google maps
     $scope.newEvent.newLocation = {
     	details: '',
@@ -814,6 +819,7 @@ angular.module('tipntripVpApp')
 		tmpEvent.type = event.type;
 		//Update everything except of the location
 		if (!$scope.mapLocationMode){
+			console.log("822")
 			var address = "";
 			if (locationDetails !== "" && locationDetails !== undefined){
 				$scope.locationValid = true;
@@ -872,9 +878,10 @@ angular.module('tipntripVpApp')
 			  	console.log(ref);
 		});	
 		console.log("MARKERCOMPLETE visible")
-		console.log($scope.markerComplete[0])
-		$scope.markerComplete[0].visible = false	
-		$scope.markercomplete = null
+		console.log("setFormLicationMode");
+		$scope.drawingManagerOptions.drawingMode = "";
+		$scope.mapLocationMode = false;		
+
 		//finish to add new place to firebase
 	}
 
@@ -899,10 +906,18 @@ angular.module('tipntripVpApp')
 	}
 
 	$scope.cancelEdit = function(){
+		var index = markers.containMarker($scope.tmpEditEvent.markerFirebaseKey,$scope.markers)
+		console.log("EDIT MARKER LOCATION")
+		console.log($scope.markers[index])
+		$scope.markers[index].coords = $scope.markers[index].tmpCoords		
 		$scope.editEventMode = false;
 		$scope.addEventMode = false;
 		$scope.dayMode = false;
-		$scope.eventMode = true;		
+		$scope.eventMode = true;
+		console.log("setFormLicationMode");
+		$scope.drawingManagerOptions.drawingMode = "";
+		$scope.mapLocationMode = false;		
+
 	}
 	// end of calendar section
 	 

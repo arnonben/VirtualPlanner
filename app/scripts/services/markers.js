@@ -55,6 +55,14 @@ angular.module('tipntripVpApp')
         }
         return -1;
       },
+      containMarker : function(markerFirebaseKey,markers){
+        for (var i = 0; i < markers.length; i++) {
+          if (markers[i].markerFirebaseKey === markerFirebaseKey) {
+            return i;
+          }
+        }
+        return -1;
+      },      
       initMarkersSizeUrl: function(markers){
         /* jshint ignore:start */
         for (var i = 0; i < markers.length; i++) {
