@@ -9,7 +9,7 @@
  /images/middle-bar/add-event/event-types/event-type1.png
  */
 angular.module('tipntripVpApp')
-  .controller('MainCtrl', function ($scope,$stateParams,$log, $timeout,$firebaseArray,$firebaseObject,categories,markers,modes,Auth) {
+  .controller('MainCtrl', function ($scope,$stateParams,$log, $timeout,$firebaseArray,$firebaseObject,categories,markers,modes,chatService,FileUploader,Auth) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -35,7 +35,6 @@ angular.module('tipntripVpApp')
     modes.setAddEventModeSimple(false);
     modes.setEditEventModeSimple(false);
 
-    $scope.attachFileHover = false;
     //mapLocationMode define wheather we select location by the authcomplete input or by selecting
     //location on the map.
     $scope.mapLocationMode = false;
@@ -110,7 +109,8 @@ angular.module('tipntripVpApp')
 
     $scope.trip = {
         title : "",
-        countries: ""
+        countries: "",
+        id :null
     }
 
     //Init page methods
@@ -119,6 +119,25 @@ angular.module('tipntripVpApp')
       var val = snapshot.val()
       $scope.trip.title = val.title;
       $scope.trip.countries = val.countries
+      $scope.trip.id = snapshot.key()
+
+      var messages = new Firebase("https://vitrualplanner.firebaseio.com/chats/" + $scope.trip.id + "/");
+
+      var syncObject = $firebaseObject(messages);
+
+      syncObject.$bindTo($scope,"messages").then(function(){
+        console.log($scope.messages);
+      });
+
+      var files= new Firebase("https://vitrualplanner.firebaseio.com/files/" + $scope.trip.id + "/");
+
+      var syncObject2 = $firebaseObject(files);
+
+      syncObject2.$bindTo($scope,"files").then(function(){
+        console.log($scope.messages);
+      });
+
+
     });
     $scope.markersRef2.on("value",function(snapshot){
     snapshot.forEach(function(childSnapshot) {
@@ -178,12 +197,7 @@ angular.module('tipntripVpApp')
             $scope.setEventMode($scope.days[indexes.i].events[indexes.j],$scope.days[indexes.i]);
           },
           mouseover: function(marker, eventName, model) {
-            // for (var i = 0; i < $scope.markers.length; i++) {
-            // 	if (i != marker.key-1){
-            // 		$scope.markers[i].active = false
-            // 		$scope.markers[i].options.icon.url = "images/map/map-pin-0.png"
-            // 	}
-            // };
+
           },
           mouseout: function(marker, eventName, model) {
             for (var i = 0; i < $scope.markers.length; i++) {
@@ -745,60 +759,91 @@ angular.module('tipntripVpApp')
     };
     // end of calendar section
 
-      //Chat section
-      $scope.traveler = {
-        uid : $stateParams.travUid,
-        email : $stateParams.travEmail
-      };
-      $scope.advisor = {
-        uid : $stateParams.advisorUid,
-        email : $stateParams.advisorEmail
-      };
-      $scope.user1 = {};
-      $scope.user2 = {} ;
-      $scope.whoAmI = function(){
-        if(Auth.$getAuth().auth.uid === $scope.traveler.uid){
-          $scope.user1 = $scope.traveler;
-          $scope.user2 = $scope.advisor;
-        }
-        else{
-          $scope.user1 = $scope.advisor;
-          $scope.user2 = $scope.traveler;
-        }
-      };
+    // //Chat section
+    console.log("MESSAGES PATH")
+    console.log("https://vitrualplanner.firebaseio.com/chats/" + $scope.trip.id + "/")
 
-      $scope.whoAmI();
 
-      $scope.newMessage = "";
-      $scope.chatPath = "https://vitrualplanner.firebaseio.com/chats/" + $scope.advisor.uid + "/" + $scope.traveler.uid + "/messages/";
-      $scope.chatsRef = new Firebase($scope.chatPath);
-    // download the data into a local object
-      var syncObject = $firebaseObject($scope.chatsRef);
-      // synchronize the object with a three-way data binding
-      // click on `index.html` above to see it used in the DOM!
-      syncObject.$bindTo($scope, "messages").then(function(){
-        console.log("messages");
-      });
 
-      $scope.sendMessage = function(newMessage){
-      var messagesList =  $scope.chatsRef.push();
-        messagesList.set({
-          text: newMessage,
-          user: $scope.user1,
-              timeStamp: Date.now()
-        },
-        function(error){
-          if(error){
-            console.log(error);
-          }
-          else{
-            $scope.newMessage = "";
-            console.log("New message was sent saved");
-            console.log($scope);
-          }
-        });
-      };
-      //end of chat section
+    $scope.Auth = Auth;
+    $scope.newMessage = {
+      uid : Auth.$getAuth().auth.uid,
+      name : Auth.$getAuth().auth.token.email,
+      text : null,
+      file : null
+    }
+
+    $scope.sendMessage = function(message,trip_id){
+      message.timestamp = Firebase.ServerValue.TIMESTAMP;
+      $scope.newMessage = chatService.initMessage(Auth.$getAuth().auth.uid);
+      chatService.sendMessage(message, trip_id).then(function (ref) {
+        console.log("new message added with id " + ref.key());
+      }, function (error) {
+        console.log(error)
+      })
+      return;
+    }
+
+
+    //files section
+
+    var uploader = $scope.uploader = new FileUploader({
+      url: 'upload.php'
+    });
+
+    // FILTERS
+
+    uploader.filters.push({
+      name: 'customFilter',
+      fn: function(item /*{File|FileLikeObject}*/, options) {
+        return this.queue.length < 10;
+      }
+    });
+
+    // CALLBACKS
+
+    uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+      console.info('onWhenAddingFileFailed', item, filter, options);
+    };
+    uploader.onAfterAddingFile = function(fileItem) {
+      console.info('onAfterAddingFile', fileItem);
+    };
+    uploader.onAfterAddingAll = function(addedFileItems) {
+      console.info('onAfterAddingAll', addedFileItems);
+    };
+    uploader.onBeforeUploadItem = function(item) {
+      console.info('onBeforeUploadItem', item);
+    };
+    uploader.onProgressItem = function(fileItem, progress) {
+      console.info('onProgressItem', fileItem, progress);
+    };
+    uploader.onProgressAll = function(progress) {
+      console.info('onProgressAll', progress);
+    };
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+      console.info('onSuccessItem', fileItem, response, status, headers);
+    };
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+      console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCancelItem = function(fileItem, response, status, headers) {
+      console.info('onCancelItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+      console.info('onCompleteItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteAll = function() {
+      console.info('onCompleteAll');
+    };
+
+    console.info('uploader', uploader);
+
+    //end of chat section
+
+
+
+
+
 
     //video chat section
     // $scope.showVideo = true;

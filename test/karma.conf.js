@@ -38,6 +38,7 @@ module.exports = function(config) {
       'bower_components/firebase/firebase.js',
       'bower_components/angular-scroll-glue/src/scrollglue.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/angular-file-upload/dist/angular-file-upload.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/livereload-js/dist/livereload.js',
       // endbower

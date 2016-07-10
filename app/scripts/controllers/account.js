@@ -17,46 +17,22 @@ angular.module('tipntripVpApp')
     $scope.uid = Auth.$getAuth().auth.uid;
     $scope.email = Auth.$getAuth().auth.token.email;
     $scope.ref = new Firebase("https://vitrualplanner.firebaseio.com/" + $scope.uid + "/trips");
-    // download the data into a local object
+
     var syncObject = $firebaseObject($scope.ref);
-    // synchronize the object with a three-way data binding
-    // click on `index.html` above to see it used in the DOM!
+
     syncObject.$bindTo($scope, "trips").then(function(){
       console.log("trps");
     });
     // })
 
     $scope.sharedRef = new Firebase("https://vitrualplanner.firebaseio.com/" + $scope.uid + "/sharedTrips");
-    // download the data into a local object
     var syncObject2 = $firebaseObject($scope.sharedRef);
-    // synchronize the object with a three-way data binding
-    // click on `index.html` above to see it used in the DOM!
+
     $scope.sharedTrips = [];
     $scope.sharedRefs = [];
     var index = 0;
 
     syncObject2.$bindTo($scope, "shareTripsMeta");
-    // .then(function(){
-    //   for (var i in $scope.shareTripsMeta) {
-    //     if(i  != "$id" && i  != "$priority" && $scope.shareTripsMeta[i] != null ){
-    //       console.log(index)
-    //       var adUid = $scope.shareTripsMeta[i].advisorUid
-    //       var tripId = $scope.shareTripsMeta[i].tripId
-    //       console.log(adUid)
-    //       console.log(tripId)
-    //       $scope.sharedRefs[index-2] = new Firebase("https://vitrualplanner.firebaseio.com/" + $scope.shareTripsMeta[i].advisorUid + "/trips/" + $scope.shareTripsMeta[i].tripId +"/title");
-    //       var syncObject = $firebaseObject($scope.sharedRefs[index-2]);
-    //       syncObject.$bindTo($scope, "tmpTitle").then(function(){
-    //         $scope.sharedTrips.push({
-    //           title : $scope.tmpTitle.$value,
-    //         })
-    //         console.log($scope.sharedTrips)
-    //       });
-    //     }
-    //     index += 1
-    //   };
-    // });
-    // })
 
     $scope.usersRef = new Firebase("https://vitrualplanner.firebaseio.com/users/");
 

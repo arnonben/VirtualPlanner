@@ -19,11 +19,13 @@ angular
     'uiGmapgoogle-maps',
     'ui.timepicker',
     'firebase',
-    'ngAutocomplete',    
-    'luegg.directives'
+    'ngAutocomplete',
+    'luegg.directives',
+    'angularFileUpload'
   ])
   .constant('FirebaseUrl', 'https://vitrualplanner.firebaseio.com')
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($compileProvider,$stateProvider, $urlRouterProvider) {
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|tel|data):/);
     $urlRouterProvider.otherwise("/account");
 
     $stateProvider
@@ -38,7 +40,7 @@ angular
               return;
             });
           }
-        }        
+        }
       })
       .state('register', {
         url: '/register',
@@ -51,8 +53,8 @@ angular
               return;
             });
           }
-        }           
-      }) 
+        }
+      })
       .state('acount', {
         url: '/account',
         templateUrl: 'views/account.html',
@@ -65,8 +67,8 @@ angular
               $state.go('login');
             });
           }
-        }           
-      })   
+        }
+      })
 
       .state('addtrip', {
         url: '/addtrip',
@@ -80,8 +82,8 @@ angular
               $state.go('login');
             });
           }
-        }           
-      })  
+        }
+      })
 
       .state('vp',{
         url: '/vp/:advisorUid/:advisorEmail/:travUid/:travEmail/:tripId',
@@ -95,6 +97,6 @@ angular
               $state.go('login');
             });
           }
-        }           
+        }
       });
   });

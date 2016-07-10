@@ -25,8 +25,6 @@
 								<div class="trip-buttons-item-1-container">
 									<div class="trip-buttons-item button-primary" ng-click="trip.dupForm=!trip.dupForm"><a ui-sref="vp-test({})" ng-init="trip.dupForm = false"></a>שכפל</div>
 									<div class="trip-buttons-item button-primary" ng-click="goToVp(tripId,trip)"> ווירטואל פלנר</div>
-                  <div class="trip-buttons-item button-primary" ng-click="goToVp(tripId,trip)"> {{trip.dupForm}}</div>
-
 									<div class="trip-buttons-item button-primary" ng-click="trip.shareTrip=!trip.shareTrip">שתף טיול</div>
 									<div class="trip-buttons-item button-primary" ng-click="deleteTrip(tripId,trip);">מחק</div>
 								</div>
@@ -69,7 +67,7 @@
 							</form>
 						</div>
 						<div class="" ng-if="trip.shareTrip">
-							<form ng-submit="shareTrip(trip,tripId,trip.share.email)" name="duptripform">
+							<form ng-submit="shareTrip(trip,tripId,trip.share.email)">
 							<div class="login-dup-conatiner">
 							  <div class="login-mail-item-1"><label style="font-size:1vw" class="white" >:מייל</label></div>
 							  <div class="login-mail-item-2">
@@ -85,7 +83,7 @@
 							  </div>
 							</div>
 							<div>
-								<button ng-click="trip.shareTrip=!trip.shareTrip" class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">שתף</button>
+								<button  class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">שתף</button>
 								<div ng-show="duptripError" style="margin-top:1vh;" class="alert alert-danger large">{{error}}</div>
 							</div>
 							</form>

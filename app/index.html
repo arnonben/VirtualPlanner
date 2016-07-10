@@ -43,42 +43,42 @@
 
             <ul class="nav navbar-nav navbar-left" style="margin-left:1.35vw;">
               <li ng-init="icon1 = true" ng-show="icon1" ng-mouseover="icon1 = false">
-                  <a href=""><img src="images/upper-bar/navbar-icon-1.png" alt="" class="nav-image"></a>             
+                  <a href=""><img src="images/upper-bar/navbar-icon-1.png" alt="" class="nav-image"></a>
               </li>
               <li ng-show="!icon1" ng-mouseleave = "icon1 = true" >
                 <a href=""><img src="images/upper-bar/navbar-icon-hover1.png" alt="" class="nav-image"></a>
               </li>
 
               <li ng-init="icon2 = true" ng-show="icon2" ng-mouseover="icon2 = false">
-                  <a href=""><img src="images/upper-bar/navbar-icon-2.png" alt="" class="nav-image"></a>             
+                  <a href=""><img src="images/upper-bar/navbar-icon-2.png" alt="" class="nav-image"></a>
               </li>
               <li ng-show="!icon2" ng-mouseleave = "icon2 = true" >
                 <a href=""><img src="images/upper-bar/navbar-icon-hover2.png" alt="" class="nav-image"></a>
               </li>
 
               <li ng-init="icon3 = true; showChat = false" ng-show="icon3" ng-mouseover="icon3 = false">
-                  <a href="" ng-click="showChat = !showChat" ><img src="images/upper-bar/navbar-icon-3.png" alt="" class="nav-image"></a>             
+                  <a href="" ng-click="showChat = !showChat" ><img src="images/upper-bar/navbar-icon-3.png" alt="" class="nav-image"></a>
               </li>
               <li ng-show="!icon3" ng-mouseleave = "icon3 = true" >
                 <a href="" ng-click="showChat = !showChat" ><img src="images/upper-bar/navbar-icon-hover3.png" alt="" class="nav-image"></a>
-              </li>  
+              </li>
 
-              <li ng-init="icon4 = true" ng-show="icon4" ng-mouseover="icon4 = false">
-                  <a href=""><img src="images/upper-bar/navbar-icon-4.png" alt="" class="nav-image"></a>             
+              <li ng-init="icon4 = true;" ng-show="icon4" ng-mouseover="icon4 = false">
+                  <a href="" ><img src="images/upper-bar/navbar-icon-4.png" alt="" class="nav-image"></a>
               </li>
               <li ng-show="!icon4" ng-mouseleave = "icon4 = true" >
-                <a href=""><img src="images/upper-bar/navbar-icon-hover4.png" alt="" class="nav-image"></a>
+                <a href="" ><img src="images/upper-bar/navbar-icon-hover4.png" alt="" class="nav-image"></a>
               </li>
 
-              <li ng-init="icon5 = true" ng-show="icon5" ng-mouseover="icon5 = false">
-                  <a href=""><img src="images/upper-bar/navbar-icon-5.png" alt="" class="nav-image"></a>             
+              <li ng-init="icon5 = true; showFiles = false" ng-show="icon5" ng-mouseover="icon5 = false">
+                  <a href="" ng-click="showFiles = !showFiles"><img src="images/upper-bar/navbar-icon-5.png" alt="" class="nav-image"></a>
               </li>
               <li ng-show="!icon5" ng-mouseleave = "icon5 = true" >
-                <a href=""><img src="images/upper-bar/navbar-icon-hover5.png" alt="" class="nav-image"></a>
-              </li> 
-            </ul>   
+                <a href="" ng-click="showFiles = !showFiles"><img src="images/upper-bar/navbar-icon-hover5.png" alt="" class="nav-image"></a>
+              </li>
+            </ul>
 
-            <ul class="nav navbar-nav navbar-right">  
+            <ul class="nav navbar-nav navbar-right">
               <li ng-if="connect"><a style="padding-top:3vh !important;" ui-sref="acount" ><span class="navbar-link">{{user}}</span></a></li>
               <li ng-if="connect"><a style="padding-top:3vh !important;" href="#/" ng-click="logout()"><span class="navbar-link">התנתק</span></a></li>
 
@@ -130,6 +130,7 @@
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
@@ -143,13 +144,13 @@
         <!-- controllers -->
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
-        
+
         <!-- filters -->
         <script src="scripts/filters/temp.filter.js"></script>
-        
+
         <!-- ngAutocomplete -->
         <script src="scripts/ngAutocomplete.js"></script>
-        
+
         <!-- directives -->
         <script src="scripts/directives/focus.js"></script>
         <script src="scripts/services/auth.js"></script>
@@ -163,6 +164,10 @@
         <script src="scripts/directives/pwcheck.js"></script>
         <script src="scripts/directives/schrollbottom.js"></script>
         <script src="scripts/services/modes.js"></script>
+        <script src="scripts/directives/appfilereader.js"></script>
+        <script src="scripts/directives/filemodel.js"></script>
+        <script src="scripts/services/chat.js"></script>
+        <script src="scripts/filters/bytes.js"></script>
         <!-- endbuild -->
 </body>
 </html>
