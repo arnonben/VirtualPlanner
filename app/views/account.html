@@ -11,84 +11,87 @@
 				<div class="flex-account-addtrip-container">
 					<div class="flex-account-addtrip-item-3 white large" ng-init="trip.toggle=false;trip.shareTrip=false" ng-click="trip.toggle = !trip.toggle">{{trip.title}}</div>
 				</div>
-				<div ng-if="trip.toggle">					
-					<div class="">	
-						<div class="flex-container-trip-buttons">					
+				<div ng-if="trip.toggle">
+					<div class="">
+						<div class="flex-container-trip-buttons">
 							<div class="trip-buttons-item-1-container white" style="text-align:center !important;">
 								<div style="font-size:1.3vw; text-align:center;">
 									<div style="background-color:#FFF8DC;color:black; border-radius:10px;padding:0.3vh 1vw 0.3vh 1vw;">{{trip.countries}}</div>
 									<span><span class="bold">{{trip.traveler.email}}</span> :מטייל ששותף</span>
 								</div>
 							</div>
-						</div>											
-						<div class="flex-container-trip-buttons">					
-								<div class="trip-buttons-item-1-container">							
+						</div>
+						<div class="flex-container-trip-buttons">
+								<div class="trip-buttons-item-1-container">
 									<div class="trip-buttons-item button-primary" ng-click="trip.dupForm=!trip.dupForm"><a ui-sref="vp-test({})" ng-init="trip.dupForm = false"></a>שכפל</div>
-									<div class="trip-buttons-item button-primary" ng-click="goToVp(tripId,trip)">ווירטואל פלנר</div>
+									<div class="trip-buttons-item button-primary" ng-click="goToVp(tripId,trip)"> ווירטואל פלנר</div>
+                  <div class="trip-buttons-item button-primary" ng-click="goToVp(tripId,trip)"> {{trip.dupForm}}</div>
+
 									<div class="trip-buttons-item button-primary" ng-click="trip.shareTrip=!trip.shareTrip">שתף טיול</div>
 									<div class="trip-buttons-item button-primary" ng-click="deleteTrip(tripId,trip);">מחק</div>
 								</div>
 						</div>
-						<div class="" ng-init="" ng-show="trip.dupForm">
-							<form ng-submit="dupTrip(trip);" name="duptripform" style="text-align:center;">
+						<div class=""  ng-if="trip.dupForm">
+							<form ng-submit="dupTrip(trip)" name="duptripform" style="text-align:center;">
 							<div class="login-dup-conatiner">
-			  					<div class="login-mail-item-1"><label style="font-size:1vw" class="white" for="First_Name">:כותרת</label></div>
+			  					<!--<div class="login-mail-item-1"><label style="font-size:1vw" class="white">:כותרת </label></div>-->
+                  <div class="login-mail-item-1"><label style="font-size:1vw" class="white">{{trip.dupForm}}</label></div>
 							  	<div class="login-mail-item-2">
-								  <input 
-								  type="text" 
-								  style="font-size:1vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL" 
-								  name="title" 
-								  class="black" 
-								  id="duptrip-title" 
+								  <input
+								  type="text"
+								  style="font-size:1vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL"
+								  name="title"
+								  class="black"
+								  id="duptrip-title"
 								  ng-model="trip.dup.title"
 								  required
-								  />								  		
+								  />
 							  	</div>
 							</div>
-							<div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="duptripform.title.$dirty && duptripform.title.$error.required">Required Title</div>		
+							<div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="duptripform.title.$dirty && duptripform.title.$error.required">Required Title</div>
 							<div class="login-dup-conatiner">
-			  					<div class="login-dup-item-1"><label style="font-size:1vw" class="white" for="First_Name">:מדינות</label></div>
+			  					<div class="login-dup-item-1"><label style="font-size:1vw" class="white" >:מדינות</label></div>
 							  	<div class="login-dup-item-2">
-								  <input 
-								  type="text" 
-								  style="font-size:1vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL" 
-								  name="countries" 
-								  class="black" 
-								  id="aduptrip-title" 
+								  <input
+								  type="text"
+								  style="font-size:1vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL"
+								  name="countries"
+								  class="black"
+								  id="aduptrip-title"
 								  ng-model="trip.dup.countries"
 								  />
-								</div>			  
-							</div>				
-							<div>	
-								<button class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">שכפל</button>
+								</div>
+							</div>
+							<div>
+								<button ng-click="trip.dupForm=!trip.dupForm" class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">שכפל</button>
 								<div ng-show="duptripError" style="margin-top:1vh;" class="alert alert-danger large">{{error}}</div>
 							</div>
-							</form>	
-						</div>	
+							</form>
+						</div>
 						<div class="" ng-if="trip.shareTrip">
 							<form ng-submit="shareTrip(trip,tripId,trip.share.email)" name="duptripform">
 							<div class="login-dup-conatiner">
 							  <div class="login-mail-item-1"><label style="font-size:1vw" class="white" >:מייל</label></div>
 							  <div class="login-mail-item-2">
-							  <input 
-							  type="email" 
-							  style="font-size:1vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL" 
-							  name="title" 
-							  class="black" 
-							  id="duptrip-title" 
+							  <input
+							  type="email"
+							  style="font-size:1vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL"
+							  name="title"
+							  class="black"
+							  id="duptrip-title"
 							  ng-model="trip.share.email"
 							  required
-							  />								  	
-							  </div>		  
-							</div>				
-							<div>	
-								<button class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">שתף</button>
+							  />
+							  </div>
+							</div>
+							<div>
+								<button ng-click="trip.shareTrip=!trip.shareTrip" class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">שתף</button>
 								<div ng-show="duptripError" style="margin-top:1vh;" class="alert alert-danger large">{{error}}</div>
 							</div>
-							</form>	
-						</div>												
+							</form>
+						</div>
 					</div>
-				</div>				
+				</div>
 			</div>
 		</div>
 		</div>
@@ -99,16 +102,16 @@
 				<div class="flex-account-addtrip-container">
 					<div class="flex-account-addtrip-item-3 white large" ng-init="trip.toggle=false;trip.shareTrip=false" ng-click="trip.toggle = !trip.toggle">{{trip.title}} </div>
 				</div>
-				<div ng-if="trip.toggle">					
+				<div ng-if="trip.toggle">
 					<div class="">
-						<div class="flex-container-trip-buttons">					
+						<div class="flex-container-trip-buttons">
 							<div class="trip-buttons-item-1-container white" style="text-align:center !important;">
 								<div style="font-size:1.3vw; text-align:center;">
 									<div style="background-color:#FFF8DC;color:black; border-radius:10px;">{{trip.countries}}</div>
 									<span><span class="bold">{{trip.advisorMail}}</span> :יועץ</span>
 								</div>
 							</div>
-						</div>							
+						</div>
 						<div class="flex-container-trip-buttons">
 							<div class="trip-buttons-item-1-container">
 <!-- 								<div class="trip-buttons-item button-primary" ng-click="trip.dupForm=!trip.dupForm"><a ui-sref="vp-test({})" ng-init="trip.dupForm = false"></a>שכפל</div> -->
@@ -120,60 +123,60 @@
 							<div class="login-mail-conatiner">
 			  					<div class="login-mail-item-1"><label style="font-size:1.3vw" class="white" for="First_Name">:כותרת</label></div>
 			  					<div class="login-mail-item-2">
-								  <input 
-								  type="text" 
-								  style="font-size:1.3vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL" 
-								  name="title" 
-								  class="black" 
-								  id="duptrip-title" 
+								  <input
+								  type="text"
+								  style="font-size:1.3vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL"
+								  name="title"
+								  class="black"
+								  id="duptrip-title"
 								  ng-model="trip.dup.title"
 								  required
-								  />			
-								</div>  
+								  />
+								</div>
 							</div>
-							<div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="duptripform.title.$dirty && duptripform.title.$error.required">Required Title</div>		
+							<div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="duptripform.title.$dirty && duptripform.title.$error.required">Required Title</div>
 							<div class="your-class">
 							  <label style="font-size:1.3vw" class="white" >:מדינות</label>
-							  <input 
-							  type="text" 
-							  style="font-size:1.3vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL" 
-							  name="countries" 
-							  class="black" 
-							  id="aduptrip-title" 
+							  <input
+							  type="text"
+							  style="font-size:1.3vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL"
+							  name="countries"
+							  class="black"
+							  id="aduptrip-title"
 							  ng-model="trip.dup.countries"
-							  />			  
-							</div>				
-							<div>	
+							  />
+							</div>
+							<div>
 								<button class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">שכפל</button>
 								<div ng-show="duptripError" style="margin-top:1vh;" class="alert alert-danger large">{{error}}</div>
 							</div>
-							</form>	
-						</div>	
+							</form>
+						</div>
 						<div class="" ng-if="trip.shareTrip">
 							<form ng-submit="shareTrip(trip,tripId,trip.share.email)" name="duptripform">
 							<div class="your-class">
 							  <label style="font-size:1vw" class="white" >:מייל</label>
-							  <input 
-							  type="email" 
-							  style="font-size:1vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL" 
-							  name="title" 
-							  class="black" 
-							  id="duptrip-title" 
+							  <input
+							  type="email"
+							  style="font-size:1vw;width:12vw;padding-right:0.2vw;font-weight:bold;direction:RTL"
+							  name="title"
+							  class="black"
+							  id="duptrip-title"
 							  ng-model="trip.share.email"
 							  required
-							  />			  
-							</div>				
-							<div>	
+							  />
+							</div>
+							<div>
 								<button class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">שכפל</button>
 								<div ng-show="duptripError" style="margin-top:1vh;" class="alert alert-danger large">{{error}}</div>
 							</div>
-							</form>	
-						</div>												
+							</form>
+						</div>
 					</div>
-				</div>				
+				</div>
 			</div>
 		</div>
-		</div>		
+		</div>
 		<div class="account-item-1"></div>
 	</div>
 </div>

@@ -1,10 +1,10 @@
- .angular-google-map-container { 
-    height: 70vh; 
+ .angular-google-map-container {
+    height: 70vh;
   }
 
   .video_canvas{
     border: 5px solid black;
-    height: 70vmin;  
+    height: 70vmin;
     overflow:scroll;
     text-align: right;
     position: relative;
@@ -26,9 +26,9 @@
     position: absolute;
     bottom:0px;
     right:0px;
-    height: 30% !important;  
+    height: 30% !important;
     width: 30% !important;
-  }  
+  }
 @media screen and (min-width: 768px) {
   .container {
     min-width: 768px;
@@ -59,14 +59,14 @@
 .flex-map {
     width: 51.724%;
     height: 70vh;
-    border-right: 0.4vw solid gray; 
-    border-left: 0.4vw solid gray; 
+    border-right: 0.4vw solid gray;
+    border-left: 0.4vw solid gray;
 }
 
 .flex-day-calendar {
     width: 27.568%;
     height: 70vh;
-    border-right: 0.4vw solid gray;     
+    border-right: 0.4vw solid gray;
 }
 
 .flex-day-calendar-header-container{
@@ -78,12 +78,24 @@
 }
 
 .flex-day-calendar-header-item1{
-    font-family: almoni-dl-regular;
-    background-image: url("../images/middle-bar/add-event-btn.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;    
+    font-family: almoni-dl-bold;
+    background-repeat: no-repeat;
     width: 20%;
+    background-color: #537cb9;
+    padding:0.5vh 0.1vw 1vh 0.1vw;
+    margin: 0.7vh 0.5vw 0.7vh 0.5vw;
+    font-size: 0.8vw;
+    color: white;
+    border-radius: 15px;
+    border: 2px solid  #537cb9;
 }
+
+ .flex-day-calendar-header-item1:hover{
+   background-color: white;
+   font-size: 0.8vw;
+   color: #537cb9;
+ }
+
 
 .flex-day-calendar-header-item2{
     width: 20%;
@@ -95,14 +107,14 @@
 
 .flex-day-calendar-header-item2-img > img {
   max-width: 80%;
-  height: auto; 
+  height: auto;
 }
 
 .money-up{
   background-image: url("../images/middle-bar/money-up.png");
   background-size: 100% 100%;
   height: 3.5vh;
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
 }
 
 .money-down {
@@ -116,7 +128,7 @@
 
 .flex-day-calendar-header-item3{
     width: 40%;
-    border-right: 3px solid gray; 
+    border-right: 3px solid gray;
     padding:2.5vh;
 }
 
@@ -164,7 +176,7 @@ a:hover{
   flex-direction: row-reverse;
   width: 100%;
   padding: 1vh;
-  border-bottom: 3px solid #E4E5E5;  
+  border-bottom: 3px solid #E4E5E5;
 }
 
 .flex-event-div-1-item-1{
@@ -176,7 +188,7 @@ a:hover{
 }
 
 .flex-event-div-2{
-  border-bottom: 3px solid #E4E5E5;  
+  border-bottom: 3px solid #E4E5E5;
   text-align: right;
   padding: 2vh;
 }
@@ -187,7 +199,7 @@ a:hover{
   flex-direction: row-reverse;
   width: 100%;
   padding: 1vh;
-  border-bottom: 3px solid #E4E5E5;  
+  border-bottom: 3px solid #E4E5E5;
 }
 
 .flex-event-div-3-item-1{
@@ -205,12 +217,12 @@ a:hover{
 
 .flex-event-div-4{
   text-align: right;
-  border-bottom: 3px solid #E4E5E5;  
+  border-bottom: 3px solid #E4E5E5;
   padding: 2vh;
 }
 
 .event-buttons{
-  border: 1px solid gray;   
+  border: 1px solid gray;
   padding: 2em;
 }
 
@@ -230,13 +242,13 @@ a:hover{
 }
 
 .delete {
-    background-color: #FFB91B; 
-    color: white; 
+    background-color: #FFB91B;
+    color: white;
 }
 
 .general {
-    background-color: white; 
-    color: black; 
+    background-color: white;
+    color: black;
     border: 2px solid gray;
 }
 
@@ -261,12 +273,13 @@ a:hover{
 #day-calendar-scroolbar::-webkit-scrollbar-thumb
 {
   background-color: #EBF0F0;
-  
+
   background-image: -webkit-gradient(linear, 0 0, 0 100%,
                      color-stop(.5, rgba(255, 255, 255, .2)),
              color-stop(.5, transparent), to(transparent));
 }
 .flex-day-calendar-body{
+  height: 62vh;
 }
 
 .flex-event-item-container{
@@ -300,18 +313,18 @@ a:hover{
 }
 
 .day-mode-event-button{
-  color:#537cb9;  
+  color:#537cb9;
 }
 
 .day-mode-event-button:hover{
-  color:#FFB91B;  
+  color:#FFB91B;
 }
 
 
 /*Calendar highlights*/
 .flex-calendar-highlights{
   width: 20.689%;
-  border-right: 0.4vw solid gray; 
+  border-right: 0.4vw solid gray;
   background-color: #232A2B;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -320,11 +333,11 @@ a:hover{
 .flex-calendar-highlights::-webkit-scrollbar {
     width: 1vw;
 }
- 
+
 .flex-calendar-highlights::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
- 
+
 .flex-calendar-highlights::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 2px solid slategrey;
@@ -340,11 +353,11 @@ a:hover{
 .flex-event-calendar-body::-webkit-scrollbar {
     width: 1vw;
 }
- 
+
 .flex-event-calendar-body::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
- 
+
 .flex-event-calendar-body::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 2px solid slategrey;
@@ -353,7 +366,7 @@ a:hover{
 .day-title{
   padding-right: 1em;
   padding-top: 0.1em;
-  padding-bottom: 0.1em; 
+  padding-bottom: 0.1em;
   border-bottom: 3px solid black;
 }
 .event-highlight{
@@ -361,6 +374,12 @@ a:hover{
   text-align: right;
   padding-right: 3em;
   border-bottom: 1px solid black;
+}
+
+.trip-title{
+  color: #FFB91B;
+  font-family: almoni-dl-bold;
+  font-size: 2vw;
 }
 
 .event-highlight:hover #event-title{
@@ -380,7 +399,7 @@ a:hover{
   display: -webkit-flex;
   display: flex;
   flex-direction: row-reverse;
-  width: 100%;  
+  width: 100%;
 }
 
 .flex-wheather-item-2{
@@ -509,7 +528,7 @@ a:hover{
   text-align: right;
   width: 100%;
   border: 3px solid #cccccc;
-  padding: 1vh;  
+  padding: 1vh;
   height: 15vh;
 }
 
@@ -564,7 +583,7 @@ a:hover{
 .flex-add-event-place-item-2{
   /*width: 30%;*/
   text-align: right;
-  vertical-align: middle;  
+  vertical-align: middle;
 }
 
 .flex-add-event-place-item-3{
@@ -620,7 +639,7 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
+  flex-direction: row-reverse;
   width: 90%;
 }
 
@@ -636,7 +655,7 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
+  flex-direction: row-reverse;
   width: 100%;
 }
 
@@ -652,19 +671,19 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;  
+  flex-direction: row-reverse;
+  width: 100%;
   margin-top: 2vh;
 }
 
 .flex-account-addtrip-item-1{
-  width: 85%; 
-  text-align: right; 
+  width: 85%;
+  text-align: right;
   margin-right: 1vw;
 }
 
 .flex-account-addtrip-item-2{
-  width: 15%;  
+  width: 15%;
 }
 
 .flex-account-addtrip-item-2 > img {
@@ -676,7 +695,7 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   background-color: #3F444A;
   border-radius: 15px;
   text-align: right;
-  padding-right: 1vw; 
+  padding-right: 1vw;
   cursor: pointer;
 }
 
@@ -689,12 +708,12 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;  
+  flex-direction: row-reverse;
+  width: 100%;
   margin-top: 2vh;
 }
 
-.flex-mytrips-item-1{  
+.flex-mytrips-item-1{
   width:15%;
 }
 
@@ -706,12 +725,12 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;  
+  flex-direction: row-reverse;
+  width: 100%;
   margin-top: 2vh;
 }
 
-.flex-trips-item-1{  
+.flex-trips-item-1{
   width:15%;
 }
 
@@ -723,8 +742,8 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;  
+  flex-direction: row-reverse;
+  width: 100%;
 }
 
 .trip-buttons-item-0{
@@ -735,8 +754,8 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 85%;  
+  flex-direction: row-reverse;
+  width: 85%;
   background-color: rgba(205, 205,193, 0.1);
   text-align: center;
   padding: 1vh;
@@ -746,7 +765,7 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
 .trip-buttons-item{
   width: 33%;
   background-color: #eeeee0;
-  border-radius: 10px;  
+  border-radius: 10px;
   padding: 2px;
   margin: 3px;
   cursor: pointer;
@@ -756,7 +775,7 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
 
 .trip-buttons-item:hover{
   background-color:black;
-  color:white; 
+  color:white;
 }
 
 /*chat section*/
@@ -767,7 +786,7 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   background-color: #1D2124;
   position: relative;
   top: -20vh;
-  left: 0;  
+  left: 0;
 }
 
 #navi,
@@ -792,8 +811,8 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;    
+  flex-direction: row-reverse;
+  width: 100%;
 }
 
 .messages-item1{
@@ -814,11 +833,11 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
 .messages-item2::-webkit-scrollbar {
     width: 1vw;
 }
- 
+
 .messages-item2::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
- 
+
 .messages-item2::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 2px solid slategrey;
@@ -894,7 +913,7 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   font-weight: bold;
   width: 20%;
   margin: 1vh 0.5vw 1vh 0.5vw;
-  border-radius: 10px;    
+  border-radius: 10px;
 }
 
 .message_input > input:focus{
@@ -905,8 +924,8 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;   
+  flex-direction: row-reverse;
+  width: 100%;
 }
 
 
