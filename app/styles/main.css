@@ -2,7 +2,7 @@
 /*Colors:
 orange #FFB91B
 blue #537CB9
-  
+
 */
 
 .browsehappy {
@@ -17,7 +17,8 @@ body {
   background-image: url("../images/background.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  height: 100vh;  
+  height: 100vh;
+  font-family: almoni-dl-regular;
 }
 
 @font-face {
@@ -60,7 +61,7 @@ body {
 
 /*Sizes*/
 .xsmall{
-  font-size: 0.7vw; 
+  font-size: 0.7vw;
 }
 .small{
   font-size: 1vw;

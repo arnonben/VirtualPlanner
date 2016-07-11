@@ -1,57 +1,67 @@
 /*trip-list-divlogin page*/
 
 .flex-login-title-container{
+  font-family: almoni-dl-regular;
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%; 
+  flex-direction: row-reverse;
+  width: 100%;
   margin-bottom: 1vh;
 }
 
 .account-container{
+  font-family: almoni-dl-regular;
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
+  flex-direction: row-reverse;
   width: 100%;
 }
 
 .login-container {
+  font-family: almoni-dl-regular;
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
+  flex-direction: row-reverse;
   width: 100%;
 }
 
 .login-item-1{
+  font-family: almoni-dl-regular;
   width:30%;
 }
 
 .login-item-2{
+  font-family: almoni-dl-regular;
   width: 25%;
 }
 .account-item-1{
+  font-family: almoni-dl-regular;
   width: 20%;
 }
 
 .account-item-2{
+  font-family: almoni-dl-regular;
   width: 30%;
 }
 
 
 .flex-login-title-item-1{
+  font-family: almoni-dl-bold;
   width: 50%;
   text-align: right;
 }
 
 .flex-login-title-item-2{
+  font-family: almoni-dl-bold ;
   width: 50%;
   text-align: left;
 }
 
 .login-mail-item-1 input{
+  font-family: almoni-dl-regular;
   float:left;
   background-color: #A7A9Ac;
   border-radius: 17px;
@@ -68,6 +78,7 @@
   }
 
   .login-mail-item-2 input{
+    font-family: almoni-dl-regular;
   float:left;
   background-color: #A7A9Ac;
   border-radius: 17px;
@@ -86,6 +97,7 @@
 
 
 .trip-list-div{
+  font-family: almoni-dl-regular;
   height:68vh;
   overflow: scroll;
 }
@@ -93,21 +105,22 @@
 .trip-list-div::-webkit-scrollbar {
     width: 1em;
 }
- 
+
 .trip-list-div::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
- 
+
 .trip-list-div::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
 }
 
 .trip-list-div::-webkit-scrollbar-corner{
-  background-color: rgba(0,0,0,0.3);  
+  background-color: rgba(0,0,0,0.3);
 }
 
 .login-active{
+  font-family: almoni-dl-regular;
   background-color: #537cb9; /* For browsers that do not support gradients */
   border-radius:10px;
   border: 0px solid black;
@@ -115,29 +128,33 @@
 }
 
 .login-mail-conatiner{
+  font-family: almoni-dl-regular;
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;  
+  flex-direction: row-reverse;
+  width: 100%;
   border-radius: 15px;
   margin-top: 0.5vh;
   background-color: blue;
   border-radius: 17px;
   padding: 0.5vh;
-  background-color: #3A3A3C  
+  background-color: #3A3A3C
 }
 
 .login-mail-item-1{
+  font-family: almoni-dl-regular;
   width: 20%;
   text-align: center;
 }
 
 .login-mail-item-2{
+  font-family: almoni-dl-regular;
   width: 80%;
 }
 
 .login-mail-item-2 input{
+  font-family: almoni-dl-regular;
   float:left;
   background-color: #A7A9Ac;
   border-radius: 17px;
@@ -154,15 +171,18 @@
   }
 
 .login-pass-item-1{
+  font-family: almoni-dl-regular;
   width: 30%;
   text-align: center;
 }
 
 .login-pass-item-2{
+  font-family: almoni-dl-regular;
   width: 70%;
 }
 
 .login-pass-item-2 input{
+  font-family: almoni-dl-regular;
   float:left;
   background-color: #A7A9Ac;
   border-radius: 17px;
@@ -180,45 +200,53 @@
 
 
 .login-noactive{
+  font-family: almoni-dl-regular;
   background: rgba(76, 175, 80, 0);
   border: 0px solid black;
 }
 
 .login-button{
+  font-family: almoni-dl-black;
   padding: 0px 5px 0px 5px;
   outline-style: none;
 }
 
 
 .submit-button {
+  font-family: almoni-dl-black;
   border: 3px solid #537cb9;
 }
 
 .submit-button:hover {
+  font-family: almoni-dl-regular;
   background-color: black;
 }
 
 .trip-details-box{
+  font-family: almoni-dl-regular;
   background-color: rgba(205, 205,193, 0.1);
 }
 .flex-container-trip-buttons{
+  font-family: almoni-dl-regular;
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;  
+  flex-direction: row-reverse;
+  width: 100%;
 }
 
 .trip-buttons-item-0{
+  font-family: almoni-dl-regular;
   width: 15%
 }
 
 .trip-buttons-item-1-container{
+  font-family: almoni-dl-regular;
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;  
+  flex-direction: row-reverse;
+  width: 100%;
   background-color: rgba(205, 205,193, 0.1);
   text-align: center;
   padding: 1vh;
@@ -226,9 +254,10 @@
 }
 
 .trip-buttons-item{
+  font-family: almoni-dl-regular;
   width: 33%;
   background-color: #eeeee0;
-  border-radius: 10px;  
+  border-radius: 10px;
   padding: 2px;
   margin: 3px;
   cursor: pointer;
@@ -238,15 +267,16 @@
 
 .trip-buttons-item:hover{
   background-color:black;
-  color:white; 
+  color:white;
 }
 
 .dup-form-container{
+  font-family: almoni-dl-regular;
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;  
+  flex-direction: row-reverse;
+  width: 100%;
   background-color: rgba(205, 205,193, 0.1);
   text-align: center;
   padding: 1vh;
@@ -257,14 +287,14 @@
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;  
+  flex-direction: row-reverse;
+  width: 100%;
   border-radius: 15px;
   margin-top: 0.5vh;
   background-color: blue;
   border-radius: 17px;
   padding: 0.5vh;
-  background-color: #3A3A3C  
+  background-color: #3A3A3C
 }
 
 .login-addtrip-item-1{
@@ -296,14 +326,14 @@
   display: -webkit-flex; /* Safari */
   -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
   display: flex;
-  flex-direction: row-reverse;  
-  width: 100%;  
+  flex-direction: row-reverse;
+  width: 100%;
   border-radius: 15px;
   margin-top: 0.5vh;
   background-color: blue;
   border-radius: 17px;
   padding: 0.5vh;
-  background-color: #3A3A3C  
+  background-color: #3A3A3C
 }
 
 .login-dup-item-1{

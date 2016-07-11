@@ -203,6 +203,14 @@
   height: 100%;
 }
 
+.date-button-day-1{
+  font-size: 1.5vw;
+}
+
+.date-button-day-2{
+  font-size: 0.8vw !important;
+}
+
 .flex-day-addevenet-item-date:hover .date-button-day-1{
   color: #FFB91B;
 }
@@ -220,7 +228,7 @@ a:hover{
 }
 
 .flex-day-addevenet-item-date{
-  padding:1.5vh;
+  padding:0vh 1vw 0vh 1vw;
 }
 
 .add-event-link > img{
@@ -939,7 +947,6 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
 }
 
 .message_input{
-  font-family: almoni-dl-bold;
   background-color: #1D2124;
   height: 5vh;
   text-align: center;
@@ -948,7 +955,6 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
 }
 
 .message-time{
-  font-family: almoni-dl-bold;
   color: #1D2124;
   font-weight: bold;
   margin-right:3vw;
@@ -956,20 +962,17 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
 }
 
 .message-user{
-  font-family: almoni-dl-bold;
   font-weight: bold;
   font-size: 1.5vh;
 }
 
 .message-text{
-  font-family: almoni-dl-bold;
   font-weight: bold;
   direction:RTL;
   font-size: 1.5vh;
 }
 
 .message_input > input{
-  font-family: almoni-dl-bold;
   font-size: 2vh;
   color: white;
   direction:RTL;
@@ -980,12 +983,12 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
 }
 
 #send-message-submit{
-  font-family: almoni-dl-bold;
   font-size: 1vw;
   font-weight: bold;
   width: 30%;
   margin: 1vh 0.5vw 1vh 0.5vw;
   border-radius: 10px;
+  float: left;
 }
 
  #send-message-submit:hover{
@@ -995,7 +998,6 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
  }
 
  #send-message-file{
-   font-family: almoni-dl-bold;
    font-size: 1vw;
    font-weight: bold;
    margin: 1vh 0.5vw 1vh 0.5vw;
@@ -1005,7 +1007,6 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
  }
 
  #send-message-file-name{
-   font-family: almoni-dl-bold;
    font-size: 1vw;
    font-weight: bold;
    margin: 1vh 0.1vw 1vh 0.1vw;
@@ -1015,15 +1016,7 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
    padding: 0.2vh 0.3vw 0.2vh 0.3vw;
  }
 
- .send-message-remove-file{
-
- }
-
- .send-message-remove-file:hover{
-  color: red;
- }
-
- #send-message-file-label:hover #send-message-file{
+ #send-message-file:hover{
    color:white;
    background-color: #1D2124;
    border-color: #1D2124 ;
@@ -1044,6 +1037,10 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
  .message_input > input:focus{
   outline: none;
 }
+
+ .send-message-remove-file:hover{
+   color:red;
+ }
 
 .send-message-container{
   display: -webkit-flex; /* Safari */
