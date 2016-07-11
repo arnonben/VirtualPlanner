@@ -194,7 +194,7 @@ angular.module('tipntripVpApp')
             console.log(marker);
             console.log(marker.key);
             var indexes = markers.containEventInDays(marker.key,$scope.days);
-            $scope.setEventMode($scope.days[indexes.i].events[indexes.j],$scope.days[indexes.i]);
+            $scope.modeService.setEventMode($scope,$scope.days[indexes.i].events[indexes.j],$scope.days[indexes.i]);
           },
           mouseover: function(marker, eventName, model) {
 

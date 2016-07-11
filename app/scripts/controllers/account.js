@@ -37,6 +37,7 @@ angular.module('tipntripVpApp')
     $scope.usersRef = new Firebase("https://vitrualplanner.firebaseio.com/users/");
 
   	$scope.dupTrip = function(trip){
+      console.log("Duplicate")
       trip.dupTrip = false;
       console.log(trip.dupTrip)
       var dupTrip = {

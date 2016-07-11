@@ -75,8 +75,8 @@ angular.module('tipntripVpApp')
       setPriceResultSimple  : function(bol) {priceResult = bol;},
 
       setEventMode : function(scope,event,day){
+          scope.$parent.showFiles = false
           console.log("SET_EVENT_MODE");
-          console.log(event);
           editEventMode = false;
           eventMode = true;
           dayMode = false;
@@ -87,16 +87,12 @@ angular.module('tipntripVpApp')
             }
           }
           for (i = scope.markers.length - 1; i >= 0; i--) {
-            console.log(scope.markers[i].markerFirebaseKey);
-            console.log(event.markerFirebaseKey);
             if(scope.markers[i].markerFirebaseKey === event.markerFirebaseKey){
               scope.markers[i].window.options.visible = true;
-              console.log("FOUND")
             }
             else{
               scope.markers[i].window.options.visible = false
-            }    //The eventmode daymode addeventmode define the mode of the middle screen
-
+            }
           eventMode = true;
           dayMode = false;
           addEventMode = false;
@@ -105,15 +101,11 @@ angular.module('tipntripVpApp')
           event.active = true;
           scope.currentEvent = event;
           scope.currentDay = day;
-          scope.map.center = {
-            latitude : event.coords.latitude,
-            longitude : event.coords.longitude
-          };
-          scope.map.zoom = 11;
       },
 
       //Set event mode for a new event withought the zoom
       setEventMode2 : function(scope,event,day){
+        scope.$parent.showFiles = false;
         editEventMode = false;
         eventMode = true;
         dayMode = false;
@@ -136,6 +128,7 @@ angular.module('tipntripVpApp')
 
       //Middle screen change modes
       setDayMode : function(scope,day){
+        scope.$parent.showFiles = false;
         editEventMode = false;
         eventMode = false;
         dayMode = true;
@@ -147,7 +140,10 @@ angular.module('tipntripVpApp')
             scope.days[i].events[j].active = false;
           }
         }
-        scope.markersService.initMarkersSizeUrl(scope.markers);
+        for (i = scope.markers.length - 1; i >= 0; i--) {
+            scope.markers[i].window.options.visible = false
+        }
+          scope.markersService.initMarkersSizeUrl(scope.markers);
         day.active = true;
         var tmpMarkers = [];
         for (i = 0; i < day.events.length; i++) {
@@ -162,6 +158,7 @@ angular.module('tipntripVpApp')
       },
 
       setAddEventMode : function(scope){
+        scope.$parent.showFiles = false;
         editEventMode = false;
         eventMode = false;
         dayMode = false;
@@ -174,6 +171,7 @@ angular.module('tipntripVpApp')
       },
 
       setEditEventMode : function(scope,event,markers){
+        scope.$parent.showFiles = false;
         //init all the special input fields
         timeResult=true;timeActive=false;timeTitle=false;
         dateResult=true;dateActive=false;dateTitle=false;

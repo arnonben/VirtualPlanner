@@ -9,36 +9,39 @@
 					<label style="font-size:1.3vw" class="white" >:כותרת</label>
 				</div>
 				<div class="login-mail-item-2">
-				  <input 
-				  type="text" 
-				  name="title" 
-				  class="black" 
-				  id="addtrip-title" 
+				  <input
+				  type="text"
+				  name="title"
+				  class="black"
+				  id="addtrip-title"
 				  ng-model="newTrip.title"
-				  required
-				  />		
-				</div>	  
+          style="direction: rtl;padding-right: 1vw;"
+          required
+				  />
+				</div>
 			</div>
-			<div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="loginform.mail.$dirty && loginform.mail.$error.required">Required Title</div>		
+			<div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="loginform.mail.$dirty && loginform.mail.$error.required">Required Title</div>
 			<div class="login-mail-conatiner">
 				<div class="login-mail-item-1">
 			  		<label style="font-size:1.3vw" class="white" >:מדינות</label>
 			  	</div>
 			  	<div class="login-mail-item-2">
-				  <input 
-				  type="text" 
-				  name="title" 
-				  class="black" 
-				  id="addtrip-title" 
+				  <input
+				  type="text"
+				  name="title"
+				  class="black"
+				  id="addtrip-title"
 				  ng-model="newTrip.countries"
-				  />	
-				</div>		  
-			</div>				
-			<div>	
+          style="direction: rtl;padding-right: 1vw;"
+
+				  />
+				</div>
+			</div>
+			<div>
 				<button class="login-button login-active large white submit-button" style="margin-top:1vh;" type="submit">הוסף טיול</button>
 				<div ng-show="addtripError" style="margin-top:1vh;" class="alert alert-danger large">{{error}}</div>
 			</div>
-			</form>	
+			</form>
 		</div>
 	</div>
 </div>

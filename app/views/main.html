@@ -39,7 +39,7 @@
                     </div>
                     <div>
                       <div class="message-file" ng-if="message.file">
-                        <a ng-href="{{message.file.payload}}"  download="{{message.file.name}}" ng-if="message.file.type == 'image/jpeg' || message.file.type == 'image/png'" >
+                        <a ng-href="{{message.file.payload}}"  target="_blank" ng-if="message.file.type == 'image/jpeg' || message.file.type == 'image/png'" >
                           <img ng-src="{{message.file.payload}}" class="img-rounded" style="width: 15vw;" image-on-load-directive>
                         </a>
 
@@ -65,8 +65,14 @@
 						<div class="message_input">
 							<input type="text" ng-model="newMessage.text">
 						</div>
-            <button id="send-message-file" type="button" ><input
-              style="font-family: almoni-dl-bold" type="file" value="הוסף קובץ" file-model="newMessage.file"></button>
+            <div id="send-message-file-name" ng-if="newMessage.file">
+              <span class="send-message-remove-file glyphicon glyphicon-remove cursor-mode" ng-click="newMessage.file=null;"></span>
+              {{newMessage.file.name}}
+            </div>
+            <button id="send-message-file" type="button" >
+              <input id="send-message-file-button" type="file" file-model="newMessage.file">
+              <label id="send-message-file-label" class="cursor-mode" for="send-message-file-button"><span class="glyphicon glyphicon-file"></span></label>
+            </button>
 						<button id="send-message-submit" type="submit">שלח הודעה</button>
 					</div>
 				</form>
@@ -80,34 +86,25 @@
           <span style="font-size:5vh;text-align: center; font-family: almoni-dl-bold">הקבצים שלי</span>
         </div>
         <div ng-repeat="file in files" class="file-container">
-          <a href="">
+          <a ng-href="{{file.payload}}" target="_blank">
             <div ng-if="file.type == 'image/jpeg' || file.type == 'image/png'" style="width:100%; height:12vh; background:url({{file.payload}});background-size: 100% 100%;background-repeat: no-repeat;">
             </div>
             <div ng-if="file.type == 'image/jpeg' || file.type == 'image/png'">
               {{file.name}}
             </div>
           </a>
-
+          <a href="{{file.payload}}" download="{{file.name}}">
           <div ng-if="!(file.type == 'image/jpeg' || file.type == 'image/png')" class="message-body">
-            <div style="height: 12vh; padding-top: 2vh;">
+            <div style="padding-top: 2vh;">
               <span class="	glyphicon glyphicon-file" style="font-size:8vh"></span>
             </div>
-            <div style="width:100%; height:12vh;">
-            <a href="{{file.payload}}" download="{{file.name}}">
+            <div style="width:100%;">
               <i class="fa fa-paperclip fa-2x"></i> {{file.name}}
               <br>
               size: {{file.size| bytes}}  <i class="fa fa-download"></i>
-            </a>
             </div>
           </div>
-        </div>
-        <div class="files-upload-file">
-          <div ng-show="uploader.isHTML5">
-            <!-- 3. nv-file-over uploader="link" over-class="className" -->
-            <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
-              Base drop zone
-            </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -347,14 +344,14 @@
 					        style="text-align:right;margin-top:1.2vh;direction:RTL;border:1px solid black;"/>
 					    </div>
 					</div>
-					<div class="flex-add-event-place-item-3" style="text-align:right;">
-						<a href="" ng-click="setMapLocationMode();" ng-if="!mapLocationMode">
-							<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">
-						</a>
-						<a href="" ng-click="setFormLocationMode()" ng-if="mapLocationMode">
-							<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">
-						</a>
-					</div>
+					<!--<div class="flex-add-event-place-item-3" style="text-align:right;">-->
+						<!--<a href="" ng-click="setMapLocationMode();" ng-if="!mapLocationMode">-->
+							<!--<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">-->
+						<!--</a>-->
+						<!--<a href="" ng-click="setFormLocationMode()" ng-if="mapLocationMode">-->
+							<!--<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">-->
+						<!--</a>-->
+					<!--</div>-->
 				</div><!-- flex-add-event-item-4-container -->
 				<div class="flex-add-event-line-container" style="padding-top:0px !important;">
 					<div class="flex-add-event-line-field-name">
@@ -486,14 +483,14 @@
 					        style="text-align:right;margin-top:1.2vh;direction:RTL;border:1px solid black;"/>
 					    </div>
 					</div>
-					<div class="flex-add-event-place-item-3" style="text-align:right;">
-						<a href="" ng-click="setMapLocationMode();" ng-if="!mapLocationMode">
-							<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">
-						</a>
-						<a href="" ng-click="setFormLocationMode()" ng-if="mapLocationMode">
-							<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">
-						</a>
-					</div>
+					<!--<div class="flex-add-event-place-item-3" style="text-align:right;">-->
+						<!--<a href="" ng-click="setMapLocationMode();" ng-if="!mapLocationMode">-->
+							<!--<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">-->
+						<!--</a>-->
+						<!--<a href="" ng-click="setFormLocationMode()" ng-if="mapLocationMode">-->
+							<!--<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">-->
+						<!--</a>-->
+					<!--</div>-->
 				</div><!-- flex-add-event-item-4-container -->
 				<div class="flex-add-event-line-container" style="padding-top:0px !important;">
 					<div class="flex-add-event-line-field-name">
@@ -527,7 +524,7 @@
 
 
 		<div class="flex-calendar-highlights">
-      <div class="trip-title">
+      <div class="trip-title cursor-mode" ng-click="scope.$parent.showFiles = false;;setBoundes(markers)">
         {{trip.title}}
       </div>
 			<div class="day-highlights" ng-repeat="day in days">
