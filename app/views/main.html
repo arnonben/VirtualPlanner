@@ -261,24 +261,7 @@
 							</div>
 						</div>
 					</div>
-				</div><!-- end of flex-add-event-item-2-container -->
-				<!-- <div class="flex-add-event-line-container" style="padding:1vh;"> -->
-<!-- 					<div class="flex-add-event-line-field-name"></div>
-					<div class="flex-add-event-item-4-item-2" style="padding:0vh 1vh 0vh 1vh;">
-						<img src="images/middle-bar/phone.png" alt="">
-					</div>
-					<div class="flex-add-event-item-4-item-3">
-						<input
-						type="tel"
-						ng-model="newEvent.phone"
-						class="set-phone-input small"
-						style="width:100%;border:1px solid black;">
-					</div> -->
-					<!-- <div class="attach-file">
-						<div class="button" ng-show="!attachFileHover" ng-mouseenter="attachFileHover = !attachFileHover"><img src="images/create_event_icons/btn_attachFile.png" alt=""></div>
-						<div class="button" ng-show="attachFileHover" ng-mouseleave="attachFileHover = !attachFileHover"><img src="images/create_event_icons/btn_attachFile_hover.png" alt=""></div>
-					</div> -->
-				<!-- </div>				 -->
+				</div>
 				<div class="flex-add-event-line-container" style="padding-top:0vh!important;padding-bottom:0vh!important;">
 					<div class="flex-add-event-line-field-name" style="padding-top:0vh!important;">
 						<span style="vertical-align: middle;"class="medium gray">זמן</span>
@@ -309,19 +292,21 @@
 							<div ng-if="modeService.getTimeResults()" ng-click="modeService.setTimeActive()"  class="small gray" style="border:2px solid black;">{{newEvent.time | date : "shortTime"}}</div>
 					</div>
 					<div class="flex-add-event-item-5-item-3">
-							<div  ng-if="modeService.getDateTitle()" ng-click="modeService.setDateActive()"  class="small gray" style="border:2px solid black;">הכנס תאריך</div>
-							<div  ng-if="modeService.getDateActive()">
+							<div  ng-show="modeService.getDateTitle()" ng-click="modeService.setDateActive()"  class="small gray" style="border:2px solid black;">הכנס תאריך</div>
+							<div  ng-show="modeService.getDateActive()">
 								<input
 								type="date"
 								name="date"
 								focus="dateActive"
 								ng-model="newEvent.date"
 								ng-blur="modeService.setDateNotActive(newEvent.date)"
+                ng-min="days[0].date"
 								style="border:2px solid black;width:80%;"
 								required>
 							</div>
 							<span ng-show="addFrm.date.$error.required"></span>
-							<div ng-if="modeService.getDateResults()" ng-click="modeService.setDateActive()"  class="small gray" style="border:2px solid black;">{{newEvent.date | date : "shortDate"}}</div>
+							<div ng-show="modeService.getDateResults()" ng-click="modeService.setDateActive()"  class="small gray" style="border:2px solid black;">{{newEvent.date | date : "shortDate"}}</div>
+              <div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="addFrm.date.$error.required">הכנס תאריך</div>
 					</div>
 				</div>
 				<div class="flex-add-event-line-container">
