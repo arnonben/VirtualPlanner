@@ -86,6 +86,7 @@ angular.module('tipntripVpApp')
 
       //Middle screen change modes
       setDayMode : function(scope,day){
+        console.log("SET_DAY_MODE")
         scope.$parent.showFiles = false;
         editEventMode = false;
         eventMode = false;
@@ -101,7 +102,7 @@ angular.module('tipntripVpApp')
         for (i = scope.markers.length - 1; i >= 0; i--) {
             scope.markers[i].window.options.visible = false
         }
-          scope.markersService.initMarkersSizeUrl(scope.markers);
+        scope.markersService.initMarkersSizeUrl(scope.markers);
         day.active = true;
         var tmpMarkers = [];
         for (i = 0; i < day.events.length; i++) {
@@ -112,6 +113,8 @@ angular.module('tipntripVpApp')
             }
           }
         }
+        day.showEvents = true;
+        day.toggleIcon = false;
         scope.setBoundes(tmpMarkers);
       },
 
@@ -119,9 +122,9 @@ angular.module('tipntripVpApp')
         scope.$parent.showFiles = false;
         editEventMode = false;eventMode = false;dayMode = false;addEventMode = true;
         console.log("ADD_EVENT");
-        console.log(scope);
+        var a = scope.currentDay.date
+        console.log(a);
         scope.newEvent.date = scope.currentDay.date;
-        console.log(scope.newEvent);
         scope.markersService.initMarkersSizeUrl(scope.markers);
         scope.setFormLocationMode();
       },

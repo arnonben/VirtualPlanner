@@ -31,7 +31,6 @@ angular.module('tipntripVpApp')
           }
           return false
         }
-        console.log(Auth.$getAuth().auth.uid)
         var uid = Auth.$getAuth().auth.uid
         var add = FirebaseUrl + uid + "/trips"
         var ref = new Firebase(FirebaseUrl + "/" + uid + "/trips");
@@ -48,9 +47,7 @@ angular.module('tipntripVpApp')
             }
           })
         })
-        $scope.$watch('trips',function(){
-          console.log("trips changed")
-        })        
+        
         return trips
       }
     };

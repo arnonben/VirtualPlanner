@@ -159,15 +159,7 @@ angular.module('tipntripVpApp')
         $scope.markers[markerIndex].timeStamp = marker.timeStamp;
         $scope.markers[markerIndex].title = marker.title;
         $scope.markers[markerIndex].type = marker.type;
-        $scope.markers[markerIndex].options = {
-          icon : {
-            url : $scope.markers[markerIndex].options.icon.url,
-            scaledSize : new google.maps.Size(30,50)
-          },
-          labelClass:'marker_labels',
-          labelAnchor:'17 45',
-          labelContent:'<div class="bold" style="font-size:20px; color:white;width:36px;">' + $scope.markers[markerIndex].id + '</div>'
-        };
+        markers.initMarkersSizeUrl($scope.markers)
       }
       else if ( markerIndex === -1 ){
         marker.markerFirebaseKey = childSnapshot.key();
@@ -179,20 +171,9 @@ angular.module('tipntripVpApp')
             visible: false
           }
         };
-        marker.options = {
-          icon : {
-            url : marker.options.icon.url,
-            scaledSize : new google.maps.Size(30,50)
-          },
-          labelClass:'marker_labels',
-          labelAnchor:'17 45',
-          labelContent:'<div class="bold" style="font-size:20px; color:white;width:36px;">' + marker.id + '</div>'
-        };
         marker.tmpurl = marker.options.icon.url;
         marker.events = {
           click: function(marker, eventName, model) {
-            console.log(marker);
-            console.log(marker.key);
             var indexes = markers.containEventInDays(marker.key,$scope.days);
             $scope.modeService.setEventMode($scope,$scope.days[indexes.i].events[indexes.j],$scope.days[indexes.i]);
           },
@@ -211,6 +192,15 @@ angular.module('tipntripVpApp')
         };
         marker.active = false;
         $scope.markers.push(marker);
+        $scope.markers.sort(function(a,b){
+          if(a.date < b.date){
+            return -1;
+          }
+          else{
+            return 1;
+          }
+        });
+        markers.initMarkersSizeUrl($scope.markers)
         $scope.markerIndex = $scope.markerIndex + 1;
       }
 
@@ -635,8 +625,24 @@ angular.module('tipntripVpApp')
       console.log("false");
     };
 
-    $scope.editEvent = function(event,locationDetails){
-      console.log("EVENT");
+    $scope.dayToggleTrue= function(day){
+      day.showEvents = true;
+      if (day.showEvents){
+        for (var i = 0; i < $scope.days.length; i++) {
+          $scope.days[i].active = false;
+        }
+        day.active = true;
+        day.toggleIcon = false;
+      }
+      else{
+        day.active = false;
+        day.toggleIcon = true	;
+      }
+      console.log("false");
+    }
+
+    $scope.editEvent = function(event){
+      console.log("EDIT_EVENT");
       console.log(event);
       var firebaseKey = event.markerFirebaseKey;
       var date = event.date;
@@ -660,8 +666,8 @@ angular.module('tipntripVpApp')
       //Update everything except of the location
       if (!$scope.mapLocationMode){
         var address = "";
-        if (locationDetails !== "" && locationDetails !== undefined){
-          locationDetails = event.newLocation.details;
+        if (event.newLocation !== "" && event.newLocation !== undefined){
+          var locationDetails = event.newLocation.details;
           $scope.locationValid = true;
           for (var i = 0; i < locationDetails.address_components.length; i++) {
             address = address + "," + locationDetails.address_components[i].long_name;
@@ -822,7 +828,6 @@ angular.module('tipntripVpApp')
     });
 
     // CALLBACKS
-
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
       console.info('onWhenAddingFileFailed', item, filter, options);
     };
@@ -860,12 +865,6 @@ angular.module('tipntripVpApp')
     console.info('uploader', uploader);
 
     //end of chat section
-
-
-
-
-
-
     //video chat section
     // $scope.showVideo = true;
     // $scope.mute = true;

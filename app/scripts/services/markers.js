@@ -63,12 +63,14 @@ angular.module('tipntripVpApp')
 
       initMarkersSizeUrl: function(markers){
         /* jshint ignore:start */
+        var j = 0;
         for (var i = 0; i < markers.length; i++) {
           markers[i].options.icon.url = markers[i].tmpurl
           markers[i].options.icon.scaledSize = new google.maps.Size(30, 50)
           markers[i].options.labelClass = 'marker_labels',
           markers[i].options.labelAnchor = '17 45',
-          markers[i].options.labelContent = '<div class="bold" style="font-size:20px; color:white;width:35px;">' + markers[i].id + '</div>'
+          j = i+1;
+          markers[i].options.labelContent = '<div class="bold" style="font-size:20px; color:white;width:35px;">' + j + '</div>';
         }
         /* jshint ignore:end */
         console.log("marker init complete")

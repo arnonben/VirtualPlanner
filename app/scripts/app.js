@@ -23,11 +23,12 @@ angular
     'luegg.directives',
     'angularFileUpload',
     'ngMaterial',
-    'ngMessages',  
+    'ngMessages',
     "mdPickers"
 
   ])
   .constant('FirebaseUrl', 'https://vitrualplanner.firebaseio.com')
+  .service('rootRef',['FirebaseUrl',Firebase])
   .config(function ($compileProvider,$stateProvider, $urlRouterProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|tel|data):/);
     $urlRouterProvider.otherwise("/account");
@@ -104,3 +105,4 @@ angular
         }
       });
   });
+

@@ -225,7 +225,7 @@
             <div class="flex-add-event-item-5-item-3">
               <md-content>
                 <div>
-                  <mdp-date-picker name="date" style="text-align: center;" mdp-placeholder="תאריך" ng-model="newEvent.date" required></mdp-date-picker>
+                  <mdp-date-picker name="date" style="text-align: center;" mdp-placeholder="תאריך" ng-init="newEvent.date = currentDay.date" ng-model="newEvent.date" required></mdp-date-picker>
                 </div>
               </md-content>
             </div>
@@ -292,7 +292,7 @@
               <md-button class="md-raised md-primary small bold blue-back vp-button" type="submit" ng-show="(addFrm.$valid)">שמור <span class="glyphicon glyphicon-ok"></span></md-button>
             </div>
             <div class="flex-add-event-buttons-item-2">
-              <md-button class="md-raised md-primary small bold blue-back vp-button" type="button">בטל <span class="glyphicon glyphicon-remove"></span></md-button>
+              <md-button class="md-raised md-primary small bold blue-back vp-button" type="button" ng-click="modeService.setDayMode(scope,currentDay)">בטל <span class="glyphicon glyphicon-remove"></span></md-button>
               </button>
             </div>
           </div>
@@ -381,7 +381,7 @@
               <!--<button class="add-event-delete" type="button" ng-click="deleteEvent(tmpEditEvent)" >מחק <span class="glyphicon glyphicon-trash"></span></button>-->
             </div>
             <div class="flex-edit-event-buttons-item-3">
-              <md-button class="md-raised md-primary small bold blue-back vp-button" type="button" ng-click="cancelEdit()">בטל <span class="glyphicon glyphicon-remove"></span> </md-button>
+              <md-button class="md-raised md-primary small bold blue-back vp-button" type="button" ng-click="modeService.setEventMode(scope,currentEvent,currentDay)">בטל <span class="glyphicon glyphicon-remove"></span> </md-button>
               <!--<button class="add-event-delete" type="button" ng-click="cancelEdit()">בטל <span class="glyphicon glyphicon-remove"></span></button>-->
             </div>
           </div>
@@ -397,28 +397,29 @@
 			<div class="day-highlights" ng-repeat="day in days">
 				<div class="day-title-active-cotnainer" ng-if="day.active">
 					<div class="white day-title-cotnainer">
-						<div class="day-title-item-2 cursor-mode">
-							<p style="float:right;margin:10px" class="medium" ng-click="modeService.setDayMode(scope,day)">
+						<div class="day-title-item-2 cursor-mode" ng-click="modeService.setDayMode(scope,day);">
+							<p style="float:right;margin:10px" class="medium">
 								<span class="large">{{day.date| date:'EEEE'}}</span>
 								<span class="large">{{day.date | date:'d'}}/{{day.date | date:'M'}}</span>
 							</p>
 						</div>
 						<div class="day-title-item-1">
-							<span class="button toggle-button" ng-if="!day.toggleIcon" ng-click="dayToggle(day)">
-								<img src="/images/right-bar/toggle-minus.png" alt="">
-							</span>
+              <span class="button toggle-button" ng-init="day.toggleIcon = true" ng-if="day.toggleIcon" ng-click="dayToggle(day)">
+                <img src="/images/right-bar/toggle-plus.png" alt="">
+              </span>
+              <span class="button toggle-button" ng-if="!day.toggleIcon" ng-click="dayToggle(day)">
+                <img src="/images/right-bar/toggle-minus.png" alt="">
+              </span>
 						</div>
 						<div style="clear: both;"></div>
 					</div><!-- end of day-title-cotnainer -->
 				</div><!-- end of day-title-active-cotnainer -->
 				<div class="white day-title-cotnainer" ng-if="!day.active" >
-						<div class="day-title-item-2">
-							<div class="cursor-mode">
-								<p style="float:right;font-weight: bold;margin:10px" class="small gray" ng-click="modeService.setDayMode(scope,day); addEventMode = false; dayToggle(day)">
+						<div class="day-title-item-2 cursor-mode" ng-click="modeService.setDayMode(scope,day);">
+								<p style="float:right;font-weight: bold;margin:10px" class="small gray" >
 									<span class="medium">{{day.date| date:'EEEE'}}</span>
 									<span class="medium">{{day.date | date:'d'}}/{{day.date | date:'M'}}</span>
 								</p>
-							</div>
 						</div>
 					<div class="day-title-item-1">
 						<span class="button toggle-button" ng-init="day.toggleIcon = true" ng-if="day.toggleIcon" ng-click="dayToggle(day)">
