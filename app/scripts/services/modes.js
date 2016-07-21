@@ -15,23 +15,6 @@ angular.module('tipntripVpApp')
     var addEventMode = false;
     var editEventMode = false;
 
-    //Add event, fields modes
-    var timeTitle = true;
-    var timeActive = false;
-    var timeResult = false;
-
-    var dateTitle = true;
-
-    var dateActive = false;
-    var dateResult = false;
-
-    var priceTitle = true;
-    var priceActive = false;
-    var priceResult = false;
-    // Service logic
-    // ...
-
-
     // Public API here
     return {
       //getters for the middle screen modes
@@ -48,31 +31,6 @@ angular.module('tipntripVpApp')
 
       //setters  getters for the add event form fields
 
-      getTimeTitle : function(){return timeTitle;},
-      getTimeActive : function(){return timeActive;},
-      getTimeResults : function(){return timeResult;},
-
-
-      getDateTitle : function(){return dateTitle;},
-      getDateActive : function(){return dateActive;},
-      getDateResults : function(){return dateResult;},
-
-      getPriceTitle : function () {return priceTitle;},
-      getPriceActive : function () {return priceActive;},
-      getPriceResult : function () {return priceResult},
-
-      setTimeTitleSimple  : function(bol){timeTitle = bol;},
-      setTimeActiveSimple  : function(bol){timeActive = bol;},
-      setTimeResultsSimple  : function(bol){timeResult = bol;},
-
-
-      setDateTitleSimple  : function(bol){dateTitle = bol;},
-      setDateActiveSimple  : function(bol){dateActive = bol;},
-      setDateResultsSimple  : function(bol){dateResult = bol;},
-
-      setPriceTitleSimple  : function(bol) {priceTitle = bol;},
-      setPriceActiveSimple  : function(bol) {priceActive = bol;},
-      setPriceResultSimple  : function(bol) {priceResult = bol;},
 
       setEventMode : function(scope,event,day){
           scope.$parent.showFiles = false
@@ -159,23 +117,17 @@ angular.module('tipntripVpApp')
 
       setAddEventMode : function(scope){
         scope.$parent.showFiles = false;
-        editEventMode = false;
-        eventMode = false;
-        dayMode = false;
-        addEventMode = true;
+        editEventMode = false;eventMode = false;dayMode = false;addEventMode = true;
+        console.log("ADD_EVENT");
+        console.log(scope);
+        scope.newEvent.date = scope.currentDay.date;
+        console.log(scope.newEvent);
         scope.markersService.initMarkersSizeUrl(scope.markers);
         scope.setFormLocationMode();
-        timeResult=false;timeActive=false;timeTitle=true;
-        dateResult=false;dateActive=false;dateTitle=true;
-        priceResult=false;priceActive=false;priceTitle=true;
       },
 
       setEditEventMode : function(scope,event,markers){
         scope.$parent.showFiles = false;
-        //init all the special input fields
-        timeResult=true;timeActive=false;timeTitle=false;
-        dateResult=true;dateActive=false;dateTitle=false;
-        priceResult=true;priceActive=false;priceTitle=false;
         scope.setFormLocationMode();
         //init the category
         scope.setCategory(scope.types[event.type-1]);
@@ -188,7 +140,7 @@ angular.module('tipntripVpApp')
 
         scope.tmpEditEvent.tmpCoords = scope.tmpEditEvent.coords;
         console.log(scope.markersService)
-        var index = scope.markersService.containMarker(event.markerFirebaseKey,scope.markers);
+        var index = scope.markersService.containMarker(event.markerFirebaseKey,event.id,scope.markers);
         scope.markers[index].tmpCoords = scope.markers[index].coords;
         //set the date and time
         scope.tmpEditEvent.time = new Date();
@@ -201,64 +153,6 @@ angular.module('tipntripVpApp')
         eventMode = false;
         dayMode = false;
         addEventMode = false;
-      },
-
-      setTimeActive : function(){
-        timeTitle = false;
-        timeActive = true;
-        timeResult = false;
-      },
-
-      setTimeNotActive : function(time){
-        if (time === undefined){
-          timeTitle = true;
-          timeActive = false;
-          timeResult = false;
-        }
-        else {
-          timeTitle = false;
-          timeActive = false;
-          timeResult = true;
-        }
-      },
-
-      setDateActive : function(){
-        dateTitle = false;
-        dateActive = true;
-        dateResult = false;
-      },
-
-      setDateNotActive : function(date){
-        if (date === undefined){
-          dateTitle = true;
-          dateActive = false;
-          dateResult = false;
-        }
-        else {
-          dateTitle = false;
-          dateActive = false;
-          dateResult = true;
-        }
-      },
-
-      setPriceActive : function(){
-        priceTitle = false;
-        priceActive = true;
-        priceResult = false;
-      },
-
-      setPriceNotActive : function(price){
-        if (price === undefined){
-          priceTitle = true;
-          priceActive = false;
-          priceResult = false;
-        }
-        else {
-          priceTitle = false;
-          priceActive = false;
-          priceResult = true;
-        }
       }
-
   };
 });

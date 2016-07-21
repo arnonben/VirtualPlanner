@@ -131,8 +131,9 @@
     display: -webkit-flex;
     display: flex;
     width: 100%;
-    height: 8vh;
     background-color: #445354;
+    padding: 1.5vh 1vw 1.5vh 1vw;
+  height: 8vh;
 }
 
 .flex-day-calendar-header-item1{
@@ -154,7 +155,6 @@
    color: #537cb9;
  }
 
-
 .flex-day-calendar-header-item2{
     width: 20%;
     padding: 1em;
@@ -168,33 +168,23 @@
   height: auto;
 }
 
-.money-up{
-  background-image: url("../images/middle-bar/money-up.png");
-  background-size: 100% 100%;
-  height: 3.5vh;
-  background-repeat: no-repeat;
-}
-
-.money-down {
-  background-color: #9E9E9E;
-  border-radius: 14px;
-  color: white;
-  padding: 0.2vh;
-  width:100%;
-  height: 2vh;
-}
-
 .flex-day-calendar-header-item3{
-    width: 40%;
+    width: 60%;
     border-right: 3px solid gray;
-    padding:2.5vh;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
 }
 
-
-.flex-day-calendar-header-item4{
-    width: 20%;
+ .flex-day-calendar-header-item4{
+    width: 30%;
     text-align: center;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
   }
+
+ .day-button:hover{
+   color: #FFB91B;
+ }
 
 .flex-day-addevent-container{
   display: -webkit-flex;
@@ -205,6 +195,8 @@
 
 .date-button-day-1{
   font-size: 1.5vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
 }
 
 .date-button-day-2{
@@ -213,10 +205,14 @@
 
 .flex-day-addevenet-item-date:hover .date-button-day-1{
   color: #FFB91B;
+  height: 5vh;
+  padding-top: 1.5vh;
+  padding-bottom: 1.5vh;
 }
 
 .flex-day-addevenet-item-date:hover .date-button-day-2{
   color: #FFB91B;
+  padding:0vh 1vw 0vh 1vw;
 }
 
 a:hover{
@@ -582,7 +578,7 @@ a:hover{
 
 }
 
-.active{
+.active-type{
   border: 1px solid black;
 }
 
@@ -647,7 +643,7 @@ a:hover{
 }
 
 .flex-add-event-item-5-item-3 {
-  width: 40%;
+  width: 90%;
   margin-left: 2vw;
 }
 
@@ -661,17 +657,26 @@ a:hover{
   width: 15%;
 }
 
-.flex-add-event-buttons-item-0{
-  width: 10%;
-}
-
 .flex-add-event-buttons-item-1{
-  width: 30%;
+  width: 45%;
 }
 
 .flex-add-event-buttons-item-2{
-  width: 30%;
+  width: 45%;
 }
+
+ .flex-edit-event-buttons-item-1{
+   width: 33%;
+ }
+
+ .flex-edit-event-buttons-item-2{
+   width: 33%;
+ }
+
+ .flex-edit-event-buttons-item-3{
+   width: 33%;
+ }
+
 
 .set-location-no-val{
   border: 3px solid red;
@@ -684,6 +689,13 @@ a:hover{
   background-color: #537cb9;
   border: 1px solid #537cb9;
 }
+
+ .add-event-submit-disable{
+   color: white;
+   padding: 0.2vh 0.4vw 0.2vh 0.4vw;
+   background-color: #537cb9;
+   border: 1px solid #537cb9;
+ }
 
 .add-event-submit:hover{
   color: #537cb9;
@@ -699,7 +711,6 @@ a:hover{
 }
 
 .add-event-delete:hover{
-  border: 1px solid #879EAA;
 }
 
 input.ng-invalid.ng-dirty{border:1px solid red;}
@@ -1053,5 +1064,17 @@ input.ng-invalid.ng-dirty{border:1px solid red;}
   padding-bottom: 1vh;
 }
 
+ .bigger-text .md-datepicker-input {
+   font-size: 1.5vw;
+   width: 90%;
+ }
 
+ md-input-container{
+   margin: 23px 0px 0px 0px;
+   width: 100%;
+ }
+
+ md-input-container .md-errors-spacer{
+   min-height: 0px;
+ }
 

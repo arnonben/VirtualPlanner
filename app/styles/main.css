@@ -19,6 +19,11 @@ body {
   background-repeat: no-repeat;
   height: 100vh;
   font-family: almoni-dl-regular;
+
+}
+
+div {
+  outline: none;
 }
 
 @font-face {
@@ -88,6 +93,16 @@ body {
   cursor: pointer;
 }
 
+.vp-button{
+  background-color: #537cb9 !important;
+  padding: 0.1vh 0.5vw !important;
+  line-height: 3vh !important;
+  min-height: 3vh !important;
+  margin: 0px !important;
+  width: auto !important;
+
+}
+
 .alignleft {
   float: left;
 }
@@ -97,7 +112,7 @@ body {
 
 .jumbotron .btn {
     font-size: 2vw;
-    padding: 1vh 1.5vw;
+    padding: 0vh 1vw !important;
     background-color: #537cb9;
     border: 4px solid #537cb9;
     color: white;
@@ -110,7 +125,6 @@ body {
     font-weight: bold;
 }
 
-.
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -131,6 +145,8 @@ body {
   line-height: 40px;
   padding-bottom: 19px;
 }
+
+
 
 /* Custom page footer */
 .footer {

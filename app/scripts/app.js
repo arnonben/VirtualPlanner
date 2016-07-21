@@ -21,7 +21,11 @@ angular
     'firebase',
     'ngAutocomplete',
     'luegg.directives',
-    'angularFileUpload'
+    'angularFileUpload',
+    'ngMaterial',
+    'ngMessages',  
+    "mdPickers"
+
   ])
   .constant('FirebaseUrl', 'https://vitrualplanner.firebaseio.com')
   .config(function ($compileProvider,$stateProvider, $urlRouterProvider) {

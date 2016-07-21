@@ -34,7 +34,7 @@ angular.module('tipntripVpApp')
           }
         }
         return -1;
-      },  
+      },
       containDay:function(date,days){
         for (var i = 0; i < days.length; i++) {
           if(days[i].date.getDate() === date.getDate() && days[i].date.getMonth() === date.getMonth() && days[i].date.getFullYear() === date.getFullYear() ){
@@ -43,7 +43,12 @@ angular.module('tipntripVpApp')
         }
         return -1;
       },
+
       containMarker : function(markerFirebaseKey,id,markers){
+        console.log("CONTAIN_MARKER")
+        console.log(markerFirebaseKey)
+        console.log(id)
+        console.log(markers)
         for (var i = 0; i < markers.length; i++) {
           if (markers[i].markerFirebaseKey === markerFirebaseKey) {
             return i;
@@ -55,25 +60,18 @@ angular.module('tipntripVpApp')
         }
         return -1;
       },
-      containMarker : function(markerFirebaseKey,markers){
-        for (var i = 0; i < markers.length; i++) {
-          if (markers[i].markerFirebaseKey === markerFirebaseKey) {
-            return i;
-          }
-        }
-        return -1;
-      },      
+
       initMarkersSizeUrl: function(markers){
         /* jshint ignore:start */
         for (var i = 0; i < markers.length; i++) {
-          markers[i].options.icon.url = markers[i].tmpurl  
-          markers[i].options.icon.scaledSize = new google.maps.Size(30, 50)  
+          markers[i].options.icon.url = markers[i].tmpurl
+          markers[i].options.icon.scaledSize = new google.maps.Size(30, 50)
           markers[i].options.labelClass = 'marker_labels',
           markers[i].options.labelAnchor = '17 45',
           markers[i].options.labelContent = '<div class="bold" style="font-size:20px; color:white;width:35px;">' + markers[i].id + '</div>'
         }
         /* jshint ignore:end */
         console.log("marker init complete")
-      } 
+      }
     };
   });

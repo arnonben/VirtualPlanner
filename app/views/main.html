@@ -111,38 +111,15 @@
     <!--Calendar section-->
 		<div class="flex-day-calendar" ng-if="!$parent.showFiles">
 			<div class="flex-day-calendar-header-container">
-				<div class="flex-day-calendar-header-item1 cursor-mode" ng-click="modeService.setAddEventMode(scope)">
-          <div>
-            הוסף אירוע
-          </div>
-          <div>
-            <span class="glyphicon glyphicon-plus" style="font-weight: bold; margin-top: 0.3vh;"></span>
-          </div>
+        <div style="width: 30%; padding-top: 1.4vh;">
+          <md-button class="md-raised md-primary small bold blue-back vp-button" ng-click="modeService.setAddEventMode(scope)">הוסף אירוע</md-button>
         </div>
-				<div class="flex-day-calendar-header-item2">
-<!-- 					<div class="flex-day-calendar-header-item2-img">
-						<div class="money-up"></div>
-						<div style="padding:0.5vh;text-align:center;">
-							<div style="font-size:0.6vw;" class="money-down">{{currentDay.expenses}}</div>
-						</div>
-					</div> -->
-					<!-- <div class="small gray">{{currentDay.expenses}}$</div> -->
-				</div><!-- end of item1 -->
-				<div class="flex-day-calendar-header-item3">
-					<span class="white medium bold">יום טיול {{currentDay.index}}</span>
+				<div class="flex-day-calendar-header-item3 white medium bold">
+				יום טיול {{currentDay.index}}
 				</div><!-- end of item3 -->
-				<div class="flex-day-calendar-header-item4">
-					<div class="flex-day-addevent-container">
-						<a href="" ng-click="modeService.setDayMode(scope,currentDay);">
-							<div class="flex-day-addevenet-item" >
-								<div class="flex-day-addevenet-item-date">
-									<div id="date-button-day-1" class="medium white date-button-day-1">{{currentDay.date | date:'d'}}</div>
-									<div id="date-button-day-2" style="font-size:0.6vw;" class="white date-button-day-2">{{currentDay.date| date:'EEEE'}}</div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div><!-- end of item 4 -->
+        <div class="flex-day-calendar-header-item4 white medium bold white day-button" ng-click="modeService.setDayMode(scope,currentDay);">
+                {{currentDay.date | date:'d'}}  {{currentDay.date | date:'EEE'}}
+        </div><!-- end of item3 -->
 			</div><!-- end of flex-day-calendar-header-container" -->
 
 			<div class="flex-event-calendar-body" ng-if="modeService.getEventMode()" style="">
@@ -172,30 +149,14 @@
 						<div class="small">{{currentEvent.address}}</div>
 					</div>
 				</div>
-				<div class="flex-event-div-3-container">
-					<div class="flex-event-div-3-item-2 small gray">
-						טלפון
-					</div>
-					<div class="flex-event-div-3-item-1 small">
-						{{currentEvent.phone}}
-					</div>
-				</div>
-				<div class="flex-event-div-4">
-					<div class="gray small">
-						:מחיר
-					</div>
-					<div class="small">
-						{{currentEvent.price | currency:" $"}}
-					</div>
-				</div>
 				<div class="flex-add-event-line-container">
-					<div class="flex-add-event-buttons-item-0">
-					</div>
 					<div class="flex-add-event-buttons-item-1" style="width:45% !important">
-						<button class="add-event-submit small" ng-click="modeService.setEditEventMode(scope,currentEvent,markersService)" type="button">ערוך אירוע <span class="glyphicon glyphicon-edit"></span></button>
+            <md-button class="md-raised md-primary small bold blue-back vp-button" ng-click="modeService.setEditEventMode(scope,currentEvent,markersService)" type="button">ערוך אירוע <span class="glyphicon glyphicon-edit"></span></md-button>
 					</div>
 					<div class="flex-add-event-buttons-item-2">
-						<button class="add-event-delete small" type="button" ng-click="deleteEvent(currentEvent)">מחק <span class="glyphicon glyphicon-trash"></span></button>
+            <md-button class="md-raised md-primary small bold blue-back vp-button" type="button" ng-click="deleteEvent(currentEvent)">מחק <span class="glyphicon glyphicon-trash"></span></button></md-button>
+
+						<!--<button class="add-event-delete small" type="button" ng-click="deleteEvent(currentEvent)">מחק <span class="glyphicon glyphicon-trash"></span></button>-->
 					</div>
 				</div>
 
@@ -223,286 +184,207 @@
 
 
 			<!-- add event div -->
-			<div style="overflow: scroll; height:62vh;" class="add-event-container small" ng-if="modeService.getAddEventMode()" ng-init="initNewEvent()">
-				<form name="addFrm" ng-submit="addNewEvent(newEvent,newEvent.newLocation.details)">
-				<div class="flex-add-event-line-container">
-					<div class="flex-add-event-line-field-name">
-						<span class="gray" style="font-size:1vw; padding:0.5vw 0.5vw 0.5vh 0.5vw;border:2px solid white;">כותרת</span>
-					</div>
-					<div class="flex-add-event-item-1-item-2">
-						<div>
-							<input
-							name="title"
-							type="text"
-							style="font-size:1vw;direction:RTL;"
-							ng-model="newEvent.title"
-							class="add-event-input-title"
-							placeholder="הכנס כותרת..."
-							style="direction:RTL"
-							required>
-						</div>
-					</div>
-				</div>
-				<div class="flex-add-event-line-container" style="padding:0px !important; text-align:center;">
-					<div class="flex-add-event-item-2-item-2-container">
-						<div
-						class="type-item cursor-mode"
-						ng-repeat="type in types"
-						ng-mouseenter="typeMouseEnter(type)"
-						ng-mouseleave="typeMouseLeave(type)"
-						ng-click="setCategory(type); newEvent.type = type.index"
-						style="text-align:center;">
-							<div class="type-icon"><img ng-src="{{type.img}}" alt=""></div>
-							<div style="text-align:center">
-								<span class="small gray type-name" style="color:white;text-align:center;" ng-if="!type.showName && !type.active">cfscas</span>
-								<span class="gray type-name" ng-if="type.showName" style="text-align:center;">{{type.name}}</span>
-								<span class="gray type-name active" ng-if="type.active" style="text-align:center;">{{type.name}} </span>
+      <div style="overflow: scroll; height:62vh;" class="add-event-container small"
+           ng-if="modeService.getAddEventMode()" ng-init="initNewEvent()">
+        <form name="addFrm" ng-submit="addNewEvent(newEvent,newEvent.newLocation.details)">
+          <div class="flex-add-event-line-container">
+            <div style="width: 8%;"></div>
+            <div class="flex-add-event-item-5-item-3">
+              <md-content layout-padding style="padding-right: 0px;">
+                <div layout-gt-sm="row">
+                  <md-input-container class="md-block" flex-gt-sm>
+                    <label>כותרת</label>
+                    <input ng-model="newEvent.title" style="direction: rtl" required>
+                  </md-input-container>
+                </div>
+              </md-content>
+            </div>
+          </div>
+          <div class="flex-add-event-line-container" style="padding:0px !important; text-align:center;">
+            <div class="flex-add-event-item-2-item-2-container">
+              <div
+                class="type-item cursor-mode"
+                ng-repeat="type in types"
+                ng-mouseenter="typeMouseEnter(type)"
+                ng-mouseleave="typeMouseLeave(type)"
+                ng-click="setCategory(type); newEvent.type = type.index"
+                style="outline: none;text-align:center;">
+                <div class="type-icon"><img ng-src="{{type.img}}" alt=""></div>
+                <div style="text-align:center">
+                  <span class="small gray type-name" style="color:white;text-align:center;"
+                        ng-if="!type.showName && !type.active">cfscas</span>
+                  <span class="gray type-name" ng-if="type.showName" style="text-align:center;">{{type.name}}</span>
+                  <span class="gray type-name active-type" ng-if="type.active"
+                        style="text-align:center;">{{type.name}} </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-add-event-line-container" style="padding-top:0vh!important;padding-bottom:0vh!important;margin-top: 1vh;">
+            <div style="width: 8%;"></div>
+            <div class="flex-add-event-item-5-item-3">
+              <md-content>
+                <div>
+                  <mdp-date-picker name="date" style="text-align: center;" mdp-placeholder="תאריך" ng-model="newEvent.date" required></mdp-date-picker>
+                </div>
+              </md-content>
+            </div>
+          </div><!-- flex-add-event-item-4-container -->
 
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="flex-add-event-line-container" style="padding-top:0vh!important;padding-bottom:0vh!important;">
-					<div class="flex-add-event-line-field-name" style="padding-top:0vh!important;">
-						<span style="vertical-align: middle;"class="medium gray">זמן</span>
-					</div>
-					<div class="flex-add-event-item-5-item-2">
-							<div class="medium gray" >שעה</div>
-					</div>
-					<div class="flex-add-event-item-5-item-3">
-							<div class="medium gray">תאריך</div>
-					</div>
-				</div><!-- flex-add-event-item-4-container -->
-				<div class="flex-add-event-line-container" style="padding-top:0vh!important;">
-					<div class="flex-add-event-line-field-name" style="padding-top:0vh!important;padding-bottom:0vh!important;">
-					</div>
-					<div class="flex-add-event-item-5-item-2">
-							<div  ng-if="modeService.getTimeTitle()" ng-click="modeService.setTimeActive()"  class="small gray" style="border:2px solid black;">הכנס שעה</div>
-							<div  ng-if="modeService.getTimeActive()">
-								<input
-								type="time"
-								name="time"
-								id="time"
-								focus="timeActive"
-								ng-model="newEvent.time"
-								ng-blur="setTimeNotActive(newEvent.time)"
-								style="border:2px solid black;"
-								>
-							</div>
-							<div ng-if="modeService.getTimeResults()" ng-click="modeService.setTimeActive()"  class="small gray" style="border:2px solid black;">{{newEvent.time | date : "shortTime"}}</div>
-					</div>
-					<div class="flex-add-event-item-5-item-3">
-							<div  ng-show="modeService.getDateTitle()" ng-click="modeService.setDateActive()"  class="small gray" style="border:2px solid black;">הכנס תאריך</div>
-							<div  ng-show="modeService.getDateActive()">
-								<input
-								type="date"
-								name="date"
-								focus="dateActive"
-								ng-model="newEvent.date"
-								ng-blur="modeService.setDateNotActive(newEvent.date)"
-                ng-min="days[0].date"
-								style="border:2px solid black;width:80%;"
-								required>
-							</div>
-							<span ng-show="addFrm.date.$error.required"></span>
-							<div ng-show="modeService.getDateResults()" ng-click="modeService.setDateActive()"  class="small gray" style="border:2px solid black;">{{newEvent.date | date : "shortDate"}}</div>
-              <div style="margin-top:1vh;" class="alert alert-danger medium" ng-show="addFrm.date.$error.required">הכנס תאריך</div>
-					</div>
-				</div>
-				<div class="flex-add-event-line-container">
-					<div class="flex-add-event-line-field-name" style="padding-top:1.2vh;">
-						<span style="vertical-align: middle;"class="medium gray">מקום</span>
-					</div>
-					<div class="flex-add-event-place-item-2">
-						<!-- Autocomplete for finding places -->
-					    <div class="form-group move-down" ng-init="mapLocationMode = false" ng-if="!mapLocationMode">
-					        <input
-					        type="text"
-					        id="Autocomplete"
-					        name="Autocomplete"
-					        ng-class="{'set-phone-input':locationValid,'set-location-no-val':!locationValid}"
-					        placeholder="חפש מקום..."
-					        ng-autocomplete="newEvent.newLocation.results"
-					        ng-model="newEvent.rawLocation"
-					        details="newEvent.newLocation.details"
-					        options="newEvent.newLocation.options"
-					        style="text-align:right;margin-top:1.2vh;direction:RTL;border:1px solid black;"/>
-					    </div>
-					</div>
-					<!--<div class="flex-add-event-place-item-3" style="text-align:right;">-->
-						<!--<a href="" ng-click="setMapLocationMode();" ng-if="!mapLocationMode">-->
-							<!--<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">-->
-						<!--</a>-->
-						<!--<a href="" ng-click="setFormLocationMode()" ng-if="mapLocationMode">-->
-							<!--<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">-->
-						<!--</a>-->
-					<!--</div>-->
-				</div><!-- flex-add-event-item-4-container -->
-				<div class="flex-add-event-line-container" style="padding-top:0px !important;">
-					<div class="flex-add-event-line-field-name">
-						<span style="vertical-align: middle;font-size:1.1vw;"class=" gray">הערות</span>
-					</div>
-					<div class="flex-add-event-item-3-item-2">
-						<textarea
-						ng-model="newEvent.description"
-						class="gray"
-						placeholder="הכנס הערות וטיפים בכמה מילים..."
-						style="direction:RTL;height:12vh;font-size:1vw;border:1px solid black;">
-						</textarea>
-					</div>
-				</div><!-- end of flex-add-event-item-3-container -->
-				<div class="flex-add-event-line-container">
-					<div class="flex-add-event-buttons-item-0">
-					</div>
-					<div class="flex-add-event-buttons-item-1">
-						<button class="add-event-submit" type="submit">שמור <span class="glyphicon glyphicon-ok"></span></button>
-					</div>
-					<div class="flex-add-event-buttons-item-2">
-						<button class="add-event-delete" type="button">מחק <span class="glyphicon glyphicon-trash"></span></button>
-					</div>
-				</div>
-			</div><!-- end of flex-add-event-container -->
+          <div class="flex-add-event-line-container" style="padding-top:0vh!important;padding-bottom:0vh!important;">
+            <div style="width: 8%;"></div>
+            <div class="flex-add-event-item-5-item-3">
+              <md-content>
+                <div>
+                  <mdp-time-picker style="text-align: center; width:50%;" mdp-placeholder="שעה" ng-model="newEvent.time"></mdp-time-picker>
+                </div>
+              </md-content>
+            </div>
+          </div><!-- flex-add-event-item-4-container -->
+
+          <div class="flex-add-event-line-container" style="padding-top:0vh!important;padding-bottom:0vh!important;">
+            <div class="flex-add-event-line-field-name" style="padding-top:0vh!important;">
+              <span style="vertical-align: middle;" class="medium gray"></span>
+            </div>
+          </div><!-- flex-add-event-item-4-container -->
+          <div class="flex-add-event-line-container">
+            <div style="width: 8%;"></div>
+            <div class="flex-add-event-item-5-item-3">
+              <!-- Autocomplete for finding places -->
+              <md-content layout-padding  style="padding-right: 0px;">
+                <div layout-gt-sm="row" style="padding-right: 0px;">
+                  <md-input-container class="md-block" flex-gt-sm>
+                    <label>כתובת</label>
+                    <input
+                      type="text"
+                      id="Autocomplete"
+                      name="Autocomplete"
+                      placeholder="כתובת"
+                      ng-class="{'set-phone-input':locationValid,'set-location-no-val':!locationValid}"
+                      ng-autocomplete="newEvent.newLocation.results"
+                      ng-model="newEvent.rawLocation"
+                      details="newEvent.newLocation.details"
+                      options="newEvent.newLocation.options"
+                      required/>
+                  </md-input-container>
+                </div>
+              </md-content>
+            </div>
+          </div><!-- flex-add-event-item-4-container -->
+          <div class="flex-add-event-line-container" style="padding-top:0px !important;">
+            <div style="width: 8%;"></div>
+            <div class="flex-add-event-item-5-item-3">
+              <md-content style="padding-right: 0px;">
+                <md-input-container>
+                  <label>הערות</label>
+                  <textarea
+                    ng-model="newEvent.description"
+                    class="gray"
+                    style="direction:RTL; width: 100%;">
+                  </textarea>
+                </md-input-container>
+              </md-content>
+            </div>
+          </div><!-- end of flex-add-event-item-3-container -->
+          <div class="flex-add-event-line-container">
+            <div class="flex-add-event-buttons-item-1">
+              <md-button class="md-raised md-primary small bold blue-back vp-button" type="submit" ng-disabled="true" ng-show="!(addFrm.$valid)">שמור <span class="glyphicon glyphicon-ok"></span></md-button>
+              <md-button class="md-raised md-primary small bold blue-back vp-button" type="submit" ng-show="(addFrm.$valid)">שמור <span class="glyphicon glyphicon-ok"></span></md-button>
+            </div>
+            <div class="flex-add-event-buttons-item-2">
+              <md-button class="md-raised md-primary small bold blue-back vp-button" type="button">בטל <span class="glyphicon glyphicon-remove"></span></md-button>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div><!-- end of flex-add-event-container -->
 
 			<!-- edit event div -->
 			<div style="overflow: scroll; height:62vh;" class="add-event-container small" ng-if="modeService.getEditEventMode()" ng-init="">
-				<form name="editFrm" ng-submit="console.log('edit');editEvent(tmpEditEvent,tmpEditEvent.newLocation.details)">
-				<div class="flex-add-event-line-container">
-					<div class="flex-add-event-line-field-name">
-						<span class="gray" style="font-size:1vw; padding:0.5v 0.5vw 0.5vh 0.5vw;border:2px solid white;">כותרת</span>
-					</div>
-					<div class="flex-add-event-item-1-item-2">
-						<div>
-							<input
-							name="title"
-							type="text"
-							style="font-size:1vw;direction:RTL;"
-							ng-model="tmpEditEvent.title"
-							class="add-event-input-title"
-							placeholder="הכנס כותרת..."
-							style="direction:RTL"
-							>
-						</div>
-					</div>
-				</div>
-				<div class="flex-add-event-line-container" style="padding:0px !important; text-align:center;">
-					<div class="flex-add-event-item-2-item-2-container">
-						<div
-						class="type-item cursor-mode"
-						ng-repeat="type in types"
-						ng-mouseenter="typeMouseEnter(type)"
-						ng-mouseleave="typeMouseLeave(type)"
-						ng-click="setCategory(type); tmpEditEvent.type = type.index"
-						style="text-align:center;">
-							<div class="type-icon"><img ng-src="{{type.img}}" alt=""></div>
-							<div style="text-align:center">
-								<span class="small gray type-name" style="color:white;text-align:center;" ng-if="!type.showName && !type.active">cfscas</span>
-								<span class="gray type-name" ng-if="type.showName" style="text-align:center;">{{type.name}}</span>
-								<span class="gray type-name active" ng-if="type.active" style="text-align:center;">{{type.name}} </span>
+				<form name="editFrm" ng-submit="editEvent(tmpEditEvent,tmpEditEvent.newLocation.details)">
+          <div class="flex-add-event-line-container">
+            <div style="width: 8%;"></div>
+            <div class="flex-add-event-item-5-item-3">
+              <md-content layout-padding style="padding-right: 0px;">
+                <div layout-gt-sm="row">
+                  <md-input-container class="md-block" flex-gt-sm>
+                    <label>כותרת</label>
+                    <input ng-model="tmpEditEvent.title" style="direction: rtl" required>
+                  </md-input-container>
+                </div>
+              </md-content>
+            </div>
+          </div>
+          <div class="flex-add-event-line-container" style="padding:0px !important; text-align:center;">
+            <div class="flex-add-event-item-2-item-2-container">
+              <div
+              class="type-item cursor-mode"
+              ng-repeat="type in types"
+              ng-mouseenter="typeMouseEnter(type)"
+              ng-mouseleave="typeMouseLeave(type)"
+              ng-click="setCategory(type); tmpEditEvent.type = type.index"
+              style="text-align:center;">
+                <div class="type-icon"><img ng-src="{{type.img}}" alt=""></div>
+                <div style="text-align:center">
+                  <span class="small gray type-name" style="color:white;text-align:center;" ng-if="!type.showName && !type.active">cfscas</span>
+                  <span class="gray type-name" ng-if="type.showName" style="text-align:center;">{{type.name}}</span>
+                  <span class="gray type-name active-type" ng-if="type.active" style="text-align:center;">{{type.name}} </span>
 
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="flex-add-event-line-container" style="padding-top:0vh!important;padding-bottom:0vh!important;">
-					<div class="flex-add-event-line-field-name" style="padding-top:0vh!important;">
-						<span style="vertical-align: middle;"class="medium gray">זמן</span>
-					</div>
-					<div class="flex-add-event-item-5-item-2">
-							<div class="medium gray" >שעה</div>
-					</div>
-					<div class="flex-add-event-item-5-item-3">
-							<div class="medium gray">תאריך</div>
-					</div>
-				</div><!-- flex-add-event-item-4-container -->
-				<div class="flex-add-event-line-container" style="padding-top:0vh!important;">
-					<div class="flex-add-event-line-field-name" style="padding-top:0vh!important;padding-bottom:0vh!important;">
-					</div>
-					<div class="flex-add-event-item-5-item-2">
-							<div  ng-if="modeService.getTimeTitle()" ng-click="modeService.setTimeActive()"  class="small gray" style="border:2px solid black;">הכנס שעה</div>
-							<div  ng-if="modeService.getTimeActive()">
-								<input
-								type="time"
-								name="time"
-								id="time"
-								focus="timeActive"
-								ng-model="tmpEditEvent.time"
-								ng-blur="setTimeNotActive(tmpEditEvent.time)"
-								style="border:2px solid black;"
-								>
-							</div>
-							<div ng-if="modeService.getTimeResults()" ng-click="modeService.setTimeActive()"  class="small gray" style="border:2px solid black;">{{tmpEditEvent.time | date : "shortTime"}}</div>
-					</div>
-					<div class="flex-add-event-item-5-item-3">
-							<div  ng-if="modeService.getDateTitle()" ng-click="modeService.setDateActive()"  class="small gray" style="border:2px solid black;">הכנס תאריך</div>
-							<div  ng-if="modeService.getDateActive()">
-								<input
-								type="date"
-								name="date"
-								focus="dateActive"
-								ng-model="tmpEditEvent.date"
-								ng-blur="setDateNotActive(tmpEditEvent.date)"
-								style="border:2px solid black;width:80%;"
-								>
-							</div>
-							<span ng-show="addFrm.date.$error.required"></span>
-							<div ng-if="modeService.getDateResults()" ng-click="modeService.setDateActive()"  class="small gray" style="border:2px solid black;">{{tmpEditEvent.date | date : "shortDate"}}</div>
-					</div>
-				</div>
-				<div class="flex-add-event-line-container">
-					<div class="flex-add-event-line-field-name" style="padding-top:1.2vh;">
-						<span style="vertical-align: middle;"class="medium gray">מקום</span>
-					</div>
-					<div class="flex-add-event-place-item-2">
-						<!-- Autocomplete for finding places -->
-					    <div class="form-group move-down" ng-init="mapLocationMode = false" ng-if="!mapLocationMode">
-					        <input
-					        type="text"
-					        id="Autocomplete"
-					        name="Autocomplete"
-					        ng-class="{'set-phone-input':locationValid,'set-location-no-val':!locationValid}"
-					        placeholder="חפש מקום..."
-					        ng-autocomplete="tmpEditEvent.newLocation.results"
-					        ng-model="tmpEditEvent.rawLocation"
-					        details="tmpEditEvent.newLocation.details"
-					        options="tmpEditEvent.newLocation.options"
-					        style="text-align:right;margin-top:1.2vh;direction:RTL;border:1px solid black;"/>
-					    </div>
-					</div>
-					<!--<div class="flex-add-event-place-item-3" style="text-align:right;">-->
-						<!--<a href="" ng-click="setMapLocationMode();" ng-if="!mapLocationMode">-->
-							<!--<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">-->
-						<!--</a>-->
-						<!--<a href="" ng-click="setFormLocationMode()" ng-if="mapLocationMode">-->
-							<!--<img src="images/middle-bar/location.png" style="width:3vh;margin-top:0.3vh;" alt="">-->
-						<!--</a>-->
-					<!--</div>-->
-				</div><!-- flex-add-event-item-4-container -->
-				<div class="flex-add-event-line-container" style="padding-top:0px !important;">
-					<div class="flex-add-event-line-field-name">
-						<span style="vertical-align: middle;font-size:1vw;"class=" gray">הערות</span>
-					</div>
-					<div class="flex-add-event-item-3-item-2">
-						<textarea
-						ng-model="tmpEditEvent.description"
-						class="gray"
-						placeholder="הכנס הערות וטיפים בכמה מילים..."
-						style="direction:RTL;height:12vh;font-size:1vw;border:1px solid black;">
-						</textarea>
-					</div>
-				</div><!-- end of flex-add-event-item-3-container -->
-				<div class="flex-add-event-line-container">
-					<div class="flex-add-event-buttons-item-0">
-					</div>
-					<div class="flex-add-event-buttons-item-1">
-						<button class="add-event-submit" type="button" ng-click="editEvent(tmpEditEvent)">ערוך<span class="glyphicon glyphicon-ok"></span></button>
-					</div>
-					<div class="flex-add-event-buttons-item-2">
-						<button class="add-event-delete" type="button" ng-click="deleteEvent(tmpEditEvent)" >מחק <span class="glyphicon glyphicon-trash"></span></button>
-					</div>
-					<div class="flex-add-event-buttons-item-3">
-						<button class="add-event-delete" type="button" ng-click="cancelEdit()">בטל <span class="glyphicon glyphicon-remove"></span></button>
-					</div>
-				</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-add-event-line-container" style="padding-top:0vh!important;padding-bottom:0vh!important;margin-top: 1vh;">
+            <div style="width: 8%;"></div>
+            <div class="flex-add-event-item-5-item-3">
+              <md-content>
+                <div>
+                  <mdp-date-picker name="date" style="text-align: center;" mdp-placeholder="תאריך" ng-model="tmpEditEvent.date" required></mdp-date-picker>
+                </div>
+              </md-content>
+            </div>
+          </div><!-- flex-add-event-item-4-container -->
+          <div class="flex-add-event-line-container" style="padding-top:0vh!important;padding-bottom:0vh!important;">
+            <div style="width: 8%;"></div>
+            <div class="flex-add-event-item-5-item-3">
+              <md-content>
+                <div>
+                  <mdp-time-picker style="text-align: center; width:50%;" mdp-placeholder="שעה" ng-model="tmpEditEvent.time"></mdp-time-picker>
+                </div>
+              </md-content>
+            </div>
+          </div><!-- flex-add-event-item-4-container -->
+          <div class="flex-add-event-line-container" style="padding-top:0px !important;">
+            <div style="width: 8%;"></div>
+            <div class="flex-add-event-item-5-item-3">
+              <md-content style="padding-right: 0px;">
+                <md-input-container>
+                  <label>הערות</label>
+                  <textarea
+                    ng-model="tmpEditEvent.description"
+                    class="gray"
+                    style="direction:RTL; width: 100%;">
+                  </textarea>
+                </md-input-container>
+              </md-content>
+            </div>
+          </div>
+          <div class="flex-add-event-line-container">
+            <div class="flex-add-event-buttons-item-0">
+            </div>
+            <div class="flex-edit-event-buttons-item-1">
+              <md-button class="md-raised md-primary small bold blue-back vp-button" type="submit" ng-click="editEvent(tmpEditEvent)">ערוך<span class="glyphicon glyphicon-ok"></span></md-button>
+              <!--<button class="add-event-submit" type="button" ng-click="editEvent(tmpEditEvent)">ערוך<span class="glyphicon glyphicon-ok"></span></button>-->
+            </div>
+            <div class="flex-edit-event-buttons-item-2">
+              <md-button class="md-raised md-primary small bold blue-back vp-button" type="button" ng-click="deleteEvent(tmpEditEvent)" >מחק <span class="glyphicon glyphicon-trash"></span> </md-button>
+              <!--<button class="add-event-delete" type="button" ng-click="deleteEvent(tmpEditEvent)" >מחק <span class="glyphicon glyphicon-trash"></span></button>-->
+            </div>
+            <div class="flex-edit-event-buttons-item-3">
+              <md-button class="md-raised md-primary small bold blue-back vp-button" type="button" ng-click="cancelEdit()">בטל <span class="glyphicon glyphicon-remove"></span> </md-button>
+              <!--<button class="add-event-delete" type="button" ng-click="cancelEdit()">בטל <span class="glyphicon glyphicon-remove"></span></button>-->
+            </div>
+          </div>
 				</form>
 			</div><!-- end of edit event div -->
 		</div>
@@ -514,19 +396,6 @@
       </div>
 			<div class="day-highlights" ng-repeat="day in days">
 				<div class="day-title-active-cotnainer" ng-if="day.active">
-
-					<!-- <div class="flex-wheather-container">
-						<div class="flex-wheather-item-2">
-							<img ng-src="{{day.wheather.icon}}" alt="">
-						</div>
-						<div class="flex-wheather-item-1">
-							<div>
-								<span class="medium white">{{day.wheather.general}}</span>
-								<span class="large white">{{day.wheather.temp}}</span>
-							</div>
-							<div class="small white">{{day.location}}</div>
-						</div>
-					</div> end of flex-wheather-container -->
 					<div class="white day-title-cotnainer">
 						<div class="day-title-item-2 cursor-mode">
 							<p style="float:right;margin:10px" class="medium" ng-click="modeService.setDayMode(scope,day)">

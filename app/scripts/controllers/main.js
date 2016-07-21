@@ -9,7 +9,7 @@
  /images/middle-bar/add-event/event-types/event-type1.png
  */
 angular.module('tipntripVpApp')
-  .controller('MainCtrl', function ($scope,$stateParams,$log, $timeout,$firebaseArray,$firebaseObject,categories,markers,modes,chatService,FileUploader,Auth) {
+  .controller('MainCtrl', function ($scope,$stateParams,$log, $timeout,$firebaseArray,$firebaseObject, $mdpDatePicker, $mdpTimePicker,categories,markers,modes,chatService,FileUploader,Auth) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -638,7 +638,6 @@ angular.module('tipntripVpApp')
     $scope.editEvent = function(event,locationDetails){
       console.log("EVENT");
       console.log(event);
-      locationDetails = event.newLocation.details;
       var firebaseKey = event.markerFirebaseKey;
       var date = event.date;
       if (event.type === undefined){
@@ -647,21 +646,22 @@ angular.module('tipntripVpApp')
       if (event.time !== undefined){
         date.setHours(event.time.getHours(),event.time.getMinutes());
       }
-      var tmpEvent = {};
-      tmpEvent.newLocation = event.newLocation;
-      tmpEvent.date = date.toString();
-      tmpEvent.eventIcon = $scope.types[event.type-1].img.toString();
-      tmpEvent.iconUrl = $scope.setIcon(event.type).toString();
-      tmpEvent.description = (event.description !== undefined) ? event.description : "";
-      tmpEvent.phone = (event.phone !== undefined) ? event.phone : "No phone";
-      tmpEvent.price = (event.price !== undefined) ? event.price : 0;
-      tmpEvent.title = event.title;
-      tmpEvent.type = event.type;
+      var tmpEvent = {
+          newLocation: event.newLocation,
+          date: date.toString(),
+          eventIcon: $scope.types[event.type - 1].img.toString(),
+          iconUrl: $scope.setIcon(event.type).toString(),
+          description: (event.description !== undefined) ? event.description : "",
+          phone: (event.phone !== undefined) ? event.phone : "No phone",
+          price : (event.price !== undefined) ? event.price : 0,
+          title : event.title,
+          type : event.type
+      };
       //Update everything except of the location
       if (!$scope.mapLocationMode){
-        console.log("822");
         var address = "";
         if (locationDetails !== "" && locationDetails !== undefined){
+          locationDetails = event.newLocation.details;
           $scope.locationValid = true;
           for (var i = 0; i < locationDetails.address_components.length; i++) {
             address = address + "," + locationDetails.address_components[i].long_name;
@@ -784,7 +784,28 @@ angular.module('tipntripVpApp')
       return;
     }
 
+    //Date picker
 
+    $scope.currentDate = new Date();
+    this.showDatePicker = function(ev) {
+      $mdpDatePicker($scope.currentDate, {
+        targetEvent: ev
+      }).then(function(selectedDate) {
+        $scope.currentDate = selectedDate;
+      });;
+    };
+
+    this.filterDate = function(date) {
+      return moment(date).date() % 2 == 0;
+    };
+
+    this.showTimePicker = function(ev) {
+      $mdpTimePicker($scope.currentTime, {
+        targetEvent: ev
+      }).then(function(selectedDate) {
+        $scope.currentTime = selectedDate;
+      });;
+    }
     //files section
 
     var uploader = $scope.uploader = new FileUploader({
