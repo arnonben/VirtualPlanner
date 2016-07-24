@@ -24,7 +24,8 @@ angular
     'angularFileUpload',
     'ngMaterial',
     'ngMessages',
-    "mdPickers"
+    "mdPickers",
+    "ngMap"
 
   ])
   .constant('FirebaseUrl', 'https://vitrualplanner.firebaseio.com')

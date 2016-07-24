@@ -31,10 +31,36 @@ angular.module('tipntripVpApp')
 
       //setters  getters for the add event form fields
 
+      setEventModeFromMap: function(scope,event,day){
+        scope.$parent.showFiles = false
+        editEventMode = false;
+        eventMode = true;
+        dayMode = false;
+        addEventMode = false;
+        for (var i = 0; i < scope.days.length; i++) {
+          for (var j = 0; j < scope.days[i].events.length; j++) {
+            scope.days[i].events[j].active = false;
+          }
+        }
+        for (i = scope.markers.length - 1; i >= 0; i--) {
+          if(scope.markers[i].markerFirebaseKey === event.markerFirebaseKey){
+            scope.markers[i].window.options.visible = true;
+          }
+          else{
+            scope.markers[i].window.options.visible = false
+          }
+          eventMode = true;
+          dayMode = false;
+          addEventMode = false;
+          editEventMode = false;
+        }
+        event.active = true;
+        scope.currentEvent = event;
+        scope.currentDay = day;
+      },
 
       setEventMode : function(scope,event,day){
           scope.$parent.showFiles = false
-          console.log("SET_EVENT_MODE");
           editEventMode = false;
           eventMode = true;
           dayMode = false;
@@ -44,17 +70,18 @@ angular.module('tipntripVpApp')
               scope.days[i].events[j].active = false;
             }
           }
+          var markerIndex = -1;
           for (i = scope.markers.length - 1; i >= 0; i--) {
             if(scope.markers[i].markerFirebaseKey === event.markerFirebaseKey){
-              scope.markers[i].window.options.visible = true;
+              console.log(scope.map);
+              scope.showDetail2(scope.markers[i]);
+              markerIndex = i;
             }
-            else{
-              scope.markers[i].window.options.visible = false
-            }
-          eventMode = true;
-          dayMode = false;
-          addEventMode = false;
-          editEventMode = false;
+
+            eventMode = true;
+            dayMode = false;
+            addEventMode = false;
+            editEventMode = false;
           }
           event.active = true;
           scope.currentEvent = event;
@@ -86,7 +113,6 @@ angular.module('tipntripVpApp')
 
       //Middle screen change modes
       setDayMode : function(scope,day){
-        console.log("SET_DAY_MODE")
         scope.$parent.showFiles = false;
         editEventMode = false;
         eventMode = false;
@@ -121,9 +147,6 @@ angular.module('tipntripVpApp')
       setAddEventMode : function(scope){
         scope.$parent.showFiles = false;
         editEventMode = false;eventMode = false;dayMode = false;addEventMode = true;
-        console.log("ADD_EVENT");
-        var a = scope.currentDay.date
-        console.log(a);
         scope.newEvent.date = scope.currentDay.date;
         scope.markersService.initMarkersSizeUrl(scope.markers);
         scope.setFormLocationMode();
@@ -142,7 +165,6 @@ angular.module('tipntripVpApp')
         scope.tmpEditEvent.locationResults = event.locationResults;
 
         scope.tmpEditEvent.tmpCoords = scope.tmpEditEvent.coords;
-        console.log(scope.markersService)
         var index = scope.markersService.containMarker(event.markerFirebaseKey,event.id,scope.markers);
         scope.markers[index].tmpCoords = scope.markers[index].coords;
         //set the date and time

@@ -45,6 +45,7 @@ module.exports = function(config) {
       'bower_components/angular-material/angular-material.js',
       'bower_components/moment/moment.js',
       'bower_components/mdPickers/dist/mdPickers.min.js',
+      'bower_components/ngmap/build/scripts/ng-map.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/livereload-js/dist/livereload.js',
       // endbower

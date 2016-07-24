@@ -45,10 +45,6 @@ angular.module('tipntripVpApp')
       },
 
       containMarker : function(markerFirebaseKey,id,markers){
-        console.log("CONTAIN_MARKER")
-        console.log(markerFirebaseKey)
-        console.log(id)
-        console.log(markers)
         for (var i = 0; i < markers.length; i++) {
           if (markers[i].markerFirebaseKey === markerFirebaseKey) {
             return i;
@@ -73,7 +69,6 @@ angular.module('tipntripVpApp')
           markers[i].options.labelContent = '<div class="bold" style="font-size:20px; color:white;width:35px;">' + j + '</div>';
         }
         /* jshint ignore:end */
-        console.log("marker init complete")
       }
     };
   });

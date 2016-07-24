@@ -9,15 +9,42 @@
  /images/middle-bar/add-event/event-types/event-type1.png
  */
 angular.module('tipntripVpApp')
-  .controller('MainCtrl', function ($scope,$stateParams,$log, $timeout,$firebaseArray,$firebaseObject, $mdpDatePicker, $mdpTimePicker,categories,markers,modes,chatService,FileUploader,Auth) {
+  .controller('MainCtrl', function ($scope,$document,$stateParams,$log, $timeout,$firebaseArray,$firebaseObject, $mdpDatePicker, $mdpTimePicker,NgMap,categories,markers,modes,chatService,FileUploader,Auth,transportations) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
+    NgMap.getMap().then(function(map) {
+      $scope.map = map;
+    });
+
+    $scope.clicked = function() {
+      alert('Clicked a link inside infoWindow');
+    };
+
+
+
+    $scope.showDetail = function(e, marker) {
+      console.log("SHOW_DETAILS")
+      console.log(e);
+      $scope.marker = marker;
+      $scope.map.showInfoWindow('foo-iw', "" + marker.id);
+      var indexes = markers.containEventInDays(marker.markerFirebaseKey,$scope.days);
+      console.log(indexes);
+      $scope.modeService.setDayMode($scope,$scope.days[indexes.i]);
+      $scope.modeService.setEventModeFromMap($scope,$scope.days[indexes.i].events[indexes.j],$scope.days[indexes.i]);
+    };
+
+    $scope.showDetail2 = function(marker) {
+      $scope.map.showInfoWindow('foo-iw', "" + marker.id,marker);
+    };
+
     $scope.scope = $scope;
     $scope.modeService = modes;
     $scope.markersService = markers;
+    $scope.travelMode = transportations.getAll();
 
     $scope.types = categories.getCategories();
 
@@ -52,17 +79,16 @@ angular.module('tipntripVpApp')
     $scope.map = {
         zoom: 3,
     center: {latitude: 40.1451, longitude: -99.6680 },
-        mapTypeId: google.maps.MapTypeId.TERRAIN,
-        options: {
-
-        },
-        events:{
+      mapTypeId: google.maps.MapTypeId.TERRAIN,
+      options: {
+      },
+      events:{
           click: function(){
             console.log("ADD NEW MARKER");
             $scope.$apply();
           }
-        },
-        bounds: {}
+      },
+      bounds: {}
     };
 
     //New event
@@ -76,20 +102,26 @@ angular.module('tipntripVpApp')
 
     $scope.setBoundes = function(markers){
       var bounds = new google.maps.LatLngBounds();
-      for (var i=0; i<markers.length; i++){
-        var markerBound = new google.maps.LatLng(markers[i].coords.latitude,markers[i].coords.longitude);
-          bounds.extend(markerBound);
-        }
-      $scope.map.bounds = {
-          northeast: {
-              latitude: bounds.getNorthEast().lat(),
-              longitude: bounds.getNorthEast().lng()
-          },
-          southwest: {
-              latitude: bounds.getSouthWest().lat(),
-              longitude: bounds.getSouthWest().lng()
-          }
-      };
+      for (var i=0; i<markers.length; i++) {
+        var latlng = new google.maps.LatLng(markers[i].coords.latitude, markers[i].coords.longitude);
+        bounds.extend(latlng);
+      }
+
+      $scope.map.fitBounds(bounds);
+      // for (var i=0; i<markers.length; i++){
+      //   var markerBound = new google.maps.LatLng(markers[i].coords.latitude,markers[i].coords.longitude);
+      //     bounds.extend(markerBound);
+      //   }
+      // $scope.map.bounds = {
+      //     northeast: {
+      //         latitude: bounds.getNorthEast().lat(),
+      //         longitude: bounds.getNorthEast().lng()
+      //     },
+      //     southwest: {
+      //         latitude: bounds.getSouthWest().lat(),
+      //         longitude: bounds.getSouthWest().lng()
+      //     }
+      // };
     };
 
     $scope.daysBetween = function( date1, date2 ) {
@@ -111,7 +143,21 @@ angular.module('tipntripVpApp')
         title : "",
         countries: "",
         id :null
-    }
+    };
+
+    $scope.translateMarker = function(marker){
+      var ans = [];
+      ans.push(marker.coords.latitude);
+      ans.push(marker.coords.longitude);
+      return ans
+    };
+
+    $scope.translateMarkerIcon = function(marker){
+      return {
+        url : marker.options.icon.url,
+        scaledSize:[25,45]
+      };
+    };
 
     //Init page methods
     //Firebase fetch all events and markers
@@ -126,7 +172,6 @@ angular.module('tipntripVpApp')
       var syncObject = $firebaseObject(messages);
 
       syncObject.$bindTo($scope,"messages").then(function(){
-        console.log($scope.messages);
       });
 
       var files= new Firebase("https://vitrualplanner.firebaseio.com/files/" + $scope.trip.id + "/");
@@ -134,7 +179,6 @@ angular.module('tipntripVpApp')
       var syncObject2 = $firebaseObject(files);
 
       syncObject2.$bindTo($scope,"files").then(function(){
-        console.log($scope.messages);
       });
 
 
@@ -159,6 +203,7 @@ angular.module('tipntripVpApp')
         $scope.markers[markerIndex].timeStamp = marker.timeStamp;
         $scope.markers[markerIndex].title = marker.title;
         $scope.markers[markerIndex].type = marker.type;
+        $scope.markers[markerIndex].id = markerIndex;
         markers.initMarkersSizeUrl($scope.markers)
       }
       else if ( markerIndex === -1 ){
@@ -302,6 +347,7 @@ angular.module('tipntripVpApp')
 
       modes.setEventMode2($scope,$scope.days[$scope.timestampDay].events[$scope.timestampEventIndex],$scope.days[$scope.timestampDay]);
       $scope.setBoundes($scope.markers);
+      $scope.marker = $scope.markers[0];
       });
     });
 
@@ -622,7 +668,6 @@ angular.module('tipntripVpApp')
         day.active = false;
         day.toggleIcon = true	;
       }
-      console.log("false");
     };
 
     $scope.dayToggleTrue= function(day){
@@ -638,12 +683,9 @@ angular.module('tipntripVpApp')
         day.active = false;
         day.toggleIcon = true	;
       }
-      console.log("false");
     }
 
     $scope.editEvent = function(event){
-      console.log("EDIT_EVENT");
-      console.log(event);
       var firebaseKey = event.markerFirebaseKey;
       var date = event.date;
       if (event.type === undefined){
@@ -731,8 +773,6 @@ angular.module('tipntripVpApp')
     };
 
     $scope.deleteEvent = function(event){
-      console.log("DELETE_EVENT");
-      console.log(event);
       $scope.markersRef2.child(event.markerFirebaseKey).remove();
       var indexes = markers.containEventInDays(event.markerFirebaseKey,$scope.days);
       $scope.days[indexes.i].events.splice(indexes.j,1);
@@ -744,32 +784,23 @@ angular.module('tipntripVpApp')
       modes.setDayModeSimple(true);
       modes.setEventModeSimple(false);
       var markerIndex = markers.containMarker(event.markerFirebaseKey,$scope.markerIndex,$scope.markers);
-      console.log("MARKER_INDEX");
-      console.log(markerIndex);
       $scope.markers.splice(markerIndex,1)
 
     }
 
     $scope.cancelEdit = function(){
       var index = markers.containMarker($scope.tmpEditEvent.markerFirebaseKey,$scope.markers);
-      console.log("EDIT MARKER LOCATION");
-      console.log($scope.markers[index]);
       $scope.markers[index].coords = $scope.markers[index].tmpCoords;
       modes.setEditEventModeSimple(false);
       modes.setAddEventModeSimple(false);
       modes.setDayModeSimple(false);
       modes.setEventModeSimple(true);
-      console.log("setFormLicationMode");
       $scope.drawingManagerOptions.drawingMode = "";
       $scope.mapLocationMode = false;
     };
     // end of calendar section
 
     // //Chat section
-    console.log("MESSAGES PATH")
-    console.log("https://vitrualplanner.firebaseio.com/chats/" + $scope.trip.id + "/")
-
-
 
     $scope.Auth = Auth;
     $scope.newMessage = {
@@ -863,6 +894,26 @@ angular.module('tipntripVpApp')
     };
 
     console.info('uploader', uploader);
+
+
+    //Directions section
+    $scope.direction = {}
+
+    $scope.getSelectedText = function(selectedItem) {
+      if (selectedItem !== undefined) {
+        return "<i class='" + selectedItem.icon + "' aria-hidden='true'></i> " + selectedItem.title;
+      } else {
+        return "בחר תחבורה";
+      }
+    };
+
+    $scope.getSelectedTextMakrer = function(marker){
+      if (marker !== undefined) {
+        return "<img src='" + marker.options.icon.url + "'width='10px;' alt=''> <span>" + marker.title + "</span>"
+      } else {
+        return "בחר מקום";
+      }
+    }
 
     //end of chat section
     //video chat section
